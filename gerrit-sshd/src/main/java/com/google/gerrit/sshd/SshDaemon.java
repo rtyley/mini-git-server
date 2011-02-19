@@ -14,6 +14,7 @@
 
 package com.google.gerrit.sshd;
 
+import static java.lang.Thread.sleep;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -24,6 +25,7 @@ import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.ssh.SshInfo;
 import com.google.gerrit.server.util.IdGenerator;
 import com.google.gerrit.server.util.SocketUtil;
+import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -122,6 +124,15 @@ public class SshDaemon extends SshServer implements SshInfo, LifecycleListener {
   private final boolean keepAlive;
   private final List<HostKey> hostKeys;
   private volatile IoAcceptor acceptor;
+
+	public static void main(String[] args) {
+		SshDaemon sshDaemon = Guice.createInjector(new ToySshModule()).getInstance(SshDaemon.class);
+		sshDaemon.start();
+		System.out.println("Started...");
+		while (true) {
+			try { sleep(1000L); } catch (InterruptedException e) {}
+		}
+	}
 
   @Inject
   SshDaemon(final CommandFactory commandFactory, final NoShell noShell,

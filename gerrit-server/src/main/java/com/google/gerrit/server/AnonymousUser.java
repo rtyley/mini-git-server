@@ -39,16 +39,6 @@ public class AnonymousUser extends CurrentUser {
   }
 
   @Override
-  public Set<Change.Id> getStarredChanges() {
-    return Collections.emptySet();
-  }
-
-  @Override
-  public Collection<AccountProjectWatch> getNotificationFilters() {
-    return Collections.emptySet();
-  }
-
-  @Override
   public String toString() {
     return "ANONYMOUS";
   }

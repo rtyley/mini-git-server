@@ -307,15 +307,5 @@ public class RefControlTest extends TestCase {
     public Set<AccountGroup.Id> getEffectiveGroups() {
       return groups;
     }
-
-    @Override
-    public Set<Change.Id> getStarredChanges() {
-      return Collections.emptySet();
-    }
-
-    @Override
-    public Collection<AccountProjectWatch> getNotificationFilters() {
-      return Collections.emptySet();
-    }
   }
 }

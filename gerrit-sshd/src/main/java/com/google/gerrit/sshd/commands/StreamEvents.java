@@ -43,9 +43,6 @@ final class StreamEvents extends BaseCommand {
   private IdentifiedUser currentUser;
 
   @Inject
-  private ChangeHookRunner hooks;
-
-  @Inject
   @StreamCommandExecutor
   private WorkQueue.Executor pool;
 
@@ -116,12 +113,10 @@ final class StreamEvents extends BaseCommand {
     }
 
     stdout = toPrintWriter(out);
-    hooks.addChangeListener(listener, currentUser);
   }
 
   @Override
   protected void onExit(final int rc) {
-    hooks.removeChangeListener(listener);
 
     synchronized (taskLock) {
       done = true;
@@ -132,7 +127,6 @@ final class StreamEvents extends BaseCommand {
 
   @Override
   public void destroy() {
-    hooks.removeChangeListener(listener);
 
     final boolean exit;
     synchronized (taskLock) {
@@ -180,7 +174,6 @@ final class StreamEvents extends BaseCommand {
         // destroy() above, or it closed the stream and is no longer
         // accepting output. Either way terminate this instance.
         //
-        hooks.removeChangeListener(listener);
         flush();
         onExit(0);
         return;

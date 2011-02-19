@@ -29,9 +29,6 @@ import java.io.InterruptedIOException;
 /** Publishes Git repositories over SSH using the Git upload-pack protocol. */
 final class Upload extends AbstractGitCommand {
   @Inject
-  private Provider<ReviewDb> db;
-
-  @Inject
   private TransferConfig config;
 
   @Override
@@ -41,9 +38,7 @@ final class Upload extends AbstractGitCommand {
     }
 
     final UploadPack up = new UploadPack(repo);
-    if (!projectControl.allRefsAreVisible()) {
-      up.setRefFilter(new VisibleRefFilter(repo, projectControl, db.get(), true));
-    }
+
     up.setPackConfig(config.getPackConfig());
     up.setTimeout(config.getTimeout());
     try {

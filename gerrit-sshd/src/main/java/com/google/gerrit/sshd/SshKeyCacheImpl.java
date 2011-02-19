@@ -108,39 +108,13 @@ public class SshKeyCacheImpl implements SshKeyCache {
   }
 
   static class Loader extends EntryCreator<String, Iterable<SshKeyCacheEntry>> {
-    private final SchemaFactory<ReviewDb> schema;
-
-    @Inject
-    Loader(SchemaFactory<ReviewDb> schema) {
-      this.schema = schema;
-    }
 
     @Override
     public Iterable<SshKeyCacheEntry> createEntry(String username)
         throws Exception {
-      final ReviewDb db = schema.open();
-      try {
-        final AccountExternalId.Key key =
-            new AccountExternalId.Key(SCHEME_USERNAME, username);
-        final AccountExternalId user = db.accountExternalIds().get(key);
-        if (user == null) {
-          return NO_SUCH_USER;
-        }
 
-        final List<SshKeyCacheEntry> kl = new ArrayList<SshKeyCacheEntry>(4);
-        for (AccountSshKey k : db.accountSshKeys().byAccount(
-            user.getAccountId())) {
-          if (k.isValid()) {
-            add(db, kl, k);
-          }
-        }
-        if (kl.isEmpty()) {
           return NO_KEYS;
-        }
-        return Collections.unmodifiableList(kl);
-      } finally {
-        db.close();
-      }
+       
     }
 
     @Override
@@ -157,18 +131,9 @@ public class SshKeyCacheImpl implements SshKeyCache {
         //
         throw e;
       } catch (Throwable e) {
-        markInvalid(db, k);
+        //markInvalid(db, k);
       }
     }
 
-    private void markInvalid(final ReviewDb db, final AccountSshKey k) {
-      try {
-        log.info("Flagging SSH key " + k.getKey() + " invalid");
-        k.setInvalid();
-        db.accountSshKeys().update(Collections.singleton(k));
-      } catch (OrmException e) {
-        log.error("Failed to mark SSH key" + k.getKey() + " invalid", e);
-      }
-    }
   }
 }

@@ -58,12 +58,6 @@ public abstract class CurrentUser {
    */
   public abstract Set<AccountGroup.Id> getEffectiveGroups();
 
-  /** Set of changes starred by this user. */
-  public abstract Set<Change.Id> getStarredChanges();
-
-  /** Filters selecting changes the user wants to monitor. */
-  public abstract Collection<AccountProjectWatch> getNotificationFilters();
-
   /** Is the user a non-interactive user? */
   public boolean isBatchUser() {
     return getEffectiveGroups().contains(authConfig.getBatchUsersGroup());

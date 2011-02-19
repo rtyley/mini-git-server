@@ -55,16 +55,6 @@ public class PeerDaemonUser extends CurrentUser {
     return effectiveGroups;
   }
 
-  @Override
-  public Set<Change.Id> getStarredChanges() {
-    return Collections.emptySet();
-  }
-
-  @Override
-  public Collection<AccountProjectWatch> getNotificationFilters() {
-    return Collections.emptySet();
-  }
-
   public SocketAddress getRemoteAddress() {
     return peer;
   }

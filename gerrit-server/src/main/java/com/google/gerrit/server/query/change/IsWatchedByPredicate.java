@@ -53,18 +53,7 @@ class IsWatchedByPredicate extends OperatorPredicate<ChangeData> {
     if (rules == null) {
       ChangeQueryBuilder builder = new ChangeQueryBuilder(args, user);
       rules = new HashMap<Project.NameKey, List<Predicate<ChangeData>>>();
-      for (AccountProjectWatch w : user.getNotificationFilters()) {
-        List<Predicate<ChangeData>> list = rules.get(w.getProjectNameKey());
-        if (list == null) {
-          list = new ArrayList<Predicate<ChangeData>>(4);
-          rules.put(w.getProjectNameKey(), list);
-        }
-
-        Predicate<ChangeData> p = compile(builder, w);
-        if (p != null) {
-          list.add(p);
-        }
-      }
+      
     }
 
     if (rules.isEmpty()) {

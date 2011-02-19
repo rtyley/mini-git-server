@@ -301,7 +301,7 @@ public class ChangeQueryBuilder extends QueryBuilder<ChangeData> {
       throw error("User " + who + " not found");
     }
     return new IsStarredByPredicate(args.dbProvider, //
-        args.userFactory.create(args.dbProvider, account.getId()));
+        args.userFactory.create(account.getId()));
   }
 
   @Operator
@@ -311,8 +311,7 @@ public class ChangeQueryBuilder extends QueryBuilder<ChangeData> {
     if (account == null) {
       throw error("User " + who + " not found");
     }
-    return new IsWatchedByPredicate(args, args.userFactory.create(
-        args.dbProvider, account.getId()));
+    return new IsWatchedByPredicate(args, args.userFactory.create(account.getId()));
   }
 
   @Operator
@@ -331,7 +330,7 @@ public class ChangeQueryBuilder extends QueryBuilder<ChangeData> {
     Account account = args.accountResolver.find(who);
     if (account != null) {
       return visibleto(args.userFactory
-          .create(args.dbProvider, account.getId()));
+          .create(account.getId()));
     }
 
     // If its not an account, maybe its a group?

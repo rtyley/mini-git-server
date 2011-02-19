@@ -38,8 +38,6 @@ import java.util.Set;
 
 /** Receives change upload over SSH using the Git receive-pack protocol. */
 final class Receive extends AbstractGitCommand {
-  @Inject
-  private ReceiveCommits.Factory factory;
 
   @Inject
   private IdentifiedUser currentUser;
@@ -65,24 +63,9 @@ final class Receive extends AbstractGitCommand {
 
   @Override
   protected void runImpl() throws IOException, Failure {
-    if (!projectControl.canRunReceivePack()) {
-      throw new Failure(1, "fatal: receive-pack not permitted on this server");
-    }
 
-    final ReceiveCommits receive = factory.create(projectControl, repo);
 
-    ReceiveCommits.Capable r = receive.canUpload();
-    if (r != ReceiveCommits.Capable.OK) {
-      throw new UnloggedFailure(1, "\nfatal: " + r.getMessage());
-    }
-
-    verifyProjectVisible("reviewer", reviewerId);
-    verifyProjectVisible("CC", ccId);
-
-    receive.addReviewers(reviewerId);
-    receive.addExtraCC(ccId);
-
-    final ReceivePack rp = receive.getReceivePack();
+    final ReceivePack rp = new ReceivePack(repo);
     rp.setRefLogIdent(currentUser.newRefLogIdent());
     rp.setTimeout(config.getTimeout());
     try {
@@ -135,14 +118,4 @@ final class Receive extends AbstractGitCommand {
     }
   }
 
-  private void verifyProjectVisible(final String type, final Set<Account.Id> who)
-      throws UnloggedFailure {
-    for (final Account.Id id : who) {
-      final IdentifiedUser user = identifiedUserFactory.create(id);
-      if (!projectControl.forUser(user).isVisible()) {
-        throw new UnloggedFailure(1, type + " "
-            + user.getAccount().getFullName() + " cannot access the project");
-      }
-    }
-  }
 }

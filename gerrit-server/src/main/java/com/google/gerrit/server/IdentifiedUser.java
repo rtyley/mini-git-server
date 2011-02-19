@@ -15,20 +15,15 @@
 package com.google.gerrit.server;
 
 import com.google.gerrit.reviewdb.Account;
-import com.google.gerrit.reviewdb.AccountDiffPreference;
 import com.google.gerrit.reviewdb.AccountGroup;
 import com.google.gerrit.reviewdb.AccountProjectWatch;
 import com.google.gerrit.reviewdb.Change;
-import com.google.gerrit.reviewdb.ReviewDb;
-import com.google.gerrit.reviewdb.StarredChange;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Realm;
 import com.google.gerrit.server.config.AuthConfig;
 import com.google.gerrit.server.config.CanonicalWebUrl;
-import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;
-import com.google.inject.OutOfScopeException;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
@@ -43,10 +38,7 @@ import java.net.MalformedURLException;
 import java.net.SocketAddress;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -58,16 +50,13 @@ public class IdentifiedUser extends CurrentUser {
   @Singleton
   public static class GenericFactory {
     private final AuthConfig authConfig;
-    private final Provider<String> canonicalUrl;
     private final Realm realm;
     private final AccountCache accountCache;
 
     @Inject
     GenericFactory(final AuthConfig authConfig,
-        final @CanonicalWebUrl Provider<String> canonicalUrl,
-        final Realm realm, final AccountCache accountCache) {
+				   final Realm realm, final AccountCache accountCache) {
       this.authConfig = authConfig;
-      this.canonicalUrl = canonicalUrl;
       this.realm = realm;
       this.accountCache = accountCache;
     }
@@ -76,15 +65,10 @@ public class IdentifiedUser extends CurrentUser {
       return create(AccessPath.UNKNOWN, null, id);
     }
 
-    public IdentifiedUser create(Provider<ReviewDb> db, Account.Id id) {
-      return new IdentifiedUser(AccessPath.UNKNOWN, authConfig, canonicalUrl,
-          realm, accountCache, null, db, id);
-    }
-
     public IdentifiedUser create(AccessPath accessPath,
         Provider<SocketAddress> remotePeerProvider, Account.Id id) {
-      return new IdentifiedUser(accessPath, authConfig, canonicalUrl, realm,
-          accountCache, remotePeerProvider, null, id);
+      return new IdentifiedUser(accessPath, authConfig, realm,
+          accountCache, remotePeerProvider,  id);
     }
   }
 
@@ -97,48 +81,38 @@ public class IdentifiedUser extends CurrentUser {
   @Singleton
   public static class RequestFactory {
     private final AuthConfig authConfig;
-    private final Provider<String> canonicalUrl;
     private final Realm realm;
     private final AccountCache accountCache;
 
     private final Provider<SocketAddress> remotePeerProvider;
-    private final Provider<ReviewDb> dbProvider;
 
     @Inject
     RequestFactory(final AuthConfig authConfig,
-        final @CanonicalWebUrl Provider<String> canonicalUrl,
-        final Realm realm, final AccountCache accountCache,
+				   final Realm realm, final AccountCache accountCache,
 
-        final @RemotePeer Provider<SocketAddress> remotePeerProvider,
-        final Provider<ReviewDb> dbProvider) {
+				   final @RemotePeer Provider<SocketAddress> remotePeerProvider) {
       this.authConfig = authConfig;
-      this.canonicalUrl = canonicalUrl;
       this.realm = realm;
       this.accountCache = accountCache;
 
       this.remotePeerProvider = remotePeerProvider;
-      this.dbProvider = dbProvider;
     }
 
     public IdentifiedUser create(final AccessPath accessPath,
         final Account.Id id) {
-      return new IdentifiedUser(accessPath, authConfig, canonicalUrl, realm,
-          accountCache, remotePeerProvider, dbProvider, id);
+      return new IdentifiedUser(accessPath, authConfig, realm,
+          accountCache, remotePeerProvider, id);
     }
   }
 
   private static final Logger log =
       LoggerFactory.getLogger(IdentifiedUser.class);
 
-  private final Provider<String> canonicalUrl;
   private final Realm realm;
   private final AccountCache accountCache;
 
   @Nullable
   private final Provider<SocketAddress> remotePeerProvider;
-
-  @Nullable
-  private final Provider<ReviewDb> dbProvider;
 
   private final Account.Id accountId;
 
@@ -149,16 +123,14 @@ public class IdentifiedUser extends CurrentUser {
   private Collection<AccountProjectWatch> notificationFilters;
 
   private IdentifiedUser(final AccessPath accessPath,
-      final AuthConfig authConfig, final Provider<String> canonicalUrl,
-      final Realm realm, final AccountCache accountCache,
-      @Nullable final Provider<SocketAddress> remotePeerProvider,
-      @Nullable final Provider<ReviewDb> dbProvider, final Account.Id id) {
+						 final AuthConfig authConfig,
+						 final Realm realm, final AccountCache accountCache,
+						 @Nullable final Provider<SocketAddress> remotePeerProvider,
+						 final Account.Id id) {
     super(accessPath, authConfig);
-    this.canonicalUrl = canonicalUrl;
     this.realm = realm;
     this.accountCache = accountCache;
     this.remotePeerProvider = remotePeerProvider;
-    this.dbProvider = dbProvider;
     this.accountId = id;
   }
 
@@ -183,20 +155,6 @@ public class IdentifiedUser extends CurrentUser {
     return state().getAccount();
   }
 
-  public AccountDiffPreference getAccountDiffPreference() {
-    AccountDiffPreference diffPref;
-    try {
-      diffPref = dbProvider.get().accountDiffPreferences().get(getAccountId());
-      if (diffPref == null) {
-        diffPref = AccountDiffPreference.createDefault(getAccountId());
-      }
-    } catch (OrmException e) {
-      log.warn("Cannot query account diff preferences", e);
-      diffPref = AccountDiffPreference.createDefault(getAccountId());
-    }
-    return diffPref;
-  }
-
   public Set<String> getEmailAddresses() {
     if (emailAddresses == null) {
       emailAddresses = state().getEmailAddresses();
@@ -215,45 +173,6 @@ public class IdentifiedUser extends CurrentUser {
       }
     }
     return effectiveGroups;
-  }
-
-  @Override
-  public Set<Change.Id> getStarredChanges() {
-    if (starredChanges == null) {
-      if (dbProvider == null) {
-        throw new OutOfScopeException("Not in request scoped user");
-      }
-      final Set<Change.Id> h = new HashSet<Change.Id>();
-      try {
-        for (final StarredChange sc : dbProvider.get().starredChanges()
-            .byAccount(getAccountId())) {
-          h.add(sc.getChangeId());
-        }
-      } catch (OrmException e) {
-        log.warn("Cannot query starred by user changes", e);
-      }
-      starredChanges = Collections.unmodifiableSet(h);
-    }
-    return starredChanges;
-  }
-
-  @Override
-  public Collection<AccountProjectWatch> getNotificationFilters() {
-    if (notificationFilters == null) {
-      if (dbProvider == null) {
-        throw new OutOfScopeException("Not in request scoped user");
-      }
-      List<AccountProjectWatch> r;
-      try {
-        r = dbProvider.get().accountProjectWatches() //
-            .byAccount(getAccountId()).toList();
-      } catch (OrmException e) {
-        log.warn("Cannot query notification filters of a user", e);
-        r = Collections.emptyList();
-      }
-      notificationFilters = Collections.unmodifiableList(r);
-    }
-    return notificationFilters;
   }
 
   public PersonIdent newRefLogIdent() {
@@ -309,16 +228,7 @@ public class IdentifiedUser extends CurrentUser {
         user = "account-" + ua.getId().toString();
       }
 
-      String host;
-      if (canonicalUrl.get() != null) {
-        try {
-          host = new URL(canonicalUrl.get()).getHost();
-        } catch (MalformedURLException e) {
-          host = SystemReader.getInstance().getHostname();
-        }
-      } else {
-        host = SystemReader.getInstance().getHostname();
-      }
+      String host = SystemReader.getInstance().getHostname();
 
       email = user + "@" + host;
     }
