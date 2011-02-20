@@ -239,7 +239,7 @@ public abstract class BaseCommand implements Command {
   protected synchronized void startThread(final CommandRunnable thunk) {
     final TaskThunk tt = new TaskThunk(thunk);
 
-    if (isAdminCommand()||(isAdminHighPriorityCommand() && userProvider.get().isAdministrator())) {
+    if (isAdminCommand()||(isAdminHighPriorityCommand())) {
       // Admin commands should not block the main work threads (there
       // might be an interactive shell there), nor should they wait
       // for the main work threads.
@@ -361,7 +361,7 @@ public abstract class BaseCommand implements Command {
       m.append(context.getCommandLine());
       if (userProvider.get() instanceof IdentifiedUser) {
         IdentifiedUser u = (IdentifiedUser) userProvider.get();
-        m.append(" (" + u.getAccount().getUserName() + ")");
+        // m.append(" (" + u.getAccount().getUserName() + ")");
       }
       this.taskName = m.toString();
     }

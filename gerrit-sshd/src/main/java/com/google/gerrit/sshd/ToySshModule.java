@@ -18,6 +18,7 @@ import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.AccountGroup;
 import com.google.gerrit.reviewdb.PatchSet;
+import com.google.gerrit.reviewdb.SystemConfig;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.PeerDaemonUser;
@@ -39,6 +40,7 @@ import com.google.gerrit.sshd.commands.ToyDefaultCommandModule;
 import com.google.gerrit.util.cli.CmdLineParser;
 import com.google.gerrit.util.cli.OptionHandlerFactory;
 import com.google.gerrit.util.cli.OptionHandlerUtil;
+import com.google.gwtjsonrpc.server.SignedToken;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryProvider;
@@ -60,7 +62,8 @@ public class ToySshModule extends FactoryModule {
   protected void configure() {
 	  SecurityUtils.setRegisterBouncyCastle(true);
     bindScope(RequestScoped.class, SshScope.REQUEST);
-
+    final SystemConfig s = SystemConfig.create();
+    s.registerEmailPrivateKey = SignedToken.generateRandomKey();
 	bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
     configureRequestScope();
     configureCmdLineParser();

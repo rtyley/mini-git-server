@@ -45,7 +45,9 @@ public class ToyAccountCacheImpl implements AccountCache {
   }
 
   public AccountState get(final Account.Id accountId) {
-    return null;
+	  Account account = new Account(accountId);
+	  account.setUserName("fred");
+	  return new AccountState(account, Collections.<AccountGroup.Id>emptySet(), Collections.<AccountExternalId>emptySet());
   }
 
   @Override

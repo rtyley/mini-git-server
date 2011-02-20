@@ -58,7 +58,7 @@ public class AuthConfig {
     logoutUrl = cfg.getString("auth", null, "logouturl");
     trustedOpenIDs = toPatterns(cfg, "trustedOpenID");
     allowedOpenIDs = toPatterns(cfg, "allowedOpenID");
-    emailReg = new SignedToken(5 * 24 * 60 * 60, s.registerEmailPrivateKey);
+    emailReg = new SignedToken(5 * 24 * 60 * 60, "frump");
 
     final HashSet<AccountGroup.Id> r = new HashSet<AccountGroup.Id>(2);
     r.add(s.anonymousGroupId);

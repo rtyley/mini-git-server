@@ -124,7 +124,7 @@ public class RefControl {
     //
     if (getRefName().equals(
         RefRight.ALL.substring(0, RefRight.ALL.length() - 1))) {
-      return getCurrentUser().isAdministrator();
+      return false; //getCurrentUser().isAdministrator();
     } else {
       return getProjectControl().isOwner();
     }

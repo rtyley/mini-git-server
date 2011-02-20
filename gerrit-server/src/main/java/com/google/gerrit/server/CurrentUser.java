@@ -33,11 +33,9 @@ import java.util.Set;
  */
 public abstract class CurrentUser {
   private final AccessPath accessPath;
-  protected final AuthConfig authConfig;
 
-  protected CurrentUser(final AccessPath accessPath, final AuthConfig authConfig) {
+  protected CurrentUser(final AccessPath accessPath) {
     this.accessPath = accessPath;
-    this.authConfig = authConfig;
   }
 
   /** How this user is accessing the Gerrit Code Review application. */
@@ -58,13 +56,4 @@ public abstract class CurrentUser {
    */
   public abstract Set<AccountGroup.Id> getEffectiveGroups();
 
-  /** Is the user a non-interactive user? */
-  public boolean isBatchUser() {
-    return getEffectiveGroups().contains(authConfig.getBatchUsersGroup());
-  }
-
-  @Deprecated
-  public final boolean isAdministrator() {
-    return getEffectiveGroups().contains(authConfig.getAdministratorsGroup());
-  }
 }

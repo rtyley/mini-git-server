@@ -14,6 +14,7 @@
 
 package com.google.gerrit.sshd;
 
+import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.server.AccessPath;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
@@ -24,6 +25,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.net.nntp.NewsgroupInfo;
 import org.apache.mina.core.future.IoFuture;
 import org.apache.mina.core.future.IoFutureListener;
 import org.apache.sshd.common.KeyPairProvider;
@@ -48,9 +50,17 @@ import java.util.Set;
  */
 @Singleton
 class ToyPubKeyAuth implements PublickeyAuthenticator {
+private final IdentifiedUser.GenericFactory userFactory;
 
+
+  @Inject
+  ToyPubKeyAuth(IdentifiedUser.GenericFactory uf) {
+    userFactory = uf;
+  }
 	@Override
-	public boolean authenticate(String s, PublicKey publicKey, ServerSession serverSession) {
+	public boolean authenticate(String username, PublicKey publicKey, ServerSession serverSession) {
+		final SshSession sd = serverSession.getAttribute(SshSession.KEY);
+		sd.authenticationSuccess(username, userFactory.create(new Account.Id(0)));
 		return true;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 }

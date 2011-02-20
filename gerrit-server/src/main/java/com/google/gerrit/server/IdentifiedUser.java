@@ -22,7 +22,6 @@ import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Realm;
 import com.google.gerrit.server.config.AuthConfig;
-import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -34,13 +33,8 @@ import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
 import java.net.SocketAddress;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
-import java.util.TimeZone;
+import java.util.*;
 
 import javax.annotation.Nullable;
 
@@ -49,14 +43,11 @@ public class IdentifiedUser extends CurrentUser {
   /** Create an IdentifiedUser, ignoring any per-request state. */
   @Singleton
   public static class GenericFactory {
-    private final AuthConfig authConfig;
     private final Realm realm;
     private final AccountCache accountCache;
 
     @Inject
-    GenericFactory(final AuthConfig authConfig,
-				   final Realm realm, final AccountCache accountCache) {
-      this.authConfig = authConfig;
+    GenericFactory(final Realm realm, final AccountCache accountCache) {
       this.realm = realm;
       this.accountCache = accountCache;
     }
@@ -67,7 +58,7 @@ public class IdentifiedUser extends CurrentUser {
 
     public IdentifiedUser create(AccessPath accessPath,
         Provider<SocketAddress> remotePeerProvider, Account.Id id) {
-      return new IdentifiedUser(accessPath, authConfig, realm,
+      return new IdentifiedUser(accessPath, realm,
           accountCache, remotePeerProvider,  id);
     }
   }
@@ -100,7 +91,7 @@ public class IdentifiedUser extends CurrentUser {
 
     public IdentifiedUser create(final AccessPath accessPath,
         final Account.Id id) {
-      return new IdentifiedUser(accessPath, authConfig, realm,
+      return new IdentifiedUser(accessPath, realm,
           accountCache, remotePeerProvider, id);
     }
   }
@@ -123,11 +114,10 @@ public class IdentifiedUser extends CurrentUser {
   private Collection<AccountProjectWatch> notificationFilters;
 
   private IdentifiedUser(final AccessPath accessPath,
-						 final AuthConfig authConfig,
 						 final Realm realm, final AccountCache accountCache,
 						 @Nullable final Provider<SocketAddress> remotePeerProvider,
 						 final Account.Id id) {
-    super(accessPath, authConfig);
+    super(accessPath);
     this.realm = realm;
     this.accountCache = accountCache;
     this.remotePeerProvider = remotePeerProvider;
@@ -164,15 +154,8 @@ public class IdentifiedUser extends CurrentUser {
 
   @Override
   public Set<AccountGroup.Id> getEffectiveGroups() {
-    if (effectiveGroups == null) {
-      if (authConfig.isIdentityTrustable(state().getExternalIds())) {
-        effectiveGroups = realm.groups(state());
 
-      } else {
-        effectiveGroups = authConfig.getRegisteredGroups();
-      }
-    }
-    return effectiveGroups;
+    return Collections.emptySet();
   }
 
   public PersonIdent newRefLogIdent() {

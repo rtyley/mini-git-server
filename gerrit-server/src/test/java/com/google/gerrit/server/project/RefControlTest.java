@@ -19,9 +19,7 @@ import static com.google.gerrit.reviewdb.ApprovalCategory.READ;
 import static com.google.gerrit.reviewdb.ApprovalCategory.SUBMIT;
 
 import com.google.gerrit.reviewdb.AccountGroup;
-import com.google.gerrit.reviewdb.AccountProjectWatch;
 import com.google.gerrit.reviewdb.ApprovalCategory;
-import com.google.gerrit.reviewdb.Change;
 import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.reviewdb.RefRight;
 import com.google.gerrit.reviewdb.SystemConfig;
@@ -43,7 +41,6 @@ import org.eclipse.jgit.lib.Config;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -297,7 +294,7 @@ public class RefControlTest extends TestCase {
     private final Set<AccountGroup.Id> groups;
 
     MockUser(AccountGroup.Id[] groupId) {
-      super(AccessPath.UNKNOWN, RefControlTest.this.authConfig);
+      super(AccessPath.UNKNOWN);
       groups = new HashSet<AccountGroup.Id>(Arrays.asList(groupId));
       groups.add(registered);
       groups.add(anonymous);

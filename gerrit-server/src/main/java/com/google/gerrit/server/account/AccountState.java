@@ -35,7 +35,7 @@ public class AccountState {
     this.account = account;
     this.internalGroups = actualGroups;
     this.externalIds = externalIds;
-    this.account.setUserName(getUserName(externalIds));
+    //this.account.setUserName(getUserName(externalIds));
   }
 
   /** Get the cached account metadata. */

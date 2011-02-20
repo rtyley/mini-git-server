@@ -15,27 +15,26 @@
 package com.google.gerrit.server;
 
 import com.google.gerrit.reviewdb.AccountGroup;
-import com.google.gerrit.reviewdb.AccountProjectWatch;
-import com.google.gerrit.reviewdb.Change;
 import com.google.gerrit.server.config.AuthConfig;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+
+import static java.util.Collections.emptySet;
 
 /** An anonymous user who has not yet authenticated. */
 @Singleton
 public class AnonymousUser extends CurrentUser {
   @Inject
   AnonymousUser(final AuthConfig auth) {
-    super(AccessPath.UNKNOWN, auth);
+    super(AccessPath.UNKNOWN);
   }
 
   @Override
   public Set<AccountGroup.Id> getEffectiveGroups() {
-    return authConfig.getAnonymousGroups();
+    return emptySet();
   }
 
   @Override
