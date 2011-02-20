@@ -51,6 +51,6 @@ class ToyPubKeyAuth implements PublickeyAuthenticator {
 
 	@Override
 	public boolean authenticate(String s, PublicKey publicKey, ServerSession serverSession) {
-		return false;  //To change body of implemented methods use File | Settings | File Templates.
+		return true;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 }
