@@ -60,17 +60,21 @@ import static com.google.inject.Scopes.SINGLETON;
 public class ToySshModule extends FactoryModule {
   @Override
   protected void configure() {
+	  // bind(File.class).annotatedWith(SitePath.class).toInstance(new File("/tmp"));
+	  // Already done in GerritServerConfigModule
+	  /*
+
+		//install(new GerritServerConfigModule());
+		*/
 	  SecurityUtils.setRegisterBouncyCastle(true);
-    bindScope(RequestScoped.class, SshScope.REQUEST);
-    final SystemConfig s = SystemConfig.create();
-    s.registerEmailPrivateKey = SignedToken.generateRandomKey();
-	bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
-    configureRequestScope();
-    configureCmdLineParser();
-	bind(File.class).annotatedWith(SitePath.class).toInstance(new File("/tmp"));
+	  bindScope(RequestScoped.class, SshScope.REQUEST);
+	  final SystemConfig s = SystemConfig.create();
+	  s.registerEmailPrivateKey = SignedToken.generateRandomKey();
+	  bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
+	  configureRequestScope();
+	  configureCmdLineParser();
 	install(ToyAccountCacheImpl.module());
 	  bind(Realm.class).to(ToyRealm.class);
-	install(new GerritServerConfigModule());
     install(SshKeyCacheImpl.module());
     bind(SshLog.class);
     bind(SshInfo.class).to(SshDaemon.class).in(SINGLETON);

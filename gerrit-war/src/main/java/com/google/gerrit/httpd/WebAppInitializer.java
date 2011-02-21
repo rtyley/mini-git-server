@@ -19,6 +19,7 @@ import static com.google.inject.Stage.PRODUCTION;
 
 import com.google.gerrit.lifecycle.LifecycleManager;
 import com.google.gerrit.lifecycle.LifecycleModule;
+import com.google.gerrit.reviewdb.TrackingId;
 import com.google.gerrit.server.config.AuthConfigModule;
 import com.google.gerrit.server.config.CanonicalWebUrlModule;
 import com.google.gerrit.server.config.GerritGlobalModule;
@@ -29,6 +30,7 @@ import com.google.gerrit.server.config.SitePathFromSystemConfigProvider;
 import com.google.gerrit.server.schema.DataSourceProvider;
 import com.google.gerrit.server.schema.DatabaseModule;
 import com.google.gerrit.sshd.SshModule;
+import com.google.gerrit.sshd.ToySshModule;
 import com.google.gerrit.sshd.commands.MasterCommandModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.CreationException;
@@ -59,10 +61,9 @@ public class WebAppInitializer extends GuiceServletContextListener {
       LoggerFactory.getLogger(WebAppInitializer.class);
 
   private File sitePath;
-  private Injector dbInjector;
   private Injector cfgInjector;
   private Injector sysInjector;
-  private Injector webInjector;
+  //private Injector webInjector;
   private Injector sshInjector;
   private LifecycleManager manager;
 
@@ -73,31 +74,10 @@ public class WebAppInitializer extends GuiceServletContextListener {
         sitePath = new File(path);
       }
 
-      try {
-        dbInjector = createDbInjector();
-      } catch (CreationException ce) {
-        final Message first = ce.getErrorMessages().iterator().next();
-        final StringBuilder buf = new StringBuilder();
-        buf.append(first.getMessage());
-        Throwable why = first.getCause();
-        while (why != null) {
-          buf.append("\n  caused by ");
-          buf.append(why.toString());
-          why = why.getCause();
-        }
-        if (first.getCause() != null) {
-          buf.append("\n");
-          buf.append("\nResolve above errors before continuing.");
-          buf.append("\nComplete stack trace follows:");
-        }
-        log.error(buf.toString(), first.getCause());
-        throw new CreationException(Collections.singleton(first));
-      }
-
       cfgInjector = createCfgInjector();
       sysInjector = createSysInjector();
       sshInjector = createSshInjector();
-      webInjector = createWebInjector();
+      // webInjector = createWebInjector();
 
       // Push the Provider<HttpServletRequest> down into the canonical
       // URL provider. Its optional for that provider, but since we can
@@ -108,46 +88,16 @@ public class WebAppInitializer extends GuiceServletContextListener {
       // injection here because the HTTP environment is not visible
       // to the core server modules.
       //
-      sysInjector.getInstance(HttpCanonicalWebUrlProvider.class)
-          .setHttpServletRequest(
-              webInjector.getProvider(HttpServletRequest.class));
+
+//      sysInjector.getInstance(HttpCanonicalWebUrlProvider.class)
+//          .setHttpServletRequest(
+//              webInjector.getProvider(HttpServletRequest.class));
 
       manager = new LifecycleManager();
-      manager.add(dbInjector);
       manager.add(sysInjector);
       manager.add(sshInjector);
-      manager.add(webInjector);
+      //manager.add(webInjector);
     }
-  }
-
-  private Injector createDbInjector() {
-    final List<Module> modules = new ArrayList<Module>();
-    if (sitePath != null) {
-      modules.add(new LifecycleModule() {
-        @Override
-        protected void configure() {
-          bind(File.class).annotatedWith(SitePath.class).toInstance(sitePath);
-          bind(DataSourceProvider.Context.class).toInstance(
-              DataSourceProvider.Context.MULTI_USER);
-          bind(Key.get(DataSource.class, Names.named("ReviewDb"))).toProvider(
-              DataSourceProvider.class).in(SINGLETON);
-          listener().to(DataSourceProvider.class);
-        }
-      });
-      modules.add(new GerritServerConfigModule());
-
-    } else {
-      modules.add(new LifecycleModule() {
-        @Override
-        protected void configure() {
-          bind(Key.get(DataSource.class, Names.named("ReviewDb"))).toProvider(
-              ReviewDbDataSourceProvider.class).in(SINGLETON);
-          listener().to(ReviewDbDataSourceProvider.class);
-        }
-      });
-    }
-    modules.add(new DatabaseModule());
-    return Guice.createInjector(PRODUCTION, modules);
   }
 
   private Injector createCfgInjector() {
@@ -166,27 +116,30 @@ public class WebAppInitializer extends GuiceServletContextListener {
       });
       modules.add(new GerritServerConfigModule());
     }
-    modules.add(new AuthConfigModule());
-    return dbInjector.createChildInjector(modules);
+
+
+	  
+	 System.out.println("Fungle createCfgInjector");
+    //modules.add(new AuthConfigModule());
+    return Guice.createInjector(PRODUCTION, modules);
   }
 
   private Injector createSysInjector() {
     final List<Module> modules = new ArrayList<Module>();
-    modules.add(cfgInjector.getInstance(GerritGlobalModule.class));
+    // modules.add(cfgInjector.getInstance(GerritGlobalModule.class));
     modules.add(new CanonicalWebUrlModule() {
       @Override
       protected Class<? extends Provider<String>> provider() {
         return HttpCanonicalWebUrlProvider.class;
       }
     });
-    modules.add(new MasterNodeStartup());
+    // modules.add(new MasterNodeStartup());
     return cfgInjector.createChildInjector(modules);
   }
 
   private Injector createSshInjector() {
     final List<Module> modules = new ArrayList<Module>();
-    modules.add(new SshModule());
-    modules.add(new MasterCommandModule());
+    modules.add(new ToySshModule());
     return sysInjector.createChildInjector(modules);
   }
 
@@ -199,18 +152,21 @@ public class WebAppInitializer extends GuiceServletContextListener {
   @Override
   protected Injector getInjector() {
     init();
-    return webInjector;
+    // return webInjector;
+	return sshInjector;
   }
 
   @Override
   public void contextInitialized(final ServletContextEvent event) {
     super.contextInitialized(event);
+	System.out.println("WAI contextInitialized - "+event);
     init();
     manager.start();
   }
 
   @Override
   public void contextDestroyed(final ServletContextEvent event) {
+	System.out.println("WAI contextDestroyed - "+event);
     if (manager != null) {
       manager.stop();
       manager = null;

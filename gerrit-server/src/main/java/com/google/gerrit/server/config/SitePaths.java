@@ -77,6 +77,7 @@ public final class SitePaths {
     ssl_keystore = new File(etc_dir, "keystore");
     ssh_key = new File(etc_dir, "ssh_host_key");
     ssh_rsa = new File(etc_dir, "ssh_host_rsa_key");
+	System.out.println("ssh_rsa="+ssh_rsa);
     ssh_dsa = new File(etc_dir, "ssh_host_dsa_key");
     peer_keys = new File(etc_dir, "peer_keys");
 
