@@ -128,7 +128,7 @@ public class ToySshModule extends FactoryModule {
     // registerOptionHandler(Account.Id.class, AccountIdHandler.class);
     // registerOptionHandler(AccountGroup.Id.class, AccountGroupIdHandler.class);
     registerOptionHandler(PatchSet.Id.class, PatchSetIdHandler.class);
-    // registerOptionHandler(ProjectControl.class, ProjectControlHandler.class);
+    registerOptionHandler(ProjectControl.class, ProjectControlHandler.class);
     registerOptionHandler(SocketAddress.class, SocketAddressHandler.class);
   }
 

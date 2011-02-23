@@ -20,13 +20,7 @@ import static com.google.inject.Stage.PRODUCTION;
 import com.google.gerrit.lifecycle.LifecycleManager;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.reviewdb.TrackingId;
-import com.google.gerrit.server.config.AuthConfigModule;
-import com.google.gerrit.server.config.CanonicalWebUrlModule;
-import com.google.gerrit.server.config.GerritGlobalModule;
-import com.google.gerrit.server.config.GerritServerConfigModule;
-import com.google.gerrit.server.config.MasterNodeStartup;
-import com.google.gerrit.server.config.SitePath;
-import com.google.gerrit.server.config.SitePathFromSystemConfigProvider;
+import com.google.gerrit.server.config.*;
 import com.google.gerrit.server.schema.DataSourceProvider;
 import com.google.gerrit.server.schema.DatabaseModule;
 import com.google.gerrit.sshd.SshModule;
@@ -63,7 +57,7 @@ public class WebAppInitializer extends GuiceServletContextListener {
   private File sitePath;
   private Injector cfgInjector;
   private Injector sysInjector;
-  //private Injector webInjector;
+  private Injector webInjector;
   private Injector sshInjector;
   private LifecycleManager manager;
 
@@ -88,10 +82,9 @@ public class WebAppInitializer extends GuiceServletContextListener {
       // injection here because the HTTP environment is not visible
       // to the core server modules.
       //
-
-//      sysInjector.getInstance(HttpCanonicalWebUrlProvider.class)
-//          .setHttpServletRequest(
-//              webInjector.getProvider(HttpServletRequest.class));
+      sysInjector.getInstance(HttpCanonicalWebUrlProvider.class)
+          .setHttpServletRequest(
+              webInjector.getProvider(HttpServletRequest.class));
 
       manager = new LifecycleManager();
       manager.add(sysInjector);
@@ -126,7 +119,7 @@ public class WebAppInitializer extends GuiceServletContextListener {
 
   private Injector createSysInjector() {
     final List<Module> modules = new ArrayList<Module>();
-    // modules.add(cfgInjector.getInstance(GerritGlobalModule.class));
+    modules.add(cfgInjector.getInstance(ToyGerritGlobalModule.class));
     modules.add(new CanonicalWebUrlModule() {
       @Override
       protected Class<? extends Provider<String>> provider() {

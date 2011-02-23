@@ -68,6 +68,7 @@ public class ProjectControl {
     public ProjectControl controlFor(final Project.NameKey nameKey)
         throws NoSuchProjectException {
       final ProjectState p = projectCache.get(nameKey);
+		System.out.println("ProjectState p="+p);
       if (p == null) {
         throw new NoSuchProjectException(nameKey);
       }

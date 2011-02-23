@@ -80,31 +80,34 @@ public class ProjectCacheImpl implements ProjectCache {
 
   static class Loader extends EntryCreator<Project.NameKey, ProjectState> {
     private final ProjectState.Factory projectStateFactory;
-    private final SchemaFactory<ReviewDb> schema;
-
+//    private final SchemaFactory<ReviewDb> schema;
+//
     @Inject
-    Loader(ProjectState.Factory psf, SchemaFactory<ReviewDb> sf) {
+    Loader(ProjectState.Factory psf) {
       projectStateFactory = psf;
-      schema = sf;
+      // schema = sf;
     }
 
     @Override
     public ProjectState createEntry(Project.NameKey key) throws Exception {
-      final ReviewDb db = schema.open();
-      try {
-        final Project p = db.projects().get(key);
-        if (p == null) {
-          return null;
-        }
-
-        final Collection<RefRight> rights =
-            Collections.unmodifiableCollection(db.refRights().byProject(
-                p.getNameKey()).toList());
-
-        return projectStateFactory.create(p, rights);
-      } finally {
-        db.close();
-      }
+		Project p = new Project(key);
+		return projectStateFactory.create(p, Collections.<RefRight>emptySet());
+//
+//      final ReviewDb db = schema.open();
+//      try {
+//        final Project p = db.projects().get(key);
+//        if (p == null) {
+//          return null;
+//        }
+//
+//        final Collection<RefRight> rights =
+//            Collections.unmodifiableCollection(db.refRights().byProject(
+//                p.getNameKey()).toList());
+//
+//        return projectStateFactory.create(p, rights);
+//      } finally {
+//        db.close();
+//      }
     }
   }
 }
