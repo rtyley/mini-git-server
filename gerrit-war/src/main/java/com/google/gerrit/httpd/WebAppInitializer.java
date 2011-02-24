@@ -26,6 +26,8 @@ import com.google.gerrit.server.schema.DatabaseModule;
 import com.google.gerrit.sshd.SshModule;
 import com.google.gerrit.sshd.ToySshModule;
 import com.google.gerrit.sshd.commands.MasterCommandModule;
+import com.google.gwtorm.client.KeyUtil;
+import com.google.gwtorm.server.StandardKeyEncoder;
 import com.google.inject.AbstractModule;
 import com.google.inject.CreationException;
 import com.google.inject.Guice;
@@ -51,6 +53,10 @@ import javax.sql.DataSource;
 
 /** Configures the web application environment for Gerrit Code Review. */
 public class WebAppInitializer extends GuiceServletContextListener {
+
+	 static {
+    KeyUtil.setEncoderImpl(new StandardKeyEncoder());
+  }
   private static final Logger log =
       LoggerFactory.getLogger(WebAppInitializer.class);
 
@@ -82,9 +88,9 @@ public class WebAppInitializer extends GuiceServletContextListener {
       // injection here because the HTTP environment is not visible
       // to the core server modules.
       //
-      sysInjector.getInstance(HttpCanonicalWebUrlProvider.class)
-          .setHttpServletRequest(
-              webInjector.getProvider(HttpServletRequest.class));
+//      sysInjector.getInstance(HttpCanonicalWebUrlProvider.class)
+//          .setHttpServletRequest(
+//              webInjector.getProvider(HttpServletRequest.class));
 
       manager = new LifecycleManager();
       manager.add(sysInjector);
@@ -152,7 +158,7 @@ public class WebAppInitializer extends GuiceServletContextListener {
   @Override
   public void contextInitialized(final ServletContextEvent event) {
     super.contextInitialized(event);
-	System.out.println("WAI contextInitialized - "+event);
+	System.out.println("WAI contextInitialized - " + event);
     init();
     manager.start();
   }

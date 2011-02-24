@@ -123,11 +123,11 @@ public class ToyGerritGlobalModule extends FactoryModule {
 //    install(GroupCacheImpl.module());
 //    install(PatchListCacheImpl.module());
     install(ProjectCacheImpl.module());
-//    install(new AccessControlModule());
+    install(new ToyAccessControlModule());
 
 //    factory(AccountInfoCacheFactory.Factory.class);
     factory(ProjectState.Factory.class);
-//    factory(RefControl.Factory.class);
+    factory(RefControl.Factory.class);
 //
 //    bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
 //    bind(FileTypeRegistry.class).to(MimeUtilFileTypeRegistry.class);
