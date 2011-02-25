@@ -28,6 +28,6 @@ public class WildProjectNameProvider implements Provider<Project.NameKey> {
   }
 
   public Project.NameKey get() {
-    return name;
+    return new Project.NameKey("wildYouSay");
   }
 }
