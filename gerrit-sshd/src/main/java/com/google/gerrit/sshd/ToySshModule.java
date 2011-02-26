@@ -15,19 +15,13 @@
 package com.google.gerrit.sshd;
 
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.reviewdb.Account;
-import com.google.gerrit.reviewdb.AccountGroup;
-import com.google.gerrit.reviewdb.PatchSet;
-import com.google.gerrit.reviewdb.SystemConfig;
+import com.google.gerrit.reviewdb.*;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.PeerDaemonUser;
 import com.google.gerrit.server.RemotePeer;
 import com.google.gerrit.server.account.*;
-import com.google.gerrit.server.config.FactoryModule;
-import com.google.gerrit.server.config.GerritRequestModule;
-import com.google.gerrit.server.config.GerritServerConfigModule;
-import com.google.gerrit.server.config.SitePath;
+import com.google.gerrit.server.config.*;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
@@ -41,6 +35,7 @@ import com.google.gerrit.util.cli.CmdLineParser;
 import com.google.gerrit.util.cli.OptionHandlerFactory;
 import com.google.gerrit.util.cli.OptionHandlerUtil;
 import com.google.gwtjsonrpc.server.SignedToken;
+import com.google.gwtorm.client.*;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryProvider;
@@ -68,8 +63,12 @@ public class ToySshModule extends FactoryModule {
 		*/
 	  SecurityUtils.setRegisterBouncyCastle(true);
 	  bindScope(RequestScoped.class, SshScope.REQUEST);
-	  final SystemConfig s = SystemConfig.create();
-	  s.registerEmailPrivateKey = SignedToken.generateRandomKey();
+
+	  final SystemConfig systemConfig = SystemConfig.create();
+	  systemConfig.adminGroupId=new AccountGroup.Id(1);
+	  systemConfig.registerEmailPrivateKey = SignedToken.generateRandomKey();
+
+
 	  bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
 	  configureRequestScope();
 	  configureCmdLineParser();

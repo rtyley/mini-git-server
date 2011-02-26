@@ -114,10 +114,14 @@ class NoShell implements Factory<Command> {
   static class MessageFactory {
     private final IdentifiedUser user;
     private final SshInfo sshInfo;
+    private final Provider<String> urlProvider;
+
     @Inject
-    MessageFactory(IdentifiedUser user, SshInfo sshInfo) {
+    MessageFactory(IdentifiedUser user, SshInfo sshInfo,
+        @CanonicalWebUrl Provider<String> urlProvider) {
       this.user = user;
       this.sshInfo = sshInfo;
+      this.urlProvider = urlProvider;
     }
 
     String getMessage() {
@@ -162,6 +166,13 @@ class NoShell implements Factory<Command> {
     }
 
     private String getGerritHost() {
+      String url = urlProvider.get();
+      if (url != null) {
+        try {
+          return new URL(url).getHost();
+        } catch (MalformedURLException e) {
+        }
+      }
       return SystemReader.getInstance().getHostname();
     }
   }

@@ -42,12 +42,13 @@ class IsStarredByPredicate extends OperatorPredicate<ChangeData> implements
 
   @Override
   public boolean match(final ChangeData object) {
-    return false;
+    return user.getStarredChanges().contains(object.getId());
   }
 
   @Override
   public ResultSet<ChangeData> read() throws OrmException {
-    return null;
+    return ChangeDataResultSet.change( //
+        db.get().changes().get(user.getStarredChanges()));
   }
 
   @Override

@@ -19,6 +19,7 @@ import static com.google.inject.Stage.PRODUCTION;
 
 import com.google.gerrit.lifecycle.LifecycleManager;
 import com.google.gerrit.lifecycle.LifecycleModule;
+import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.reviewdb.TrackingId;
 import com.google.gerrit.server.config.*;
 import com.google.gerrit.server.schema.DataSourceProvider;
@@ -37,8 +38,10 @@ import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.GuiceServletContextListener;
+import com.google.inject.servlet.RequestScoped;
 import com.google.inject.spi.Message;
 
+import com.google.inject.util.Providers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,6 +114,8 @@ public class WebAppInitializer extends GuiceServletContextListener {
         protected void configure() {
           bind(File.class).annotatedWith(SitePath.class).toProvider(
               SitePathFromSystemConfigProvider.class).in(SINGLETON);
+
+			bind(ReviewDb.class).toProvider(Providers.of((ReviewDb)null)); //TODO ARRRGH!!! ARRRGHH!!!
         }
       });
       modules.add(new GerritServerConfigModule());

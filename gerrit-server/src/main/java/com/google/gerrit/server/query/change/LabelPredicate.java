@@ -143,7 +143,7 @@ class LabelPredicate extends OperatorPredicate<ChangeData> {
           //
           try {
             ChangeControl cc = ccFactory.controlFor(object.change(dbProvider), //
-                userFactory.create(p.getAccountId()));
+                userFactory.create(dbProvider, p.getAccountId()));
             if (!cc.isVisible()) {
               // The user can't see the change anymore.
               //

@@ -40,7 +40,7 @@ public final class ToyRealm implements Realm {
 
 	@Override
 	public Set<AccountGroup.Id> groups(AccountState who) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+		return who.getInternalGroups();
 	}
 
 	@Override

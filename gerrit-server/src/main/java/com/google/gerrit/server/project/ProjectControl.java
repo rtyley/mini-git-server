@@ -68,7 +68,6 @@ public class ProjectControl {
     public ProjectControl controlFor(final Project.NameKey nameKey)
         throws NoSuchProjectException {
       final ProjectState p = projectCache.get(nameKey);
-		System.out.println("ProjectState p="+p);
       if (p == null) {
         throw new NoSuchProjectException(nameKey);
       }
@@ -87,7 +86,14 @@ public class ProjectControl {
 
     public ProjectControl validateFor(final Project.NameKey nameKey,
         final int need) throws NoSuchProjectException {
-      return controlFor(nameKey);
+      final ProjectControl c = controlFor(nameKey);
+      if ((need & VISIBLE) == VISIBLE && c.isVisible()) {
+        return c;
+      }
+      if ((need & OWNER) == OWNER && c.isOwner()) {
+        return c;
+      }
+      throw new NoSuchProjectException(nameKey);
     }
   }
 
@@ -148,8 +154,9 @@ public class ProjectControl {
 
   /** Can this user see this project exists? */
   public boolean isVisible() {
-    return visibleForReplication()
-        || canPerformOnAnyRef(ApprovalCategory.READ, (short) 1);
+	  return true;
+//    return visibleForReplication()
+//        || canPerformOnAnyRef(ApprovalCategory.READ, (short) 1);
   }
 
   public boolean canAddRefs() {
@@ -171,12 +178,14 @@ public class ProjectControl {
 
   /** Is this user a project owner? Ownership does not imply {@link #isVisible()} */
   public boolean isOwner() {
-    return controlForRef(RefRight.ALL).isOwner();
+    return controlForRef(RefRight.ALL).isOwner()
+        || getCurrentUser().isAdministrator();
   }
 
   /** Does this user have ownership on at least one reference name? */
   public boolean isOwnerAnyRef() {
-    return canPerformOnAnyRef(ApprovalCategory.OWN, (short) 1);
+    return canPerformOnAnyRef(ApprovalCategory.OWN, (short) 1)
+        || getCurrentUser().isAdministrator();
   }
 
   /** @return true if the user can upload to at least one reference */
@@ -198,8 +207,7 @@ public class ProjectControl {
       }
     }
 
-	  return true; // TODO How permissive is this?!
-    // return false;
+    return false;
   }
 
   private boolean canPerformOnAllRefs(ApprovalCategory.Id actionId,

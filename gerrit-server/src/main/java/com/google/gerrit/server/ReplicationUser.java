@@ -15,10 +15,13 @@
 package com.google.gerrit.server;
 
 import com.google.gerrit.reviewdb.AccountGroup;
+import com.google.gerrit.reviewdb.AccountProjectWatch;
+import com.google.gerrit.reviewdb.Change;
 import com.google.gerrit.server.config.AuthConfig;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,7 +40,7 @@ public class ReplicationUser extends CurrentUser {
   @Inject
   protected ReplicationUser(AuthConfig authConfig,
       @Assisted Set<AccountGroup.Id> authGroups) {
-    super(AccessPath.REPLICATION);
+    super(AccessPath.REPLICATION, authConfig);
 
     if (authGroups == EVERYTHING_VISIBLE) {
       effectiveGroups = EVERYTHING_VISIBLE;
@@ -57,6 +60,16 @@ public class ReplicationUser extends CurrentUser {
   @Override
   public Set<AccountGroup.Id> getEffectiveGroups() {
     return effectiveGroups;
+  }
+
+  @Override
+  public Set<Change.Id> getStarredChanges() {
+    return Collections.emptySet();
+  }
+
+  @Override
+  public Collection<AccountProjectWatch> getNotificationFilters() {
+    return Collections.emptySet();
   }
 
   public boolean isEverythingVisible() {

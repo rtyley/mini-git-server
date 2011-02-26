@@ -32,10 +32,14 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.google.inject.internal.Sets.newHashSet;
+
 /** Caches important (but small) account state to avoid database hits. */
 @Singleton
 public class ToyAccountCacheImpl implements AccountCache {
-  public static Module module() {
+	private AuthConfig auth;
+
+	public static Module module() {
     return new CacheModule() {
       @Override
       protected void configure() {
@@ -44,10 +48,21 @@ public class ToyAccountCacheImpl implements AccountCache {
     };
   }
 
+	@Inject
+	public ToyAccountCacheImpl(AuthConfig auth) {
+
+		this.auth = auth;
+	}
+
   public AccountState get(final Account.Id accountId) {
 	  Account account = new Account(accountId);
 	  account.setUserName("fred");
-	  return new AccountState(account, Collections.<AccountGroup.Id>emptySet(), Collections.<AccountExternalId>emptySet());
+
+	  AccountGroup.Id groupId=new AccountGroup.Id(1);
+
+	  Set<AccountGroup.Id> actualGroups = newHashSet();
+	  actualGroups.add(groupId);
+	  return new AccountState(account, actualGroups, Collections.<AccountExternalId>emptySet());
   }
 
   @Override

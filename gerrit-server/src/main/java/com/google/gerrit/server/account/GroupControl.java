@@ -74,7 +74,8 @@ public class GroupControl {
 
   public boolean isOwner() {
     final AccountGroup.Id owner = group.getOwnerGroupId();
-    return getCurrentUser().getEffectiveGroups().contains(owner);
+    return getCurrentUser().getEffectiveGroups().contains(owner)
+        || getCurrentUser().isAdministrator();
   }
 
   public boolean canAdd(final Account.Id id) {
