@@ -38,6 +38,8 @@ import java.util.*;
 
 import javax.annotation.Nullable;
 
+import static com.google.inject.internal.Sets.newHashSet;
+
 /** An authenticated user. */
 public class IdentifiedUser extends CurrentUser {
   /** Create an IdentifiedUser, ignoring any per-request state. */
@@ -154,8 +156,10 @@ public class IdentifiedUser extends CurrentUser {
 
   @Override
   public Set<AccountGroup.Id> getEffectiveGroups() {
-
-    return Collections.emptySet();
+	Set<AccountGroup.Id> groups=newHashSet();
+	  AccountGroup.Id groupId = new AccountGroup.Id(1);
+	  groups.add(groupId);
+	  return groups;
   }
 
   public PersonIdent newRefLogIdent() {

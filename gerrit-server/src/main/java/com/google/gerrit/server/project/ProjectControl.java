@@ -87,14 +87,7 @@ public class ProjectControl {
 
     public ProjectControl validateFor(final Project.NameKey nameKey,
         final int need) throws NoSuchProjectException {
-      final ProjectControl c = controlFor(nameKey);
-      if ((need & VISIBLE) == VISIBLE && c.isVisible()) {
-        return c;
-      }
-      if ((need & OWNER) == OWNER && c.isOwner()) {
-        return c;
-      }
-      throw new NoSuchProjectException(nameKey);
+      return controlFor(nameKey);
     }
   }
 
@@ -205,7 +198,8 @@ public class ProjectControl {
       }
     }
 
-    return false;
+	  return true; // TODO How permissive is this?!
+    // return false;
   }
 
   private boolean canPerformOnAllRefs(ApprovalCategory.Id actionId,
