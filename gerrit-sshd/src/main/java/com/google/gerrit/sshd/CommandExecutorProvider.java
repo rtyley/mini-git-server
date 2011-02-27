@@ -39,9 +39,11 @@ class CommandExecutorProvider implements Provider<WorkQueue.Executor> {
   @Override
   public WorkQueue.Executor get() {
     WorkQueue.Executor executor;
-
+    if (user.isBatchUser()) {
+      executor = queues.getBatchQueue();
+    } else {
       executor = queues.getInteractiveQueue();
-    
+    }
     return executor;
   }
 }

@@ -71,6 +71,10 @@ final class DispatchCommand extends BaseCommand {
 
       final Command cmd = p.get();
 
+      if (isAdminCommand(cmd) && !currentUser.get().isAdministrator()) {
+        final String msg = "fatal: Not a Gerrit administrator";
+        throw new UnloggedFailure(BaseCommand.STATUS_NOT_ADMIN, msg);
+      }
 
       if (cmd instanceof BaseCommand) {
         final BaseCommand bc = (BaseCommand) cmd;

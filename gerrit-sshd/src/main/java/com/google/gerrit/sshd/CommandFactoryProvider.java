@@ -115,8 +115,6 @@ class CommandFactoryProvider implements Provider<CommandFactory> {
             }
           });
           cmd.start(env);
-		} catch (Exception e) {
-			e.printStackTrace();
         } finally {
           SshScope.set(old);
         }
