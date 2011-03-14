@@ -36,6 +36,7 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.Provider;
+import com.google.inject.binder.LinkedBindingBuilder;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.RequestScoped;
@@ -104,23 +105,28 @@ public class WebAppInitializer extends GuiceServletContextListener {
 
   private Injector createCfgInjector() {
     final List<Module> modules = new ArrayList<Module>();
-    if (sitePath == null) {
-      // If we didn't get the site path from the system property
-      // we need to get it from the database, as that's our old
-      // method of locating the site path on disk.
-      //
+
       modules.add(new AbstractModule() {
         @Override
         protected void configure() {
-          bind(File.class).annotatedWith(SitePath.class).toProvider(
-              SitePathFromSystemConfigProvider.class).in(SINGLETON);
-
-			bind(ReviewDb.class).toProvider(Providers.of((ReviewDb)null)); //TODO ARRRGH!!! ARRRGHH!!!
+			LinkedBindingBuilder<File> fileLinkedBindingBuilder = bind(File.class).annotatedWith(SitePath.class);
+			if (sitePath==null) {
+			fileLinkedBindingBuilder.toProvider(
+					SitePathFromSystemConfigProvider.class).in(SINGLETON);
+			} else {
+				fileLinkedBindingBuilder.toInstance(sitePath);
+			}
         }
       });
-      modules.add(new GerritServerConfigModule());
-    }
 
+	  modules.add(new AbstractModule() {
+        @Override
+        protected void configure() {
+			bind(ReviewDb.class).toProvider(Providers.of((ReviewDb) null)); //TODO ARRRGH!!! ARRRGHH!!!
+        }
+      });
+	  System.out.println("createCfgInjector() - about to add GerritServerConfigModule");
+	modules.add(new GerritServerConfigModule());
 
 	  
 	 System.out.println("Fungle createCfgInjector");
