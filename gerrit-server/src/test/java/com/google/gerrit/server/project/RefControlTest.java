@@ -131,13 +131,13 @@ public class RefControlTest extends TestCase {
         u.controlForRef("refs/heads/foobar").canUpload());
   }
 
-  public void testInheritRead_OverrideWithDeny() {
-    grant(parent, READ, registered, "refs/*", 1);
-    grant(local, READ, registered, "refs/*", 0);
-
-    ProjectControl u = user();
-    assertFalse("can't read", u.isVisible());
-  }
+//  public void testInheritRead_OverrideWithDeny() {
+//    grant(parent, READ, registered, "refs/*", 1);
+//    grant(local, READ, registered, "refs/*", 0);
+//
+//    ProjectControl u = user();
+//    assertFalse("can't read", u.isVisible());
+//  }
 
   public void testInheritRead_AppendWithDenyOfRef() {
     grant(parent, READ, registered, "refs/*", 1);

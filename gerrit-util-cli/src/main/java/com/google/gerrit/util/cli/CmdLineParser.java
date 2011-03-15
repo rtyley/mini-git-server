@@ -86,13 +86,13 @@ public class CmdLineParser {
     this.parser = new MyParser(bean);
   }
 
-  public void addArgument(Setter<?> setter, Argument a) {
-    parser.addArgument(setter, a);
-  }
-
-  public void addOption(Setter<?> setter, Option o) {
-    parser.addOption(setter, o);
-  }
+//  public void addArgument(Setter<?> setter, Argument a) {
+//    parser.addArgument(setter, a);
+//  }
+//
+//  public void addOption(Setter<?> setter, Option o) {
+//    parser.addOption(setter, o);
+//  }
 
   public void printSingleLineUsage(Writer w, ResourceBundle rb) {
     parser.printSingleLineUsage(w, rb);

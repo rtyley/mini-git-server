@@ -19,7 +19,7 @@ limitations under the License.
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.google.gerrit</groupId>
+  <groupId>com.madgag</groupId>
   <artifactId>gerrit-parent</artifactId>
   <packaging>pom</packaging>
   <version>2.1-SNAPSHOT</version>
@@ -31,26 +31,8 @@ limitations under the License.
     Gerrit - Web Based Code Review
   </description>
 
-  <mailingLists>
-    <mailingList>
-      <name>repo-discuss mailing list</name>
-      <post>repo-discuss@googlegroups.com</post>
-      <archive>http://groups.google.com/group/repo-discuss</archive>
-      <subscribe>http://groups.google.com/group/repo-discuss/subscribe</subscribe>
-    </mailingList>
-  </mailingLists>
-
-  <issueManagement>
-    <url>http://code.google.com/p/gerrit/issues/list</url>
-    <system>Google Code</system>
-  </issueManagement>
-
   <properties>
-    <jgitVersion>0.10.1.62-gbe38185</jgitVersion>
-    <gwtormVersion>1.1.4</gwtormVersion>
-    <gwtjsonrpcVersion>1.2.3</gwtjsonrpcVersion>
-    <gwtexpuiVersion>1.2.2</gwtexpuiVersion>
-    <gwtVersion>2.1.1</gwtVersion>
+    <jgitVersion>0.10.99.7-UNOFFICIAL-ROBERTO-RELEASE</jgitVersion>
     <slf4jVersion>1.6.1</slf4jVersion>
     <guiceVersion>2.0</guiceVersion>
     <jettyVersion>7.2.1.v20101111</jettyVersion>
@@ -68,7 +50,6 @@ limitations under the License.
 
   <modules>
     <module>gerrit-patch-commonsnet</module>
-    <module>gerrit-patch-jgit</module>
 
     <module>gerrit-util-cli</module>
     <module>gerrit-util-ssl</module>
@@ -82,10 +63,7 @@ limitations under the License.
     <module>gerrit-reviewdb</module>
     <module>gerrit-server</module>
     <module>gerrit-sshd</module>
-    <module>gerrit-gwtdebug</module>
     <module>gerrit-war</module>
-
-    <module>gerrit-gwtui</module>
   </modules>
 
   <licenses>
@@ -351,17 +329,10 @@ limitations under the License.
           <artifactId>antlr3-maven-plugin</artifactId>
           <version>3.2</version>
         </plugin>
-
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>gwt-maven-plugin</artifactId>
-          <version>2.1.0-1</version>
-        </plugin>
-
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
-          <version>1.6</version>
+          <version>1.5</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -407,42 +378,6 @@ limitations under the License.
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>gwtorm</groupId>
-        <artifactId>gwtorm</artifactId>
-        <version>${gwtormVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>gwtorm</groupId>
-        <artifactId>gwtorm</artifactId>
-        <version>${gwtormVersion}</version>
-        <classifier>sources</classifier>
-      </dependency>
-
-      <dependency>
-        <groupId>gwtjsonrpc</groupId>
-        <artifactId>gwtjsonrpc</artifactId>
-        <version>${gwtjsonrpcVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>gwtjsonrpc</groupId>
-        <artifactId>gwtjsonrpc</artifactId>
-        <version>${gwtjsonrpcVersion}</version>
-        <classifier>sources</classifier>
-      </dependency>
-
-      <dependency>
-        <groupId>gwtexpui</groupId>
-        <artifactId>gwtexpui</artifactId>
-        <version>${gwtexpuiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>gwtexpui</groupId>
-        <artifactId>gwtexpui</artifactId>
-        <version>${gwtexpuiVersion}</version>
-        <classifier>sources</classifier>
-      </dependency>
-
       <dependency>
         <groupId>org.openid4java</groupId>
         <artifactId>openid4java-consumer</artifactId>
@@ -502,24 +437,24 @@ limitations under the License.
       <dependency>
         <groupId>args4j</groupId>
         <artifactId>args4j</artifactId>
-        <version>2.0.16</version>
+        <version>2.0.12</version>
       </dependency>
 
       <dependency>
-        <groupId>com.google.code.guice</groupId>
+        <groupId>com.google.inject</groupId>
         <artifactId>guice</artifactId>
         <version>${guiceVersion}</version>
       </dependency>
 
       <dependency>
-        <groupId>com.google.code.guice</groupId>
+        <groupId>com.google.inject.extensions</groupId>
         <artifactId>guice-servlet</artifactId>
         <version>${guiceVersion}</version>
       </dependency>
 
       <dependency>
-        <groupId>com.google.code.guice</groupId>
-        <artifactId>guice-assistedinject</artifactId>
+        <groupId>com.google.inject.extensions</groupId>
+        <artifactId>guice-assisted-inject</artifactId>
         <version>${guiceVersion}</version>
       </dependency>
 
@@ -641,32 +576,26 @@ limitations under the License.
       </dependency>
 
       <dependency>
-        <groupId>org.eclipse.jgit</groupId>
+        <groupId>com.madgag</groupId>
         <artifactId>org.eclipse.jgit</artifactId>
         <version>${jgitVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jgit</groupId>
-        <artifactId>org.eclipse.jgit</artifactId>
-        <version>${jgitVersion}</version>
-        <classifier>sources</classifier>
       </dependency>
 
       <dependency>
-        <groupId>org.eclipse.jgit</groupId>
+        <groupId>com.madgag</groupId>
         <artifactId>org.eclipse.jgit.junit</artifactId>
         <version>${jgitVersion}</version>
         <scope>test</scope>
         <exclusions>
           <exclusion>
-            <groupId>org.eclipse.jgit</groupId>
+            <groupId>com.madgag</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
 
       <dependency>
-        <groupId>org.eclipse.jgit</groupId>
+        <groupId>com.madgag</groupId>
         <artifactId>org.eclipse.jgit.http.server</artifactId>
         <version>${jgitVersion}</version>
       </dependency>
@@ -715,24 +644,6 @@ limitations under the License.
       </dependency>
 
       <dependency>
-        <groupId>com.google.gwt</groupId>
-        <artifactId>gwt-servlet</artifactId>
-        <version>${gwtVersion}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.google.gwt</groupId>
-        <artifactId>gwt-user</artifactId>
-        <version>${gwtVersion}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.google.gwt</groupId>
-        <artifactId>gwt-dev</artifactId>
-        <version>${gwtVersion}</version>
-      </dependency>
-
-      <dependency>
         <groupId>com.google.code.findbugs</groupId>
         <artifactId>jsr305</artifactId>
         <version>1.3.9</version>
@@ -752,40 +663,4 @@ limitations under the License.
     </dependencies>
   </dependencyManagement>
 
-  <repositories>
-    <repository>
-      <id>jgit-repository</id>
-      <url>http://download.eclipse.org/jgit/maven</url>
-    </repository>
-
-    <repository>
-      <id>gerrit-maven-repository</id>
-      <url>http://gerrit.googlecode.com/svn/mavenrepo/</url>
-    </repository>
-
-    <repository>
-      <id>gerrit-snapshot-repository</id>
-      <url>http://gerrit.googlecode.com/svn/mavenrepo/snapshots/</url>
-    </repository>
-
-    <repository>
-      <id>java.net-repository</id>
-      <url>http://download.java.net/maven/2/</url>
-    </repository>
-
-    <repository>
-      <id>gson</id>
-      <url>http://google-gson.googlecode.com/svn/mavenrepo/</url>
-    </repository>
-
-    <repository>
-      <id>objectweb-repository</id>
-      <url>http://maven.objectweb.org/maven2/</url>
-    </repository>
-
-    <repository>
-      <id>clojars-repo</id>
-      <url>http://clojars.org/repo</url>
-    </repository>
-  </repositories>
 </project>
