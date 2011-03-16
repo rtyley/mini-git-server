@@ -15,17 +15,9 @@
 package com.google.gerrit.sshd;
 
 import com.google.gerrit.reviewdb.Account;
-import com.google.gerrit.server.AccessPath;
-import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.PeerDaemonUser;
-import com.google.gerrit.server.config.SitePaths;
-import com.google.gerrit.sshd.SshScope.Context;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.net.nntp.NewsgroupInfo;
 import org.apache.mina.core.future.IoFuture;
 import org.apache.mina.core.future.IoFutureListener;
 import org.apache.sshd.common.KeyPairProvider;
@@ -33,17 +25,8 @@ import org.apache.sshd.common.SshException;
 import org.apache.sshd.common.util.Buffer;
 import org.apache.sshd.server.PublickeyAuthenticator;
 import org.apache.sshd.server.session.ServerSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.net.SocketAddress;
-import java.security.KeyPair;
 import java.security.PublicKey;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Authenticates by public key through {@link com.google.gerrit.reviewdb.AccountSshKey} entities.

@@ -40,37 +40,8 @@ public abstract class CurrentUser {
     this.authConfig = authConfig;
   }
 
-  /** How this user is accessing the Gerrit Code Review application. */
-  public final AccessPath getAccessPath() {
-    return accessPath;
-  }
-
-  /**
-   * Get the set of groups the user is currently a member of.
-   * <p>
-   * The returned set may be a subset of the user's actual groups; if the user's
-   * account is currently deemed to be untrusted then the effective group set is
-   * only the anonymous and registered user groups. To enable additional groups
-   * (and gain their granted permissions) the user must update their account to
-   * use only trusted authentication providers.
-   *
-   * @return active groups for this user.
-   */
-  public abstract Set<AccountGroup.Id> getEffectiveGroups();
-
-  /** Set of changes starred by this user. */
-  public abstract Set<Change.Id> getStarredChanges();
-
-  /** Filters selecting changes the user wants to monitor. */
-  public abstract Collection<AccountProjectWatch> getNotificationFilters();
-
-  /** Is the user a non-interactive user? */
-  public boolean isBatchUser() {
-    return getEffectiveGroups().contains(authConfig.getBatchUsersGroup());
-  }
-
   @Deprecated
   public final boolean isAdministrator() {
-    return getEffectiveGroups().contains(authConfig.getAdministratorsGroup());
+    return true;
   }
 }

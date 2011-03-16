@@ -20,8 +20,6 @@ import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RequestCleanup;
 import com.google.gerrit.server.account.AccountResolver;
-import com.google.gerrit.server.account.GroupControl;
-import com.google.gerrit.server.git.MergeOp;
 import com.google.gerrit.server.git.ReceiveCommits;
 import com.google.gerrit.server.mail.AbandonedSender;
 import com.google.gerrit.server.mail.AddReviewerSender;

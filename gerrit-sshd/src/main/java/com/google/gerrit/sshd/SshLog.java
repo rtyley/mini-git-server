@@ -17,7 +17,6 @@ package com.google.gerrit.sshd;
 import com.google.gerrit.lifecycle.LifecycleListener;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.PeerDaemonUser;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.util.IdGenerator;
 import com.google.gerrit.sshd.SshScope.Context;

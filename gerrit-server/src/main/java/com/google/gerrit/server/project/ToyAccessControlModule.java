@@ -17,11 +17,9 @@ package com.google.gerrit.server.project;
 import com.google.gerrit.reviewdb.AccountGroup;
 import com.google.gerrit.server.config.*;
 import com.google.inject.TypeLiteral;
-import com.google.inject.internal.Sets;
 
 import java.util.Set;
 
-import static com.google.inject.Scopes.SINGLETON;
 import static com.google.inject.internal.Sets.newHashSet;
 
 public class ToyAccessControlModule extends FactoryModule {

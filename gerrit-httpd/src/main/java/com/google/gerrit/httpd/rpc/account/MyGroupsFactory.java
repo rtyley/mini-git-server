@@ -17,7 +17,6 @@ package com.google.gerrit.httpd.rpc.account;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.AccountGroup;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.account.GroupCache;
 import com.google.inject.Inject;
 
 import java.util.ArrayList;

@@ -16,9 +16,7 @@ package com.google.gerrit.server.account;
 
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.AccountGroup;
-import com.google.inject.Inject;
 
-import java.util.Collections;
 import java.util.Set;
 
 public final class ToyRealm implements Realm {

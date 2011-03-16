@@ -17,18 +17,11 @@ package com.google.gerrit.httpd;
 import static com.google.inject.Scopes.SINGLETON;
 
 import com.google.gerrit.common.data.GerritConfig;
-import com.google.gerrit.httpd.auth.become.BecomeAnyAccountLoginServlet;
-import com.google.gerrit.httpd.auth.container.HttpAuthModule;
-import com.google.gerrit.httpd.auth.container.HttpsClientSslCertModule;
-import com.google.gerrit.httpd.auth.ldap.LdapAuthModule;
-import com.google.gerrit.httpd.auth.openid.OpenIdModule;
 import com.google.gerrit.httpd.gitweb.GitWebModule;
-import com.google.gerrit.httpd.rpc.UiRpcModule;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RemotePeer;
 import com.google.gerrit.server.account.AccountManager;
-import com.google.gerrit.server.account.ChangeUserName;
 import com.google.gerrit.server.account.ClearPassword;
 import com.google.gerrit.server.account.GeneratePassword;
 import com.google.gerrit.server.config.AuthConfig;
@@ -43,7 +36,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
-import com.google.inject.ProvisionException;
 import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
 

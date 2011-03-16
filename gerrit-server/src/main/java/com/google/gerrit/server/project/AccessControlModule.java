@@ -18,14 +18,6 @@ import static com.google.inject.Scopes.SINGLETON;
 
 import com.google.gerrit.reviewdb.AccountGroup;
 import com.google.gerrit.server.config.FactoryModule;
-import com.google.gerrit.server.config.GitReceivePackGroups;
-import com.google.gerrit.server.config.GitReceivePackGroupsProvider;
-import com.google.gerrit.server.config.GitUploadPackGroups;
-import com.google.gerrit.server.config.GitUploadPackGroupsProvider;
-import com.google.gerrit.server.config.ProjectCreatorGroups;
-import com.google.gerrit.server.config.ProjectCreatorGroupsProvider;
-import com.google.gerrit.server.config.ProjectOwnerGroups;
-import com.google.gerrit.server.config.ProjectOwnerGroupsProvider;
 import com.google.inject.TypeLiteral;
 
 import java.util.Set;

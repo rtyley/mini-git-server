@@ -14,7 +14,6 @@
 
 package com.google.gerrit.sshd.commands;
 
-import com.google.gerrit.common.ChangeHookRunner;
 import com.google.gerrit.common.ChangeListener;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.events.ChangeEvent;

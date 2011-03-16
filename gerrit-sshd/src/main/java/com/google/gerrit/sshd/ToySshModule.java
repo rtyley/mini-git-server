@@ -18,7 +18,6 @@ import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.reviewdb.*;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.PeerDaemonUser;
 import com.google.gerrit.server.RemotePeer;
 import com.google.gerrit.server.account.*;
 import com.google.gerrit.server.config.*;
@@ -28,8 +27,6 @@ import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.ssh.SshInfo;
 import com.google.gerrit.sshd.args4j.*;
-import com.google.gerrit.sshd.commands.DefaultCommandModule;
-import com.google.gerrit.sshd.commands.QueryShell;
 import com.google.gerrit.sshd.commands.ToyDefaultCommandModule;
 import com.google.gerrit.util.cli.CmdLineParser;
 import com.google.gerrit.util.cli.OptionHandlerFactory;
@@ -46,7 +43,6 @@ import org.apache.sshd.server.CommandFactory;
 import org.apache.sshd.server.PublickeyAuthenticator;
 import org.kohsuke.args4j.spi.OptionHandler;
 
-import java.io.File;
 import java.net.SocketAddress;
 
 import static com.google.inject.Scopes.SINGLETON;
