@@ -18,7 +18,6 @@ import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.AccountExternalId;
 import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.account.AccountByEmailCache;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;

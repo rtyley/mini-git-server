@@ -89,126 +89,15 @@ public class ProjectState {
     return project;
   }
 
-  /** Get the rights that pertain only to this project. */
-  public Collection<RefRight> getLocalRights() {
-    return localRights;
-  }
-
-  /**
-   * Get the rights that pertain only to this project.
-   *
-   * @param action the category requested.
-   * @return immutable collection of rights for the requested category.
-   */
-  public Collection<RefRight> getLocalRights(ApprovalCategory.Id action) {
-    return filter(getLocalRights(), action);
-  }
-
-  /** Get the rights this project inherits from the wild project. */
-  public Collection<RefRight> getInheritedRights() {
-    if (inheritedRights == null) {
-      inheritedRights = computeInheritedRights();
-    }
-    return inheritedRights;
-  }
-
-  void setInheritedRights(Collection<RefRight> all) {
-    inheritedRights = all;
-  }
-
-  private Collection<RefRight> computeInheritedRights() {
-    if (isSpecialWildProject()) {
-      return Collections.emptyList();
-    }
-
-    List<RefRight> inherited = new ArrayList<RefRight>();
-    Set<Project.NameKey> seen = new HashSet<Project.NameKey>();
-    Project.NameKey parent = project.getParent();
-
-    while (parent != null && seen.add(parent)) {
-      ProjectState s = projectCache.get(parent);
-      if (s != null) {
-        inherited.addAll(s.getLocalRights());
-        parent = s.getProject().getParent();
-      } else {
-        break;
-      }
-    }
-
-    // Wild project is the parent, or the root of the tree
-    if (parent == null) {
-      inherited.addAll(getWildProjectRights());
-    }
-
-    return Collections.unmodifiableCollection(inherited);
-  }
-
   private Collection<RefRight> getWildProjectRights() {
     final ProjectState s = projectCache.get(wildProject);
     return s != null ? s.getLocalRights() : Collections.<RefRight> emptyList();
   }
 
-  /**
-   * Utility class that is needed to filter overridden refrights
-   */
-  private static class Grant {
-    final AccountGroup.Id group;
-    final String pattern;
-
-    private Grant(AccountGroup.Id group, String pattern) {
-      this.group = group;
-      this.pattern = pattern;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      Grant grant = (Grant) o;
-      return group.equals(grant.group) && pattern.equals(grant.pattern);
-    }
-
-    @Override
-    public int hashCode() {
-      int result = group.hashCode();
-      result = 31 * result + pattern.hashCode();
-      return result;
-    }
-  }
-
-  /**
-   * Get the rights this project has and inherits from the wild project.
-   *
-   * @param action the category requested.
-   * @param dropOverridden whether to remove inherited permissions in case if we have a
-   *     local one that matches (action,group,ref)
-   * @return immutable collection of rights for the requested category.
-   */
-  public Collection<RefRight> getAllRights(ApprovalCategory.Id action, boolean dropOverridden) {
-    Collection<RefRight> rights = new LinkedList<RefRight>(getLocalRights(action));
-    rights.addAll(filter(getInheritedRights(), action));
-    if (dropOverridden) {
-      Set<Grant> grants = new HashSet<Grant>();
-      Iterator<RefRight> iter = rights.iterator();
-      while (iter.hasNext()) {
-        RefRight right = iter.next();
-
-        Grant grant = new Grant(right.getAccountGroupId(), right.getRefPattern());
-        if (grants.contains(grant)) {
-          iter.remove();
-        } else {
-          grants.add(grant);
-        }
-      }
-    }
-    return Collections.unmodifiableCollection(rights);
-  }
 
   /** Is this the special wild project which manages inherited rights? */
   public boolean isSpecialWildProject() {
     return project.getNameKey().equals(wildProject);
-  }
-
-  public Set<AccountGroup.Id> getOwners() {
-    return owners;
   }
 
   public ProjectControl controlForAnonymousUser() {
@@ -219,20 +108,4 @@ public class ProjectState {
     return projectControlFactory.create(user, this);
   }
 
-  private static Collection<RefRight> filter(Collection<RefRight> all,
-      ApprovalCategory.Id actionId) {
-    if (all.isEmpty()) {
-      return Collections.emptyList();
-    }
-    final Collection<RefRight> mine = new ArrayList<RefRight>(all.size());
-    for (final RefRight right : all) {
-      if (right.getApprovalCategoryId().equals(actionId)) {
-        mine.add(right);
-      }
-    }
-    if (mine.isEmpty()) {
-      return Collections.emptyList();
-    }
-    return Collections.unmodifiableCollection(mine);
-  }
 }
