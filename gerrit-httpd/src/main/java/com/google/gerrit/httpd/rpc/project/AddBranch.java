@@ -15,7 +15,6 @@
 package com.google.gerrit.httpd.rpc.project;
 
 import com.google.gerrit.common.ChangeHookRunner;
-import com.google.gerrit.common.data.ListBranchesResult;
 import com.google.gerrit.common.errors.InvalidNameException;
 import com.google.gerrit.common.errors.InvalidRevisionException;
 import com.google.gerrit.httpd.rpc.Handler;
@@ -27,7 +26,6 @@ import com.google.gerrit.server.git.ReceiveCommits;
 import com.google.gerrit.server.git.ReplicationQueue;
 import com.google.gerrit.server.project.NoSuchProjectException;
 import com.google.gerrit.server.project.ProjectControl;
-import com.google.gerrit.server.project.RefControl;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 

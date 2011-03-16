@@ -14,8 +14,6 @@
 
 package com.google.gerrit.sshd.commands;
 
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.reviewdb.ApprovalCategory;
 import com.google.gerrit.reviewdb.ApprovalCategoryValue;
 import com.google.gerrit.reviewdb.Branch;
@@ -28,11 +26,9 @@ import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.ChangeUtil;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.git.MergeOp;
-import com.google.gerrit.server.git.MergeOp.Factory;
 import com.google.gerrit.server.git.MergeQueue;
 import com.google.gerrit.server.patch.PublishComments;
 import com.google.gerrit.server.project.CanSubmitResult;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.workflow.FunctionState;

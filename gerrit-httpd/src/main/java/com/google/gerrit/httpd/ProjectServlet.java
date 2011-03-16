@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd;
 
-import com.google.gerrit.common.PageLinks;
 import com.google.gerrit.reviewdb.Change;
 import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.reviewdb.ReviewDb;

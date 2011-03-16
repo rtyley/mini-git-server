@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd.auth.ldap;
 
-import com.google.gerrit.common.PageLinks;
 import com.google.gerrit.common.auth.SignInMode;
 import com.google.gerrit.httpd.WebSession;
 import com.google.gerrit.server.config.CanonicalWebUrl;

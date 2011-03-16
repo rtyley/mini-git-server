@@ -14,11 +14,7 @@
 
 package com.google.gerrit.httpd.rpc;
 
-import com.google.gerrit.common.data.AccountDashboardInfo;
-import com.google.gerrit.common.data.ChangeInfo;
-import com.google.gerrit.common.data.ChangeListService;
 import com.google.gerrit.common.data.SingleListChangeInfo;
-import com.google.gerrit.common.data.ToggleStarRequest;
 import com.google.gerrit.common.errors.InvalidQueryException;
 import com.google.gerrit.common.errors.NoSuchEntityException;
 import com.google.gerrit.reviewdb.Account;
@@ -29,7 +25,6 @@ import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.reviewdb.StarredChange;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.AccountInfoCacheFactory;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.query.Predicate;
 import com.google.gerrit.server.query.QueryParseException;

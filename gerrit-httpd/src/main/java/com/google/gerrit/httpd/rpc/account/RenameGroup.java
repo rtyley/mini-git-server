@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.account;
 
-import com.google.gerrit.common.data.GroupDetail;
 import com.google.gerrit.common.errors.NameAlreadyUsedException;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.AccountGroup;

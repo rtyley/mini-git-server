@@ -14,8 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.patch;
 
-import com.google.gerrit.common.data.CommentDetail;
-import com.google.gerrit.common.data.PatchScript;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.AccountDiffPreference;
@@ -35,7 +33,6 @@ import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
 import com.google.gerrit.server.patch.PatchListEntry;
 import com.google.gerrit.server.patch.PatchListKey;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;

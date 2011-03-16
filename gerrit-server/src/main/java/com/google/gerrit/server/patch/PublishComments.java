@@ -15,8 +15,6 @@
 package com.google.gerrit.server.patch;
 
 import com.google.gerrit.common.ChangeHookRunner;
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.reviewdb.ApprovalCategory;
 import com.google.gerrit.reviewdb.ApprovalCategoryValue;
 import com.google.gerrit.reviewdb.Change;
@@ -29,7 +27,6 @@ import com.google.gerrit.server.ChangeUtil;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.mail.CommentSender;
 import com.google.gerrit.server.mail.EmailException;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.workflow.FunctionState;
 import com.google.gwtjsonrpc.client.VoidResult;

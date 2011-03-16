@@ -14,9 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.account;
 
-import com.google.gerrit.common.data.AccountProjectWatchInfo;
-import com.google.gerrit.common.data.AccountService;
-import com.google.gerrit.common.data.AgreementInfo;
 import com.google.gerrit.common.errors.InvalidQueryException;
 import com.google.gerrit.common.errors.NoSuchEntityException;
 import com.google.gerrit.httpd.rpc.BaseServiceImplementation;

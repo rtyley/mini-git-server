@@ -18,8 +18,6 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
 import com.google.gerrit.common.ChangeHookRunner;
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.ApprovalCategory;
 import com.google.gerrit.reviewdb.Branch;

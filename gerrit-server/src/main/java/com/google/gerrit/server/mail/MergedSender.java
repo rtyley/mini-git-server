@@ -14,8 +14,6 @@
 
 package com.google.gerrit.server.mail;
 
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.AccountProjectWatch;
 import com.google.gerrit.reviewdb.ApprovalCategory;

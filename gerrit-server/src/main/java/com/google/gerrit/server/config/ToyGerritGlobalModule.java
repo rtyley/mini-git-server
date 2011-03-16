@@ -14,27 +14,15 @@
 
 package com.google.gerrit.server.config;
 
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.lifecycle.LifecycleListener;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.reviewdb.AuthType;
 import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.*;
-import com.google.gerrit.server.account.*;
-import com.google.gerrit.server.auth.ldap.LdapModule;
 import com.google.gerrit.server.cache.CachePool;
-import com.google.gerrit.server.events.EventFactory;
 import com.google.gerrit.server.git.*;
-import com.google.gerrit.server.mail.EmailSender;
-import com.google.gerrit.server.mail.FromAddressGenerator;
-import com.google.gerrit.server.mail.FromAddressGeneratorProvider;
-import com.google.gerrit.server.mail.SmtpEmailSender;
-import com.google.gerrit.server.patch.PatchListCacheImpl;
-import com.google.gerrit.server.patch.PatchSetInfoFactory;
 import com.google.gerrit.server.project.*;
-import com.google.gerrit.server.tools.ToolsCatalog;
 import com.google.gerrit.server.util.IdGenerator;
-import com.google.gerrit.server.workflow.FunctionState;
 import com.google.inject.Inject;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;

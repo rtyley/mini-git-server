@@ -14,8 +14,6 @@
 
 package com.google.gerrit.server.account;
 
-import com.google.gerrit.common.data.AccountInfo;
-import com.google.gerrit.common.data.AccountInfoCache;
 import com.google.gerrit.reviewdb.Account;
 import com.google.inject.Inject;
 

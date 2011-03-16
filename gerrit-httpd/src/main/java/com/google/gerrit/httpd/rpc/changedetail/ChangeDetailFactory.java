@@ -14,11 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.changedetail;
 
-import com.google.gerrit.common.data.ApprovalDetail;
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
-import com.google.gerrit.common.data.ChangeDetail;
-import com.google.gerrit.common.data.ChangeInfo;
 import com.google.gerrit.common.errors.NoSuchEntityException;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.Account;
@@ -33,7 +28,6 @@ import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountInfoCacheFactory;
 import com.google.gerrit.server.patch.PatchSetInfoNotAvailableException;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.workflow.CategoryFunction;
 import com.google.gerrit.server.workflow.FunctionState;

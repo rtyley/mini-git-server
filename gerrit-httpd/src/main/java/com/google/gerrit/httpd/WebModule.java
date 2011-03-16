@@ -24,7 +24,6 @@ import com.google.gerrit.httpd.auth.ldap.LdapAuthModule;
 import com.google.gerrit.httpd.auth.openid.OpenIdModule;
 import com.google.gerrit.httpd.gitweb.GitWebModule;
 import com.google.gerrit.httpd.rpc.UiRpcModule;
-import com.google.gerrit.reviewdb.AuthType;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RemotePeer;
@@ -55,7 +54,6 @@ import javax.annotation.Nullable;
 public class WebModule extends FactoryModule {
   private final Provider<SshInfo> sshInfoProvider;
   private final Provider<SshKeyCache> sshKeyCacheProvider;
-  private final AuthType authType;
   private final boolean wantSSL;
   private final GitWebConfig gitWebConfig;
 
@@ -67,7 +65,6 @@ public class WebModule extends FactoryModule {
       final Injector creatingInjector) {
     this.sshInfoProvider = sshInfoProvider;
     this.sshKeyCacheProvider = sshKeyCacheProvider;
-    this.authType = authConfig.getAuthType();
     this.wantSSL = canonicalUrl != null && canonicalUrl.startsWith("https:");
 
     this.gitWebConfig =
@@ -92,40 +89,7 @@ public class WebModule extends FactoryModule {
       install(new RequireSslFilter.Module());
     }
 
-    switch (authType) {
-      case OPENID:
-        install(new OpenIdModule());
-        break;
-
-      case HTTP:
-      case HTTP_LDAP:
-        install(new HttpAuthModule());
-        break;
-
-      case CLIENT_SSL_CERT_LDAP:
-        install(new HttpsClientSslCertModule());
-        break;
-
-      case LDAP:
-      case LDAP_BIND:
-        install(new LdapAuthModule());
-        break;
-
-      case DEVELOPMENT_BECOME_ANY_ACCOUNT:
-        install(new ServletModule() {
-          @Override
-          protected void configureServlets() {
-            serve("/become").with(BecomeAnyAccountLoginServlet.class);
-          }
-        });
-        break;
-
-      default:
-        throw new ProvisionException("Unsupported loginType: " + authType);
-    }
-
     install(new UrlModule());
-    install(new UiRpcModule());
     install(new GerritRequestModule());
     install(new ProjectServlet.Module());
 

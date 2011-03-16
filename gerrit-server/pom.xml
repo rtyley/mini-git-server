@@ -144,15 +144,12 @@ limitations under the License.
       <artifactId>jsr305</artifactId>
     </dependency>
 
+      <!--
     <dependency>
       <groupId>com.google.gerrit</groupId>
       <artifactId>juniversalchardet</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>dk.brics.automaton</groupId>
-      <artifactId>automaton</artifactId>
-    </dependency>
+    -->
   </dependencies>
 
   <build>

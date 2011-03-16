@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.account;
 
-import com.google.gerrit.common.data.AgreementInfo;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.AccountAgreement;
 import com.google.gerrit.reviewdb.AccountGroup;

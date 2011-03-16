@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd.auth.openid;
 
-import com.google.gerrit.common.PageLinks;
 import com.google.gerrit.common.auth.SignInMode;
 import com.google.gerrit.common.auth.openid.DiscoveryResult;
 import com.google.gerrit.common.auth.openid.OpenIdProviderPattern;

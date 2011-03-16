@@ -14,8 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.changedetail;
 
-import com.google.gerrit.common.data.ApprovalTypes;
-import com.google.gerrit.common.data.ChangeDetail;
 import com.google.gerrit.common.errors.NoSuchEntityException;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.Change;
@@ -27,7 +25,6 @@ import com.google.gerrit.server.git.MergeOp;
 import com.google.gerrit.server.git.MergeQueue;
 import com.google.gerrit.server.patch.PatchSetInfoNotAvailableException;
 import com.google.gerrit.server.project.CanSubmitResult;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.workflow.FunctionState;
 import com.google.gwtorm.client.OrmException;

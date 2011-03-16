@@ -16,7 +16,6 @@ package com.google.gerrit.httpd;
 
 import static com.google.inject.Scopes.SINGLETON;
 
-import com.google.gerrit.common.PageLinks;
 import com.google.gerrit.httpd.raw.CatServlet;
 import com.google.gerrit.httpd.raw.HostPageServlet;
 import com.google.gerrit.httpd.raw.LegacyGerritServlet;

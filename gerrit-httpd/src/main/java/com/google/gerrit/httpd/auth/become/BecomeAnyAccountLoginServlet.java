@@ -16,7 +16,6 @@ package com.google.gerrit.httpd.auth.become;
 
 import static com.google.gerrit.reviewdb.AccountExternalId.SCHEME_USERNAME;
 
-import com.google.gerrit.common.PageLinks;
 import com.google.gerrit.httpd.HtmlDomUtil;
 import com.google.gerrit.httpd.WebSession;
 import com.google.gerrit.reviewdb.Account;

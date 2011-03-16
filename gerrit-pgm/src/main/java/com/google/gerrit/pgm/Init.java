@@ -17,7 +17,6 @@ package com.google.gerrit.pgm;
 import static com.google.gerrit.server.schema.DataSourceProvider.Context.SINGLE_USER;
 import static com.google.inject.Stage.PRODUCTION;
 
-import com.google.gerrit.common.PageLinks;
 import com.google.gerrit.pgm.init.Browser;
 import com.google.gerrit.pgm.init.InitFlags;
 import com.google.gerrit.pgm.init.InitModule;

@@ -14,32 +14,17 @@
 
 package com.google.gerrit.common.data;
 
-import com.google.gerrit.common.auth.openid.OpenIdProviderPattern;
-import com.google.gerrit.reviewdb.Account;
-import com.google.gerrit.reviewdb.AuthType;
-import com.google.gerrit.reviewdb.Project;
-import com.google.gerrit.reviewdb.AccountGeneralPreferences.DownloadScheme;
-import com.google.gwtexpui.safehtml.client.RegexFindReplace;
-
 import java.util.List;
 import java.util.Set;
 
 public class GerritConfig implements Cloneable {
   protected String registerUrl;
-  protected List<OpenIdProviderPattern> allowedOpenIDs;
-
-  protected GitwebLink gitweb;
   protected boolean useContributorAgreements;
   protected boolean useContactInfo;
   protected boolean allowRegisterNewEmail;
-  protected AuthType authType;
-  protected Set<DownloadScheme> downloadSchemes;
   protected String gitDaemonUrl;
   protected String sshdAddress;
-  protected Project.NameKey wildProject;
-  protected ApprovalTypes approvalTypes;
-  protected Set<Account.FieldName> editableAccountFields;
-  protected List<RegexFindReplace> commentLinks;
+  // protected Project.NameKey wildProject;
   protected boolean documentationAvailable;
 
   protected String backgroundColor;
@@ -56,37 +41,6 @@ public class GerritConfig implements Cloneable {
     registerUrl = u;
   }
 
-  public List<OpenIdProviderPattern> getAllowedOpenIDs() {
-    return allowedOpenIDs;
-  }
-
-  public void setAllowedOpenIDs(List<OpenIdProviderPattern> l) {
-    allowedOpenIDs = l;
-  }
-
-  public AuthType getAuthType() {
-    return authType;
-  }
-
-  public void setAuthType(final AuthType t) {
-    authType = t;
-  }
-
-  public Set<DownloadScheme> getDownloadSchemes() {
-    return downloadSchemes;
-  }
-
-  public void setDownloadSchemes(final Set<DownloadScheme> s) {
-    downloadSchemes = s;
-  }
-
-  public GitwebLink getGitwebLink() {
-    return gitweb;
-  }
-
-  public void setGitwebLink(final GitwebLink w) {
-    gitweb = w;
-  }
 
   public boolean isUseContributorAgreements() {
     return useContributorAgreements;
@@ -123,41 +77,13 @@ public class GerritConfig implements Cloneable {
     sshdAddress = addr;
   }
 
-  public Project.NameKey getWildProject() {
-    return wildProject;
-  }
-
-  public void setWildProject(final Project.NameKey wp) {
-    wildProject = wp;
-  }
-
-  public ApprovalTypes getApprovalTypes() {
-    return approvalTypes;
-  }
-
-  public void setApprovalTypes(final ApprovalTypes at) {
-    approvalTypes = at;
-  }
-
-  public boolean canEdit(final Account.FieldName f) {
-    return editableAccountFields.contains(f);
-  }
-
-  public Set<Account.FieldName> getEditableAccountFields() {
-    return editableAccountFields;
-  }
-
-  public void setEditableAccountFields(final Set<Account.FieldName> af) {
-    editableAccountFields = af;
-  }
-
-  public List<RegexFindReplace> getCommentLinks() {
-    return commentLinks;
-  }
-
-  public void setCommentLinks(final List<RegexFindReplace> cl) {
-    commentLinks = cl;
-  }
+//  public Project.NameKey getWildProject() {
+//    return wildProject;
+//  }
+//
+//  public void setWildProject(final Project.NameKey wp) {
+//    wildProject = wp;
+//  }
 
   public boolean isDocumentationAvailable() {
     return documentationAvailable;

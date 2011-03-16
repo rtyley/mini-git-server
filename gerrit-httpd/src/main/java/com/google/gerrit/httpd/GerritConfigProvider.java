@@ -14,9 +14,7 @@
 
 package com.google.gerrit.httpd;
 
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.common.data.GerritConfig;
-import com.google.gerrit.common.data.GitwebLink;
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.account.Realm;

@@ -32,7 +32,6 @@ import com.google.gerrit.server.mail.MergedSender;
 import com.google.gerrit.server.mail.RegisterNewEmailSender;
 import com.google.gerrit.server.mail.ReplacePatchSetSender;
 import com.google.gerrit.server.patch.PublishComments;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.query.change.ChangeQueryBuilder;
 import com.google.gerrit.server.query.change.ChangeQueryRewriter;

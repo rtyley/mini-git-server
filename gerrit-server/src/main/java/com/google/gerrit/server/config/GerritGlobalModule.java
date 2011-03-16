@@ -16,7 +16,6 @@ package com.google.gerrit.server.config;
 
 import static com.google.inject.Scopes.SINGLETON;
 
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.lifecycle.LifecycleListener;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.reviewdb.AccountGroup;
@@ -38,7 +37,6 @@ import com.google.gerrit.server.account.GroupCacheImpl;
 import com.google.gerrit.server.account.Realm;
 import com.google.gerrit.server.auth.ldap.LdapModule;
 import com.google.gerrit.server.cache.CachePool;
-import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.events.EventFactory;
 import com.google.gerrit.server.git.ChangeMergeQueue;
 import com.google.gerrit.server.git.GitRepositoryManager;
@@ -57,16 +55,13 @@ import com.google.gerrit.server.mail.SmtpEmailSender;
 import com.google.gerrit.server.patch.PatchListCacheImpl;
 import com.google.gerrit.server.patch.PatchSetInfoFactory;
 import com.google.gerrit.server.project.AccessControlModule;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.ProjectCacheImpl;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.project.ProjectState;
-import com.google.gerrit.server.project.RefControl;
 import com.google.gerrit.server.tools.ToolsCatalog;
 import com.google.gerrit.server.util.IdGenerator;
 import com.google.gerrit.server.workflow.FunctionState;
 import com.google.inject.Inject;
-import com.google.inject.TypeLiteral;
 
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
@@ -75,7 +70,6 @@ import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.PersonIdent;
 
 import java.util.Properties;
-import java.util.Set;
 
 
 /** Starts global state with standard dependencies. */

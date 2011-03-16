@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.changedetail;
 
-import com.google.gerrit.common.data.PatchSetDetail;
 import com.google.gerrit.common.errors.NoSuchEntityException;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.Account;
@@ -29,7 +28,6 @@ import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
 import com.google.gerrit.server.patch.PatchSetInfoFactory;
 import com.google.gerrit.server.patch.PatchSetInfoNotAvailableException;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;

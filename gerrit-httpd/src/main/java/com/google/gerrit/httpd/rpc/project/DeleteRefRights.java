@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.project;
 
-import com.google.gerrit.common.data.ProjectDetail;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.reviewdb.RefRight;

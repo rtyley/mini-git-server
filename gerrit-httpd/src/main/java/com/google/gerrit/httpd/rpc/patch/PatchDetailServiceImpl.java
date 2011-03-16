@@ -14,12 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.patch;
 
-import com.google.gerrit.common.data.ReviewerResult;
-import com.google.gerrit.common.data.ApprovalSummary;
-import com.google.gerrit.common.data.ApprovalSummarySet;
-import com.google.gerrit.common.data.ApprovalTypes;
-import com.google.gerrit.common.data.PatchDetailService;
-import com.google.gerrit.common.data.PatchScript;
 import com.google.gerrit.common.errors.NoSuchEntityException;
 import com.google.gerrit.httpd.rpc.BaseServiceImplementation;
 import com.google.gerrit.httpd.rpc.Handler;
@@ -38,7 +32,6 @@ import com.google.gerrit.reviewdb.Patch.Key;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.AccountInfoCacheFactory;
 import com.google.gerrit.server.patch.PublishComments;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.workflow.FunctionState;
 import com.google.gwt.user.client.rpc.AsyncCallback;

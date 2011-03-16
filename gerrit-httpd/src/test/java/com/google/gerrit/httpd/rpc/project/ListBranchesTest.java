@@ -29,13 +29,11 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.google.gerrit.common.data.ListBranchesResult;
 import com.google.gerrit.reviewdb.Branch;
 import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.project.NoSuchProjectException;
 import com.google.gerrit.server.project.ProjectControl;
-import com.google.gerrit.server.project.RefControl;
 import com.google.gwtorm.client.KeyUtil;
 import com.google.gwtorm.server.StandardKeyEncoder;
 

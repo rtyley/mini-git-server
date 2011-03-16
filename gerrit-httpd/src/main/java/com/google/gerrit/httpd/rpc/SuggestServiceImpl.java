@@ -14,8 +14,6 @@
 
 package com.google.gerrit.httpd.rpc;
 
-import com.google.gerrit.common.data.AccountInfo;
-import com.google.gerrit.common.data.SuggestService;
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.AccountExternalId;
 import com.google.gerrit.reviewdb.AccountGroupName;

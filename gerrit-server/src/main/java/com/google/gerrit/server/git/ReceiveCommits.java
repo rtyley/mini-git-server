@@ -15,9 +15,6 @@
 package com.google.gerrit.server.git;
 
 import com.google.gerrit.common.ChangeHookRunner;
-import com.google.gerrit.common.PageLinks;
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.common.errors.NoSuchAccountException;
 import com.google.gerrit.reviewdb.AbstractAgreement;
 import com.google.gerrit.reviewdb.Account;
@@ -47,9 +44,7 @@ import com.google.gerrit.server.mail.EmailException;
 import com.google.gerrit.server.mail.MergedSender;
 import com.google.gerrit.server.mail.ReplacePatchSetSender;
 import com.google.gerrit.server.patch.PatchSetInfoFactory;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.ProjectControl;
-import com.google.gerrit.server.project.RefControl;
 import com.google.gwtorm.client.AtomicUpdate;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;

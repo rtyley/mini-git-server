@@ -15,7 +15,6 @@
 package com.google.gerrit.httpd.raw;
 
 import com.google.gerrit.common.data.GerritConfig;
-import com.google.gerrit.common.data.HostPageData;
 import com.google.gerrit.httpd.HtmlDomUtil;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;

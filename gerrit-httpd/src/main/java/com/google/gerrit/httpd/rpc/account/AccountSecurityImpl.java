@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.account;
 
-import com.google.gerrit.common.data.AccountSecurity;
 import com.google.gerrit.common.errors.ContactInformationStoreException;
 import com.google.gerrit.common.errors.InvalidSshKeyException;
 import com.google.gerrit.common.errors.NameAlreadyUsedException;

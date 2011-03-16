@@ -15,7 +15,6 @@
 package com.google.gerrit.httpd.rpc;
 
 import com.google.gerrit.common.data.SshHostKey;
-import com.google.gerrit.common.data.SystemInfoService;
 import com.google.gerrit.reviewdb.ContributorAgreement;
 import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.ssh.SshInfo;

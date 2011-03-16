@@ -15,7 +15,6 @@
 package com.google.gerrit.httpd.rpc.changedetail;
 
 import com.google.gerrit.common.ChangeHookRunner;
-import com.google.gerrit.common.data.ChangeDetail;
 import com.google.gerrit.common.errors.NoSuchEntityException;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.Change;
@@ -28,7 +27,6 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.mail.AbandonedSender;
 import com.google.gerrit.server.mail.EmailException;
 import com.google.gerrit.server.patch.PatchSetInfoNotAvailableException;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gwtorm.client.AtomicUpdate;
 import com.google.gwtorm.client.OrmException;

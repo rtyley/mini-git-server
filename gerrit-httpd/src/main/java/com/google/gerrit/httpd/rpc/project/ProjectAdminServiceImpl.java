@@ -14,9 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.project;
 
-import com.google.gerrit.common.data.ListBranchesResult;
-import com.google.gerrit.common.data.ProjectAdminService;
-import com.google.gerrit.common.data.ProjectDetail;
 import com.google.gerrit.reviewdb.ApprovalCategory;
 import com.google.gerrit.reviewdb.Branch;
 import com.google.gerrit.reviewdb.Project;

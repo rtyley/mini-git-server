@@ -14,8 +14,6 @@
 
 package com.google.gerrit.server.events;
 
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.Branch;
 import com.google.gerrit.reviewdb.Change;

@@ -33,23 +33,24 @@ limitations under the License.
   </description>
 
   <dependencies>
-
+<!--
     <dependency>
       <groupId>com.madgag</groupId>
       <artifactId>gerrit-reviewdb</artifactId>
       <version>${project.version}</version>
     </dependency>
 
+
     <dependency>
       <groupId>com.madgag</groupId>
       <artifactId>gerrit-prettify</artifactId>
       <version>${project.version}</version>
     </dependency>
-
+    -->
+      
     <dependency>
       <groupId>com.madgag</groupId>
-      <artifactId>gerrit-patch-jgit</artifactId>
-      <version>${project.version}</version>
+      <artifactId>org.eclipse.jgit</artifactId>
     </dependency>
   </dependencies>
 

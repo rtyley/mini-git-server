@@ -14,9 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.project;
 
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
-import com.google.gerrit.common.data.ProjectDetail;
 import com.google.gerrit.common.errors.InvalidNameException;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.AccountGroup;
@@ -30,7 +27,6 @@ import com.google.gerrit.server.project.NoSuchProjectException;
 import com.google.gerrit.server.project.NoSuchRefException;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectControl;
-import com.google.gerrit.server.project.RefControl;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;

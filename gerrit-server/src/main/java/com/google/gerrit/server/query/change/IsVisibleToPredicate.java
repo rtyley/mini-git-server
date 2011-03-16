@@ -18,7 +18,6 @@ import com.google.gerrit.reviewdb.Change;
 import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.query.OperatorPredicate;
 import com.google.gwtorm.client.OrmException;

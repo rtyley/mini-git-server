@@ -14,7 +14,6 @@
 
 package com.google.gerrit.server.query.change;
 
-import com.google.gerrit.common.data.ApprovalTypes;
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.AccountGroup;
 import com.google.gerrit.reviewdb.Change;
@@ -29,7 +28,6 @@ import com.google.gerrit.server.config.AuthConfig;
 import com.google.gerrit.server.config.WildProjectName;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.patch.PatchListCache;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.query.IntPredicate;
 import com.google.gerrit.server.query.Predicate;
 import com.google.gerrit.server.query.QueryBuilder;

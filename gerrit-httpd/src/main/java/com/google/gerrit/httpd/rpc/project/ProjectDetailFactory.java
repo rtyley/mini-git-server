@@ -14,10 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.project;
 
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
-import com.google.gerrit.common.data.InheritedRefRight;
-import com.google.gerrit.common.data.ProjectDetail;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.AccountGroup;
 import com.google.gerrit.reviewdb.Project;
@@ -26,7 +22,6 @@ import com.google.gerrit.server.account.GroupCache;
 import com.google.gerrit.server.project.NoSuchProjectException;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.project.ProjectState;
-import com.google.gerrit.server.project.RefControl;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 

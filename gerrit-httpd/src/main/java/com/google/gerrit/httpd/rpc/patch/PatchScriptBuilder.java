@@ -14,8 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.patch;
 
-import com.google.gerrit.common.data.CommentDetail;
-import com.google.gerrit.common.data.PatchScript;
 import com.google.gerrit.common.data.PatchScript.DisplayMethod;
 import com.google.gerrit.prettify.common.EditList;
 import com.google.gerrit.prettify.common.SparseFileContent;

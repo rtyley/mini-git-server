@@ -14,10 +14,6 @@
 
 package com.google.gerrit.httpd.rpc.changedetail;
 
-import com.google.gerrit.common.data.AccountInfoCache;
-import com.google.gerrit.common.data.ApprovalType;
-import com.google.gerrit.common.data.ApprovalTypes;
-import com.google.gerrit.common.data.PatchSetPublishDetail;
 import com.google.gerrit.httpd.rpc.Handler;
 import com.google.gerrit.reviewdb.AccountGroup;
 import com.google.gerrit.reviewdb.ApprovalCategory;
@@ -34,11 +30,9 @@ import com.google.gerrit.server.account.AccountInfoCacheFactory;
 import com.google.gerrit.server.patch.PatchSetInfoFactory;
 import com.google.gerrit.server.patch.PatchSetInfoNotAvailableException;
 import com.google.gerrit.server.project.CanSubmitResult;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectState;
-import com.google.gerrit.server.project.RefControl;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
