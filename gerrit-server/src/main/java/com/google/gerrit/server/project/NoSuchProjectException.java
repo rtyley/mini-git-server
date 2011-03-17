@@ -14,17 +14,15 @@
 
 package com.google.gerrit.server.project;
 
-import com.google.gerrit.reviewdb.Project;
-
 /** Indicates the project does not exist. */
 public class NoSuchProjectException extends Exception {
   private static final long serialVersionUID = 1L;
 
-  public NoSuchProjectException(final Project.NameKey key) {
+  public NoSuchProjectException(final String key) {
     this(key, null);
   }
 
-  public NoSuchProjectException(final Project.NameKey key, final Throwable why) {
-    super(key.toString(), why);
+  public NoSuchProjectException(final String key, final Throwable why) {
+    super(key, why);
   }
 }

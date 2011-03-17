@@ -53,7 +53,7 @@ final class ListProjects extends BaseCommand {
 
   @Inject
   @WildProjectName
-  private Project.NameKey wildProject;
+  private String wildProject;
 
   @Option(name = "--show-branch", aliases = {"-b"}, usage = "displays the sha of each project in the specified branch")
   private String showBranch;
@@ -164,7 +164,7 @@ final class ListProjects extends BaseCommand {
     }
   }
 
-  private Ref getBranchRef(Project.NameKey projectName) {
+  private Ref getBranchRef(String projectName) {
     try {
       final Repository r = repoManager.openRepository(projectName);
       try {

@@ -37,19 +37,19 @@ import java.util.Map;
 
 class ListBranches extends Handler<ListBranchesResult> {
   interface Factory {
-    ListBranches create(@Assisted Project.NameKey name);
+    ListBranches create(@Assisted String name);
   }
 
   private final ProjectControl.Factory projectControlFactory;
   private final GitRepositoryManager repoManager;
 
-  private final Project.NameKey projectName;
+  private final String projectName;
 
   @Inject
   ListBranches(final ProjectControl.Factory projectControlFactory,
       final GitRepositoryManager repoManager,
 
-      @Assisted final Project.NameKey name) {
+      @Assisted final String name) {
     this.projectControlFactory = projectControlFactory;
     this.repoManager = repoManager;
 

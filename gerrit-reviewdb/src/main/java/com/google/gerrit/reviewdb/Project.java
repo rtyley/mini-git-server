@@ -44,7 +44,7 @@ public final class Project {
       name = newValue;
     }
 
-    /** Parse a Project.NameKey out of a string representation. */
+    /** Parse a String out of a string representation. */
     public static NameKey parse(final String str) {
       final NameKey r = new NameKey();
       r.fromString(str);
@@ -108,13 +108,13 @@ public final class Project {
   protected Project() {
   }
 
-  public Project(final Project.NameKey newName) {
+  public Project(final String newName) {
     name = newName;
     useContributorAgreements = true;
     setSubmitType(SubmitType.MERGE_IF_NECESSARY);
   }
 
-  public Project.NameKey getNameKey() {
+  public String getNameKey() {
     return name;
   }
 
@@ -179,11 +179,11 @@ public final class Project {
     submitType = update.submitType;
   }
 
-  public Project.NameKey getParent() {
+  public String getParent() {
     return parent;
   }
 
-  public void setParent(final Project.NameKey parentProjectName) {
+  public void setParent(final String parentProjectName) {
       parent = parentProjectName;
   }
 }

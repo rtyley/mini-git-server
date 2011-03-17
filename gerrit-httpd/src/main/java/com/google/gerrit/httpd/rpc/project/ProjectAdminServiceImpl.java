@@ -59,7 +59,7 @@ class ProjectAdminServiceImpl implements ProjectAdminService {
   }
 
   @Override
-  public void projectDetail(final Project.NameKey projectName,
+  public void projectDetail(final String projectName,
       final AsyncCallback<ProjectDetail> callback) {
     projectDetailFactory.create(projectName).to(callback);
   }
@@ -71,13 +71,13 @@ class ProjectAdminServiceImpl implements ProjectAdminService {
   }
 
   @Override
-  public void deleteRight(final Project.NameKey projectName,
+  public void deleteRight(final String projectName,
       final Set<RefRight.Key> toRemove, final AsyncCallback<ProjectDetail> callback) {
     deleteRefRightsFactory.create(projectName, toRemove).to(callback);
   }
 
   @Override
-  public void addRight(final Project.NameKey projectName,
+  public void addRight(final String projectName,
       final ApprovalCategory.Id categoryId, final String groupName,
       final String refPattern, final short min, final short max,
       final AsyncCallback<ProjectDetail> callback) {
@@ -86,20 +86,20 @@ class ProjectAdminServiceImpl implements ProjectAdminService {
   }
 
   @Override
-  public void listBranches(final Project.NameKey projectName,
+  public void listBranches(final String projectName,
       final AsyncCallback<ListBranchesResult> callback) {
     listBranchesFactory.create(projectName).to(callback);
   }
 
   @Override
-  public void deleteBranch(final Project.NameKey projectName,
+  public void deleteBranch(final String projectName,
       final Set<Branch.NameKey> toRemove,
       final AsyncCallback<Set<Branch.NameKey>> callback) {
     deleteBranchesFactory.create(projectName, toRemove).to(callback);
   }
 
   @Override
-  public void addBranch(final Project.NameKey projectName,
+  public void addBranch(final String projectName,
       final String branchName, final String startingRevision,
       final AsyncCallback<ListBranchesResult> callback) {
     addBranchFactory.create(projectName, branchName, startingRevision).to(

@@ -44,7 +44,7 @@ class AddBranch extends Handler<ListBranchesResult> {
   private static final Logger log = LoggerFactory.getLogger(AddBranch.class);
 
   interface Factory {
-    AddBranch create(@Assisted Project.NameKey projectName,
+    AddBranch create(@Assisted String projectName,
         @Assisted("branchName") String branchName,
         @Assisted("startingRevision") String startingRevision);
   }
@@ -56,7 +56,7 @@ class AddBranch extends Handler<ListBranchesResult> {
   private final ReplicationQueue replication;
   private final ChangeHookRunner hooks;
 
-  private final Project.NameKey projectName;
+  private final String projectName;
   private final String branchName;
   private final String startingRevision;
 
@@ -68,7 +68,7 @@ class AddBranch extends Handler<ListBranchesResult> {
       final ReplicationQueue replication,
       final ChangeHookRunner hooks,
 
-      @Assisted Project.NameKey projectName,
+      @Assisted String projectName,
       @Assisted("branchName") String branchName,
       @Assisted("startingRevision") String startingRevision) {
     this.projectControlFactory = projectControlFactory;

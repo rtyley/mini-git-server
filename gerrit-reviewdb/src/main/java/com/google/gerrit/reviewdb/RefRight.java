@@ -53,11 +53,11 @@ public final class RefRight {
     }
   }
 
-  public static class Key extends CompoundKey<Project.NameKey> {
+  public static class Key extends CompoundKey<String> {
     private static final long serialVersionUID = 1L;
 
     @Column(id = 1)
-    protected Project.NameKey projectName;
+    protected String projectName;
 
     @Column(id = 2)
     protected RefPattern refPattern;
@@ -69,13 +69,13 @@ public final class RefRight {
     protected AccountGroup.Id groupId;
 
     protected Key() {
-      projectName = new Project.NameKey();
+      projectName = new String();
       refPattern = new RefPattern();
       categoryId = new ApprovalCategory.Id();
       groupId = new AccountGroup.Id();
     }
 
-    public Key(final Project.NameKey projectName, final RefPattern refPattern,
+    public Key(final String projectName, final RefPattern refPattern,
         final ApprovalCategory.Id categoryId, final AccountGroup.Id groupId) {
       this.projectName = projectName;
       this.refPattern = refPattern;
@@ -84,11 +84,11 @@ public final class RefRight {
     }
 
     @Override
-    public Project.NameKey getParentKey() {
+    public String getParentKey() {
       return projectName;
     }
 
-    public Project.NameKey getProjectNameKey() {
+    public String getProjectNameKey() {
       return projectName;
     }
 
@@ -145,7 +145,7 @@ public final class RefRight {
     return key.refPattern.get();
   }
 
-  public Project.NameKey getProjectNameKey() {
+  public String getProjectNameKey() {
     return getKey().getProjectNameKey();
   }
 

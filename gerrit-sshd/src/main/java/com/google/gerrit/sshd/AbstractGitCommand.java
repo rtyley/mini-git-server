@@ -32,7 +32,7 @@ import java.net.SocketAddress;
 
 public abstract class AbstractGitCommand extends BaseCommand {
   @Argument(index = 0, metaVar = "PROJECT.git", required = true, usage = "project name")
-  protected ProjectControl projectControl;
+  protected String projectName;
 
   @Inject
   private GitRepositoryManager repoManager;
@@ -69,7 +69,7 @@ public abstract class AbstractGitCommand extends BaseCommand {
         }
 
         @Override
-        public Project.NameKey getProjectName() {
+        public String getProjectName() {
           Project project = projectControl.getProjectState().getProject();
           return project.getNameKey();
         }
@@ -85,12 +85,11 @@ public abstract class AbstractGitCommand extends BaseCommand {
   }
 
   private void service() throws IOException, Failure {
-    project = projectControl.getProjectState().getProject();
 
     try {
-      repo = repoManager.openRepository(project.getNameKey());
+      repo = repoManager.openRepository(projectName);
     } catch (RepositoryNotFoundException e) {
-      throw new Failure(1, "fatal: '" + project.getName() + "': not a git archive", e);
+      throw new Failure(1, "fatal: '" + projectName + "': not a git archive", e);
     }
 
     try {

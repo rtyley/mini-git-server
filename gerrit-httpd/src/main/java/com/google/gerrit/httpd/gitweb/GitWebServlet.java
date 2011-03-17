@@ -322,7 +322,7 @@ class GitWebServlet extends HttpServlet {
       name = name.substring(0, name.length() - 4);
     }
 
-    final Project.NameKey nameKey = new Project.NameKey(name);
+    final String nameKey = new String(name);
     final ProjectControl project;
     try {
       project = projectControl.validateFor(nameKey);

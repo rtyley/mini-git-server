@@ -34,18 +34,18 @@ public final class AccountProjectWatch {
     protected Account.Id accountId;
 
     @Column(id = 2)
-    protected Project.NameKey projectName;
+    protected String projectName;
 
     @Column(id = 3)
     protected Filter filter;
 
     protected Key() {
       accountId = new Account.Id();
-      projectName = new Project.NameKey();
+      projectName = new String();
       filter = new Filter();
     }
 
-    public Key(Account.Id a, Project.NameKey g, String f) {
+    public Key(Account.Id a, String g, String f) {
       accountId = a;
       projectName = g;
       filter = new Filter(f);
@@ -116,7 +116,7 @@ public final class AccountProjectWatch {
     return key.accountId;
   }
 
-  public Project.NameKey getProjectNameKey() {
+  public String getProjectNameKey() {
     return key.projectName;
   }
 

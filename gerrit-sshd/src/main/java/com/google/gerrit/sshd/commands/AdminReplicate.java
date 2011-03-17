@@ -73,7 +73,7 @@ final class AdminReplicate extends BaseCommand {
 
     } else {
       for (final String name : projectNames) {
-        final Project.NameKey key = new Project.NameKey(name);
+        final String key = new String(name);
         if (projectCache.get(key) != null) {
           replication.scheduleFullSync(key, urlMatch);
         } else {

@@ -38,7 +38,7 @@ class DeleteBranches extends Handler<Set<Branch.NameKey>> {
       LoggerFactory.getLogger(DeleteBranches.class);
 
   interface Factory {
-    DeleteBranches create(@Assisted Project.NameKey name,
+    DeleteBranches create(@Assisted String name,
         @Assisted Set<Branch.NameKey> toRemove);
   }
 
@@ -48,7 +48,7 @@ class DeleteBranches extends Handler<Set<Branch.NameKey>> {
   private final IdentifiedUser identifiedUser;
   private final ChangeHookRunner hooks;
 
-  private final Project.NameKey projectName;
+  private final String projectName;
   private final Set<Branch.NameKey> toRemove;
 
   @Inject
@@ -58,7 +58,7 @@ class DeleteBranches extends Handler<Set<Branch.NameKey>> {
       final IdentifiedUser identifiedUser,
       final ChangeHookRunner hooks,
 
-      @Assisted Project.NameKey name, @Assisted Set<Branch.NameKey> toRemove) {
+      @Assisted String name, @Assisted Set<Branch.NameKey> toRemove) {
     this.projectControlFactory = projectControlFactory;
     this.repoManager = repoManager;
     this.replication = replication;

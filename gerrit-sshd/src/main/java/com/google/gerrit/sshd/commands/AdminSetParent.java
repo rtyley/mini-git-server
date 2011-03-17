@@ -47,7 +47,7 @@ final class AdminSetParent extends BaseCommand {
 
   @Inject
   @WildProjectName
-  private Project.NameKey wildProject;
+  private String wildProject;
 
   @Override
   public void start(final Environment env) {
@@ -62,8 +62,8 @@ final class AdminSetParent extends BaseCommand {
 
   private void updateParents() throws OrmException, UnloggedFailure {
     final StringBuilder err = new StringBuilder();
-    final Set<Project.NameKey> grandParents = new HashSet<Project.NameKey>();
-    Project.NameKey newParentKey;
+    final Set<String> grandParents = new HashSet<String>();
+    String newParentKey;
 
     grandParents.add(wildProject);
 
@@ -73,7 +73,7 @@ final class AdminSetParent extends BaseCommand {
       // Catalog all grandparents of the "parent", we want to
       // catch a cycle in the parent pointers before it occurs.
       //
-      Project.NameKey gp = newParent.getProject().getParent();
+      String gp = newParent.getProject().getParent();
       while (gp != null && grandParents.add(gp)) {
         final ProjectState s = projectCache.get(gp);
         if (s != null) {
@@ -89,7 +89,7 @@ final class AdminSetParent extends BaseCommand {
     }
 
     for (final ProjectControl pc : children) {
-      final Project.NameKey key = pc.getProject().getNameKey();
+      final String key = pc.getProject().getNameKey();
       final String name = pc.getProject().getName();
 
       if (wildProject.equals(key)) {

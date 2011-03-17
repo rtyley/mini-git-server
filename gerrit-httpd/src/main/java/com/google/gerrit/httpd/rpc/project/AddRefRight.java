@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 
 class AddRefRight extends Handler<ProjectDetail> {
   interface Factory {
-    AddRefRight create(@Assisted Project.NameKey projectName,
+    AddRefRight create(@Assisted String projectName,
         @Assisted ApprovalCategory.Id categoryId,
         @Assisted("groupName") String groupName,
         @Nullable @Assisted("refPattern") String refPattern,
@@ -50,7 +50,7 @@ class AddRefRight extends Handler<ProjectDetail> {
   private final ReviewDb db;
   private final ApprovalTypes approvalTypes;
 
-  private final Project.NameKey projectName;
+  private final String projectName;
   private final ApprovalCategory.Id categoryId;
   private final AccountGroup.NameKey groupName;
   private final String refPattern;
@@ -63,7 +63,7 @@ class AddRefRight extends Handler<ProjectDetail> {
       final ProjectCache projectCache, final GroupCache groupCache,
       final ReviewDb db, final ApprovalTypes approvalTypes,
 
-      @Assisted final Project.NameKey projectName,
+      @Assisted final String projectName,
       @Assisted final ApprovalCategory.Id categoryId,
       @Assisted("groupName") final String groupName,
       @Nullable @Assisted("refPattern") final String refPattern,

@@ -144,7 +144,7 @@ class AccountServiceImpl extends BaseServiceImplementation implements
     run(callback, new Action<AccountProjectWatchInfo>() {
       public AccountProjectWatchInfo run(ReviewDb db) throws OrmException,
           NoSuchProjectException, InvalidQueryException {
-        final Project.NameKey nameKey = new Project.NameKey(projectName);
+        final String nameKey = new String(projectName);
         final ProjectControl ctl = projectControlFactory.validateFor(nameKey);
 
         if (filter != null) {

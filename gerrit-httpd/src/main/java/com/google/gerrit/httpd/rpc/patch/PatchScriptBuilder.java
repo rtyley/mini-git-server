@@ -65,7 +65,7 @@ class PatchScriptBuilder {
   };
 
   private Repository db;
-  private Project.NameKey projectKey;
+  private String projectKey;
   private ObjectReader reader;
   private Change change;
   private AccountDiffPreference diffPrefs;
@@ -89,7 +89,7 @@ class PatchScriptBuilder {
     patchListCache = plc;
   }
 
-  void setRepository(Repository r, Project.NameKey projectKey) {
+  void setRepository(Repository r, String projectKey) {
     this.db = r;
     this.projectKey = projectKey;
   }

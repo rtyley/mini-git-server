@@ -59,7 +59,7 @@ public class ListBranchesTest extends LocalDiskRepositoryTestCase {
   }
 
   private ObjectId idA;
-  private Project.NameKey name;
+  private String name;
   private Repository realDb;
   private Repository mockDb;
   private ProjectControl.Factory pcf;
@@ -73,7 +73,7 @@ public class ListBranchesTest extends LocalDiskRepositoryTestCase {
     super.setUp();
 
     idA = ObjectId.fromString("df84c2f4f7ce7e0b25cdeac84b8870bcff319885");
-    name = new Project.NameKey("test");
+    name = new String("test");
     realDb = createBareRepository();
 
     mockDb = createStrictMock(Repository.class);

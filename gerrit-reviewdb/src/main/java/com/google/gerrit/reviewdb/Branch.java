@@ -23,20 +23,20 @@ public final class Branch {
   public static final String R_REFS = "refs/";
 
   /** Branch name key */
-  public static class NameKey extends StringKey<Project.NameKey> {
+  public static class NameKey extends StringKey<String> {
     private static final long serialVersionUID = 1L;
 
     @Column(id = 1)
-    protected Project.NameKey projectName;
+    protected String projectName;
 
     @Column(id = 2)
     protected String branchName;
 
     protected NameKey() {
-      projectName = new Project.NameKey();
+      projectName = new String();
     }
 
-    public NameKey(final Project.NameKey proj, final String n) {
+    public NameKey(final String proj, final String n) {
       projectName = proj;
       branchName = n;
     }
@@ -52,7 +52,7 @@ public final class Branch {
     }
 
     @Override
-    public Project.NameKey getParentKey() {
+    public String getParentKey() {
       return projectName;
     }
 

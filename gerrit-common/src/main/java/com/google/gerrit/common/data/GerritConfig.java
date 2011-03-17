@@ -24,7 +24,7 @@ public class GerritConfig implements Cloneable {
   protected boolean allowRegisterNewEmail;
   protected String gitDaemonUrl;
   protected String sshdAddress;
-  // protected Project.NameKey wildProject;
+  // protected String wildProject;
   protected boolean documentationAvailable;
 
   protected String backgroundColor;
@@ -77,11 +77,11 @@ public class GerritConfig implements Cloneable {
     sshdAddress = addr;
   }
 
-//  public Project.NameKey getWildProject() {
+//  public String getWildProject() {
 //    return wildProject;
 //  }
 //
-//  public void setWildProject(final Project.NameKey wp) {
+//  public void setWildProject(final String wp) {
 //    wildProject = wp;
 //  }
 

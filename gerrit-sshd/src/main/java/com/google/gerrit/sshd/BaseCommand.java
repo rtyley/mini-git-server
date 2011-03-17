@@ -15,7 +15,7 @@
 package com.google.gerrit.sshd;
 
 import com.google.gerrit.reviewdb.Project;
-import com.google.gerrit.reviewdb.Project.NameKey;
+import com.google.gerrit.reviewdb.String;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RequestCleanup;
@@ -350,7 +350,7 @@ public abstract class BaseCommand implements Command {
     private final CommandRunnable thunk;
     private final Context context;
     private final String taskName;
-    private Project.NameKey projectName;
+    private String projectName;
 
     private TaskThunk(final CommandRunnable thunk) {
       this.thunk = thunk;
@@ -452,7 +452,7 @@ public abstract class BaseCommand implements Command {
     // project name
     public void executeParseCommand() throws Exception;
 
-    public Project.NameKey getProjectName();
+    public String getProjectName();
   }
 
   /** Thrown from {@link CommandRunnable#run()} with client message and code. */

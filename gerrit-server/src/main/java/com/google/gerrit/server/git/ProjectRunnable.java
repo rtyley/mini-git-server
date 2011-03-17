@@ -13,11 +13,9 @@
 // limitations under the License.
 package com.google.gerrit.server.git;
 
-import com.google.gerrit.reviewdb.Project;
-
 /** Used to retrieve the project name from an operation **/
 public interface ProjectRunnable extends Runnable {
-  Project.NameKey getProjectNameKey();
+  String getProjectNameKey();
 
   String getRemoteName();
 

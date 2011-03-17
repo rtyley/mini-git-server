@@ -109,7 +109,7 @@ public class ProjectServlet extends GitServlet {
           return;
         }
 
-        Project.NameKey dst = pc.getProject().getNameKey();
+        String dst = pc.getProject().getNameKey();
         StringBuilder r = new StringBuilder();
         r.append(urlProvider.get());
         r.append('#');
@@ -153,7 +153,7 @@ public class ProjectServlet extends GitServlet {
 
       final ProjectControl pc;
       try {
-        final Project.NameKey nameKey = new Project.NameKey(projectName);
+        final String nameKey = new String(projectName);
         pc = projectControlFactory.controlFor(nameKey);
       } catch (NoSuchProjectException err) {
         throw new RepositoryNotFoundException(projectName);

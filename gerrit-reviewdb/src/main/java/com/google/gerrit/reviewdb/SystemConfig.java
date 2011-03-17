@@ -76,7 +76,7 @@ public final class SystemConfig {
 
   /** Identity of the project  */
   @Column(id = 7)
-  public Project.NameKey wildProjectName;
+  public String wildProjectName;
 
   /** Identity of the batch users group */
   @Column(id = 8)

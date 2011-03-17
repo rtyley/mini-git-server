@@ -81,7 +81,7 @@ class PatchScriptFactory extends Handler<PatchScript> {
 
   private Change change;
   private PatchSet patchSet;
-  private Project.NameKey projectKey;
+  private String projectKey;
   private ChangeControl control;
   private ObjectId aId;
   private ObjectId bId;

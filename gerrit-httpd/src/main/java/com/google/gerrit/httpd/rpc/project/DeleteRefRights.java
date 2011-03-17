@@ -29,7 +29,7 @@ import java.util.Set;
 
 class DeleteRefRights extends Handler<ProjectDetail> {
   interface Factory {
-    DeleteRefRights create(@Assisted Project.NameKey projectName,
+    DeleteRefRights create(@Assisted String projectName,
         @Assisted Set<RefRight.Key> toRemove);
   }
 
@@ -38,7 +38,7 @@ class DeleteRefRights extends Handler<ProjectDetail> {
   private final ProjectCache projectCache;
   private final ReviewDb db;
 
-  private final Project.NameKey projectName;
+  private final String projectName;
   private final Set<RefRight.Key> toRemove;
 
   @Inject
@@ -46,7 +46,7 @@ class DeleteRefRights extends Handler<ProjectDetail> {
       final ProjectControl.Factory projectControlFactory,
       final ProjectCache projectCache, final ReviewDb db,
 
-      @Assisted final Project.NameKey projectName,
+      @Assisted final String projectName,
       @Assisted final Set<RefRight.Key> toRemove) {
     this.projectDetailFactory = projectDetailFactory;
     this.projectControlFactory = projectControlFactory;

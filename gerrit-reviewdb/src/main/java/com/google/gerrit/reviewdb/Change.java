@@ -418,7 +418,7 @@ public final class Change {
     return dest;
   }
 
-  public Project.NameKey getProject() {
+  public String getProject() {
     return dest.getParentKey();
   }
 

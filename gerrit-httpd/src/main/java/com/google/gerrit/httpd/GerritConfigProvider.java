@@ -44,7 +44,7 @@ class GerritConfigProvider implements Provider<GerritConfig> {
   private final AuthConfig authConfig;
   private final DownloadSchemeConfig schemeConfig;
   private final GitWebConfig gitWebConfig;
-  private final Project.NameKey wildProject;
+  private final String wildProject;
   private final SshInfo sshInfo;
   private final ApprovalTypes approvalTypes;
 
@@ -55,7 +55,7 @@ class GerritConfigProvider implements Provider<GerritConfig> {
   @Inject
   GerritConfigProvider(final Realm r, @GerritServerConfig final Config gsc,
       final AuthConfig ac, final GitWebConfig gwc,
-      @WildProjectName final Project.NameKey wp, final SshInfo si,
+      @WildProjectName final String wp, final SshInfo si,
       final ApprovalTypes at, final ContactStore cs, final ServletContext sc,
       final DownloadSchemeConfig dc) {
     realm = r;

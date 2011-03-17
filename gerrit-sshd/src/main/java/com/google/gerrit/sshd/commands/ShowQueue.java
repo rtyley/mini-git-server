@@ -132,7 +132,7 @@ final class ShowQueue extends BaseCommand {
 
       // If the user is not administrator, check if has rights to see
       // the Task
-      Project.NameKey projectName = null;
+      String projectName = null;
       String remoteName = null;
 
       if (!isAdministrator) {

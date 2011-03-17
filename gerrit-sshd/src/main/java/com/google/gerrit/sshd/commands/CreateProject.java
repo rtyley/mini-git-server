@@ -117,7 +117,7 @@ final class CreateProject extends BaseCommand {
   @GerritPersonIdent
   private PersonIdent serverIdent;
 
-  private Project.NameKey nameKey;
+  private String nameKey;
 
   @Override
   public void start(final Environment env) {
@@ -130,7 +130,7 @@ final class CreateProject extends BaseCommand {
 
         try {
           validateParameters();
-          nameKey = new Project.NameKey(projectName);
+          nameKey = new String(projectName);
 
           if (!permissionsOnly) {
             final Repository repo = repoManager.createRepository(nameKey);
@@ -170,7 +170,7 @@ final class CreateProject extends BaseCommand {
   }
 
   private void createEmptyCommit(final Repository repo,
-      final Project.NameKey project, final String ref) throws IOException {
+      final String project, final String ref) throws IOException {
     ObjectInserter oi = repo.newObjectInserter();
     try {
       CommitBuilder cb = new CommitBuilder();
