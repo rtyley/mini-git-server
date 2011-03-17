@@ -19,7 +19,6 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.git.WorkQueue.ProjectTask;
 import com.google.gerrit.server.git.WorkQueue.Task;
-import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.util.IdGenerator;
 import com.google.gerrit.sshd.AdminHighPriorityCommand;
 import com.google.gerrit.sshd.BaseCommand;

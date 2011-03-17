@@ -18,7 +18,6 @@ import com.google.gerrit.common.data.GerritConfig;
 import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.config.GerritServerConfig;
-import com.google.gerrit.server.config.WildProjectName;
 import com.google.gerrit.server.contact.ContactStore;
 import com.google.gerrit.server.mail.EmailSender;
 import com.google.gerrit.server.ssh.SshInfo;

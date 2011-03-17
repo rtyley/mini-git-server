@@ -19,7 +19,6 @@ import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.server.*;
 import com.google.gerrit.server.cache.CachePool;
 import com.google.gerrit.server.git.*;
-import com.google.gerrit.server.project.*;
 import com.google.gerrit.server.util.IdGenerator;
 import com.google.inject.Inject;
 import org.apache.velocity.app.Velocity;
@@ -100,11 +99,7 @@ public class ToyGerritGlobalModule extends FactoryModule {
 
     bind(IdGenerator.class);
     bind(CachePool.class);
-//    install(AccountByEmailCacheImpl.module());
-//    install(AccountCacheImpl.module());
-//    install(GroupCacheImpl.module());
-//    install(PatchListCacheImpl.module());
-    install(ProjectCacheImpl.module());
+//    install(ProjectCacheImpl.module());
 
 //
 //    bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
