@@ -16,7 +16,6 @@ package com.google.gerrit.server.config;
 
 import com.google.gerrit.lifecycle.LifecycleListener;
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.server.git.PushAllProjectsOp;
 import com.google.gerrit.server.git.ReloadSubmitQueueOp;
 import com.google.inject.Inject;
 

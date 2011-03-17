@@ -68,7 +68,7 @@ import org.apache.sshd.server.CommandFactory;
 import org.apache.sshd.server.FileSystemFactory;
 import org.apache.sshd.server.FileSystemView;
 import org.apache.sshd.server.ForwardingFilter;
-import org.apache.sshd.server.PublickeyAuthenticator;
+import org.apache.sshd.server.]PublickeyAuthenticator;
 import org.apache.sshd.server.SshFile;
 import org.apache.sshd.server.UserAuth;
 import org.apache.sshd.server.auth.UserAuthPublicKey;

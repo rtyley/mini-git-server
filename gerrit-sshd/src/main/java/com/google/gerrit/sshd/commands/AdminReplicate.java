@@ -15,7 +15,6 @@
 package com.google.gerrit.sshd.commands;
 
 import com.google.gerrit.reviewdb.Project;
-import com.google.gerrit.server.git.PushAllProjectsOp;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.sshd.AdminCommand;
 import com.google.gerrit.sshd.BaseCommand;

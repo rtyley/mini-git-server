@@ -20,7 +20,6 @@ import com.google.gerrit.reviewdb.AccountGroup;
 import com.google.gerrit.reviewdb.AccountGroupMember;
 import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.account.AccountInfoCacheFactory;
-import com.google.gerrit.server.account.NoSuchGroupException;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;

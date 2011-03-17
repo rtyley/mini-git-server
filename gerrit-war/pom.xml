@@ -70,14 +70,6 @@ limitations under the License.
 
     <dependency>
       <groupId>com.madgag</groupId>
-      <artifactId>gerrit-gwtui</artifactId>
-      <version>${project.version}</version>
-      <type>war</type>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.madgag</groupId>
       <artifactId>gerrit-main</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>

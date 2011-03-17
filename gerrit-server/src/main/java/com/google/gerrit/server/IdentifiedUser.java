@@ -14,7 +14,6 @@
 
 package com.google.gerrit.server;
 
-import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -104,42 +103,16 @@ public class IdentifiedUser extends CurrentUser {
       LoggerFactory.getLogger(IdentifiedUser.class);
 
   private final Provider<String> canonicalUrl;
-  private final Realm realm;
-  private final AccountCache accountCache;
 
-  private final Account.Id accountId;
 
-  private AccountState state;
-
-  private IdentifiedUser(final AccessPath accessPath,
-      final AuthConfig authConfig, final Provider<String> canonicalUrl,
-      final Realm realm, final AccountCache accountCache, final Account.Id id) {
+  private IdentifiedUser(final AccessPath accessPath) {
     super(accessPath, authConfig);
-    this.canonicalUrl = canonicalUrl;
-    this.realm = realm;
-    this.accountCache = accountCache;
-    this.accountId = id;
   }
 
-  private AccountState state() {
-    if (state == null) {
-      state = accountCache.get(getAccountId());
-    }
-    return state;
-  }
-
-  /** The account identity for the user. */
-  public Account.Id getAccountId() {
-    return accountId;
-  }
 
   /** @return the user's user name; null if one has not been selected/assigned. */
   public String getUserName() {
     return state().getUserName();
-  }
-
-  public Account getAccount() {
-    return state().getAccount();
   }
 
   public PersonIdent newRefLogIdent() {
@@ -147,9 +120,7 @@ public class IdentifiedUser extends CurrentUser {
   }
 
   public PersonIdent newRefLogIdent(final Date when, final TimeZone tz) {
-    final Account ua = getAccount();
-
-    String name = ua.getFullName();
+    String name = getUserName();
     if (name == null || name.isEmpty()) {
       name = ua.getPreferredEmail();
     }
