@@ -27,7 +27,6 @@ import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Named;
 
-import java.util.Collection;
 import java.util.Collections;
 
 /** Cache of project information, including access rights. */

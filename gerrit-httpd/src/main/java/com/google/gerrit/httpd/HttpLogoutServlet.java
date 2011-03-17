@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd;
 
-import com.google.gerrit.server.account.AccountManager;
 import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.inject.Inject;
 import com.google.inject.Provider;

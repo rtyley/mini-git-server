@@ -16,7 +16,6 @@ package com.google.gerrit.httpd.rpc;
 
 import com.google.gerrit.common.errors.CorruptEntityException;
 import com.google.gerrit.common.errors.NoSuchEntityException;
-import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.project.NoSuchProjectException;
 import com.google.gerrit.server.project.NoSuchRefException;
 import com.google.gwt.user.client.rpc.AsyncCallback;

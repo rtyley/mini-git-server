@@ -31,8 +31,6 @@ import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountException;
-import com.google.gerrit.server.account.AccountManager;
-import com.google.gerrit.server.account.AuthRequest;
 import com.google.gerrit.server.contact.ContactStore;
 import com.google.gerrit.server.mail.EmailException;
 import com.google.gerrit.server.mail.RegisterNewEmailSender;

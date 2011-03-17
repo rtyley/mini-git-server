@@ -18,37 +18,20 @@ import static com.google.inject.Scopes.SINGLETON;
 
 import com.google.gerrit.lifecycle.LifecycleListener;
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.reviewdb.AccountGroup;
-import com.google.gerrit.reviewdb.AuthType;
-import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.AnonymousUser;
 import com.google.gerrit.server.FileTypeRegistry;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.GerritPersonIdentProvider;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.MimeUtilFileTypeRegistry;
-import com.google.gerrit.server.account.AccountInfoCacheFactory;
-import com.google.gerrit.server.auth.ldap.LdapModule;
 import com.google.gerrit.server.cache.CachePool;
-import com.google.gerrit.server.events.EventFactory;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
-import com.google.gerrit.server.git.ReloadSubmitQueueOp;
 import com.google.gerrit.server.git.TransferConfig;
 import com.google.gerrit.server.git.WorkQueue;
-import com.google.gerrit.server.mail.EmailSender;
-import com.google.gerrit.server.mail.FromAddressGenerator;
-import com.google.gerrit.server.mail.FromAddressGeneratorProvider;
-import com.google.gerrit.server.mail.SmtpEmailSender;
-import com.google.gerrit.server.patch.PatchListCacheImpl;
-import com.google.gerrit.server.patch.PatchSetInfoFactory;
-import com.google.gerrit.server.project.AccessControlModule;
 import com.google.gerrit.server.project.ProjectCacheImpl;
-import com.google.gerrit.server.project.ProjectControl;
-import com.google.gerrit.server.project.ProjectState;
 import com.google.gerrit.server.tools.ToolsCatalog;
 import com.google.gerrit.server.util.IdGenerator;
-import com.google.gerrit.server.workflow.FunctionState;
 import com.google.inject.Inject;
 
 import org.apache.velocity.app.Velocity;
@@ -62,7 +45,6 @@ import java.util.Properties;
 
 /** Starts global state with standard dependencies. */
 public class GerritGlobalModule extends FactoryModule {
-  private final AuthType loginType;
 
   public static class VelocityLifecycle implements LifecycleListener {
     private final SitePaths site;
@@ -99,32 +81,12 @@ public class GerritGlobalModule extends FactoryModule {
   }
 
   @Inject
-  GerritGlobalModule(final AuthConfig authConfig,
-      @GerritServerConfig final Config config) {
-    loginType = authConfig.getAuthType();
+  GerritGlobalModule(@GerritServerConfig final Config config) {
   }
 
   @Override
   protected void configure() {
-    switch (loginType) {
-      case HTTP_LDAP:
-      case LDAP:
-      case LDAP_BIND:
-      case CLIENT_SSL_CERT_LDAP:
-        install(new LdapModule());
-        break;
 
-      default:
-        bind(Realm.class).to(DefaultRealm.class);
-        break;
-    }
-
-    bind(Project.NameKey.class).annotatedWith(WildProjectName.class)
-        .toProvider(WildProjectNameProvider.class).in(SINGLETON);
-    bind(ApprovalTypes.class).toProvider(ApprovalTypesProvider.class).in(
-        SINGLETON);
-    bind(EmailExpander.class).toProvider(EmailExpanderProvider.class).in(
-        SINGLETON);
     bind(AnonymousUser.class);
 
     bind(PersonIdent.class).annotatedWith(GerritPersonIdent.class).toProvider(
@@ -132,40 +94,15 @@ public class GerritGlobalModule extends FactoryModule {
 
     bind(IdGenerator.class);
     bind(CachePool.class);
-    install(AccountByEmailCacheImpl.module());
-    install(AccountCacheImpl.module());
-    install(GroupCacheImpl.module());
-    install(PatchListCacheImpl.module());
     install(ProjectCacheImpl.module());
-    install(new AccessControlModule());
-
-    factory(AccountInfoCacheFactory.Factory.class);
-    factory(ProjectState.Factory.class);
-    factory(RefControl.Factory.class);
 
     bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
     bind(FileTypeRegistry.class).to(MimeUtilFileTypeRegistry.class);
     bind(WorkQueue.class);
     bind(ToolsCatalog.class);
-    bind(EventFactory.class);
     bind(TransferConfig.class);
 
-    bind(ReplicationQueue.class).to(PushReplication.class).in(SINGLETON);
-    factory(PushAllProjectsOp.Factory.class);
-
-    bind(MergeQueue.class).to(ChangeMergeQueue.class).in(SINGLETON);
-    factory(ReloadSubmitQueueOp.Factory.class);
-
-    bind(FromAddressGenerator.class).toProvider(
-        FromAddressGeneratorProvider.class).in(SINGLETON);
-    bind(EmailSender.class).to(SmtpEmailSender.class).in(SINGLETON);
-
-    bind(PatchSetInfoFactory.class);
     bind(IdentifiedUser.GenericFactory.class).in(SINGLETON);
-    bind(ChangeControl.GenericFactory.class);
-    bind(ProjectControl.GenericFactory.class);
-    factory(FunctionState.Factory.class);
-    factory(ReplicationUser.Factory.class);
 
     install(new LifecycleModule() {
       @Override

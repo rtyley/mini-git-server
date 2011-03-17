@@ -23,7 +23,6 @@ import com.google.gerrit.server.config.*;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
-import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.ssh.SshInfo;
 import com.google.gerrit.sshd.args4j.*;
 import com.google.gerrit.sshd.commands.ToyDefaultCommandModule;

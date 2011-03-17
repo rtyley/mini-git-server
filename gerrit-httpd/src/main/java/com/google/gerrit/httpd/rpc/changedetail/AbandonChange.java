@@ -25,7 +25,6 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.mail.AbandonedSender;
 import com.google.gerrit.server.mail.EmailException;
 import com.google.gerrit.server.patch.PatchSetInfoNotAvailableException;
-import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gwtorm.client.AtomicUpdate;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;

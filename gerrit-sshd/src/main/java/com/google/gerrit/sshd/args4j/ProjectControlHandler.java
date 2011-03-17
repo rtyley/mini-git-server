@@ -16,7 +16,6 @@ package com.google.gerrit.sshd.args4j;
 
 import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.project.NoSuchProjectException;
-import com.google.gerrit.server.project.ProjectControl;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 

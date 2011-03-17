@@ -34,85 +34,26 @@ import java.util.TimeZone;
 
 /** An authenticated user. */
 public class IdentifiedUser extends CurrentUser {
-  /** Create an IdentifiedUser, ignoring any per-request state. */
+	private final String username;
+
+	/** Create an IdentifiedUser, ignoring any per-request state. */
   @Singleton
   public static class GenericFactory {
-    private final AuthConfig authConfig;
-    private final Provider<String> canonicalUrl;
-    private final Realm realm;
-    private final AccountCache accountCache;
-
-    @Inject
-    GenericFactory(final AuthConfig authConfig,
-        final @CanonicalWebUrl Provider<String> canonicalUrl,
-        final Realm realm, final AccountCache accountCache) {
-      this.authConfig = authConfig;
-      this.canonicalUrl = canonicalUrl;
-      this.realm = realm;
-      this.accountCache = accountCache;
-    }
-
-    public IdentifiedUser create(final Account.Id id) {
-      return create(AccessPath.UNKNOWN, null, id);
-    }
-
-    public IdentifiedUser create(Provider<ReviewDb> db, Account.Id id) {
-      return new IdentifiedUser(AccessPath.UNKNOWN, authConfig, canonicalUrl,
-          realm, accountCache, null, db, id);
-    }
-
-    public IdentifiedUser create(AccessPath accessPath,
-        Provider<SocketAddress> remotePeerProvider, Account.Id id) {
-      return new IdentifiedUser(accessPath, authConfig, canonicalUrl, realm,
-          accountCache, remotePeerProvider, null, id);
-    }
-  }
-
-  /**
-   * Create an IdentifiedUser, relying on current request state.
-   * <p>
-   * Can only be used from within a module that has defined request scoped
-   * {@code @RemotePeer SocketAddress} and {@code ReviewDb} providers.
-   */
-  @Singleton
-  public static class RequestFactory {
-    private final AuthConfig authConfig;
-    private final Provider<String> canonicalUrl;
-    private final Realm realm;
-    private final AccountCache accountCache;
-
-    @Inject
-    RequestFactory(final AuthConfig authConfig,
-        final @CanonicalWebUrl Provider<String> canonicalUrl,
-        final Realm realm, final AccountCache accountCache) {
-      this.authConfig = authConfig;
-      this.canonicalUrl = canonicalUrl;
-      this.realm = realm;
-      this.accountCache = accountCache;
-
-    }
-
-    public IdentifiedUser create(final AccessPath accessPath,
-        final Account.Id id) {
-      return new IdentifiedUser(accessPath, authConfig, canonicalUrl, realm,
-          accountCache, id);
+    public IdentifiedUser create(String username) {
+      return new IdentifiedUser(username);
     }
   }
 
   private static final Logger log =
       LoggerFactory.getLogger(IdentifiedUser.class);
 
-  private final Provider<String> canonicalUrl;
-
-
-  private IdentifiedUser(final AccessPath accessPath) {
-    super(accessPath, authConfig);
+  private IdentifiedUser(String username) {
+	  this.username = username;
   }
-
 
   /** @return the user's user name; null if one has not been selected/assigned. */
   public String getUserName() {
-    return state().getUserName();
+    return username;
   }
 
   public PersonIdent newRefLogIdent() {
@@ -120,80 +61,26 @@ public class IdentifiedUser extends CurrentUser {
   }
 
   public PersonIdent newRefLogIdent(final Date when, final TimeZone tz) {
-    String name = getUserName();
-    if (name == null || name.isEmpty()) {
-      name = ua.getPreferredEmail();
-    }
-    if (name == null || name.isEmpty()) {
-      name = "Anonymous Coward";
-    }
-
     String user = getUserName();
-    if (user == null) {
-      user = "";
-    }
-    user = user + "|" + "account-" + ua.getId().toString();
 
-    String host = null;
-    if (remotePeerProvider != null) {
-      final SocketAddress remotePeer = remotePeerProvider.get();
-      if (remotePeer instanceof InetSocketAddress) {
-        final InetSocketAddress sa = (InetSocketAddress) remotePeer;
-        final InetAddress in = sa.getAddress();
+    String host = "unknown";
 
-        host = in != null ? in.getCanonicalHostName() : sa.getHostName();
-      }
-    }
-    if (host == null || host.isEmpty()) {
-      host = "unknown";
-    }
-
-    return new PersonIdent(name, user + "@" + host, when, tz);
+    return new PersonIdent(user, user + "@" + host, when, tz);
   }
 
   public PersonIdent newCommitterIdent(final Date when, final TimeZone tz) {
-    final Account ua = getAccount();
-    String name = ua.getFullName();
-    String email = ua.getPreferredEmail();
 
-    if (email == null || email.isEmpty()) {
-      // No preferred email is configured. Use a generic identity so we
-      // don't leak an address the user may have given us, but doesn't
-      // necessarily want to publish through Git records.
-      //
       String user = getUserName();
-      if (user == null || user.isEmpty()) {
-        user = "account-" + ua.getId().toString();
-      }
 
-      String host;
-      if (canonicalUrl.get() != null) {
-        try {
-          host = new URL(canonicalUrl.get()).getHost();
-        } catch (MalformedURLException e) {
-          host = SystemReader.getInstance().getHostname();
-        }
-      } else {
-        host = SystemReader.getInstance().getHostname();
-      }
+      String host= "unknown";
 
-      email = user + "@" + host;
-    }
+      String email = user + "@" + host;
 
-    if (name == null || name.isEmpty()) {
-      final int at = email.indexOf('@');
-      if (0 < at) {
-        name = email.substring(0, at);
-      } else {
-        name = "Anonymous Coward";
-      }
-    }
-
-    return new PersonIdent(name, email, when, tz);
+    return new PersonIdent(user, email, when, tz);
   }
 
   @Override
   public String toString() {
-    return "IdentifiedUser[account " + getAccountId() + "]";
+    return "IdentifiedUser[" + getUserName() + "]";
   }
 }

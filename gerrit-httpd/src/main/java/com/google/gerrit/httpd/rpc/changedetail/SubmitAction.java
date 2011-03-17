@@ -22,7 +22,6 @@ import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.patch.PatchSetInfoNotAvailableException;
 import com.google.gerrit.server.project.CanSubmitResult;
-import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.workflow.FunctionState;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;

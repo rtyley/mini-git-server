@@ -18,7 +18,6 @@ import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.AccessPath;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
-import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.sshd.SshScope.Context;
 import com.google.inject.Inject;
 import com.google.inject.Provider;

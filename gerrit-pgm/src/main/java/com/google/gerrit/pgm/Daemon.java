@@ -26,11 +26,9 @@ import com.google.gerrit.pgm.util.ErrorLogFile;
 import com.google.gerrit.pgm.util.LogFileCompressor;
 import com.google.gerrit.pgm.util.RuntimeShutdown;
 import com.google.gerrit.pgm.util.SiteProgram;
-import com.google.gerrit.server.config.AuthConfigModule;
 import com.google.gerrit.server.config.CanonicalWebUrlModule;
 import com.google.gerrit.server.config.CanonicalWebUrlProvider;
 import com.google.gerrit.server.config.GerritGlobalModule;
-import com.google.gerrit.server.config.MasterNodeStartup;
 import com.google.gerrit.sshd.SshModule;
 import com.google.gerrit.sshd.commands.MasterCommandModule;
 import com.google.gerrit.sshd.commands.SlaveCommandModule;
@@ -179,7 +177,7 @@ public class Daemon extends SiteProgram {
 
   private Injector createCfgInjector() {
     final List<Module> modules = new ArrayList<Module>();
-    modules.add(new AuthConfigModule());
+    // modules.add(new AuthConfigModule());
     return dbInjector.createChildInjector(modules);
   }
 

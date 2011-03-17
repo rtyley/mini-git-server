@@ -14,9 +14,6 @@
 
 package com.google.gerrit.server;
 
-import com.google.gerrit.reviewdb.AccountGroup;
-import com.google.gerrit.reviewdb.AccountProjectWatch;
-import com.google.gerrit.reviewdb.Change;
 import com.google.inject.servlet.RequestScoped;
 
 /**
@@ -28,13 +25,6 @@ import com.google.inject.servlet.RequestScoped;
  * @see IdentifiedUser
  */
 public abstract class CurrentUser {
-  private final AccessPath accessPath;
-  protected final AuthConfig authConfig;
-
-  protected CurrentUser(final AccessPath accessPath, final AuthConfig authConfig) {
-    this.accessPath = accessPath;
-    this.authConfig = authConfig;
-  }
 
   @Deprecated
   public final boolean isAdministrator() {

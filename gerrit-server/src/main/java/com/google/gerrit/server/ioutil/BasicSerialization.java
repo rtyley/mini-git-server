@@ -29,8 +29,6 @@
 
 package com.google.gerrit.server.ioutil;
 
-import com.google.gerrit.reviewdb.CodedEnum;
-
 import org.eclipse.jgit.util.IO;
 
 import java.io.EOFException;
@@ -150,24 +148,6 @@ public class BasicSerialization {
     } else {
       writeBytes(output, s.getBytes("UTF-8"));
     }
-  }
-
-  /** Read an enum whose code is stored as a varint. */
-  public static <T extends CodedEnum> T readEnum(final InputStream input,
-      final T[] all) throws IOException {
-    final int val = readVarInt32(input);
-    for (T t : all) {
-      if (t.getCode() == val) {
-        return t;
-      }
-    }
-    throw new IOException("Invalid enum " + val + " for " + all[0].getClass());
-  }
-
-  /** Write an enum whose code is stored as a varint. */
-  public static <T extends CodedEnum> void writeEnum(final OutputStream output,
-      final T e) throws IOException {
-    writeVarInt32(output, e.getCode());
   }
 
   private BasicSerialization() {

@@ -20,8 +20,6 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.WildProjectName;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.project.ProjectCache;
-import com.google.gerrit.server.project.ProjectControl;
-import com.google.gerrit.server.project.ProjectState;
 import com.google.gerrit.sshd.BaseCommand;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;

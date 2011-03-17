@@ -16,8 +16,6 @@ package com.google.gerrit.server.config;
 
 import com.google.gerrit.lifecycle.LifecycleListener;
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.reviewdb.AuthType;
-import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.*;
 import com.google.gerrit.server.cache.CachePool;
 import com.google.gerrit.server.git.*;
@@ -30,8 +28,6 @@ import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.PersonIdent;
 
 import java.util.Properties;
-
-import static com.google.inject.Scopes.SINGLETON;
 
 
 /** Starts global state with standard dependencies. */
@@ -93,8 +89,6 @@ public class ToyGerritGlobalModule extends FactoryModule {
 //        break;
 //    }
 
-    bind(Project.NameKey.class).annotatedWith(WildProjectName.class)
-        .toProvider(WildProjectNameProvider.class).in(SINGLETON);
 //    bind(ApprovalTypes.class).toProvider(ApprovalTypesProvider.class).in(
 //        SINGLETON);
 //    bind(EmailExpander.class).toProvider(EmailExpanderProvider.class).in(
@@ -111,11 +105,7 @@ public class ToyGerritGlobalModule extends FactoryModule {
 //    install(GroupCacheImpl.module());
 //    install(PatchListCacheImpl.module());
     install(ProjectCacheImpl.module());
-    install(new ToyAccessControlModule());
 
-//    factory(AccountInfoCacheFactory.Factory.class);
-    factory(ProjectState.Factory.class);
-    factory(RefControl.Factory.class);
 //
 //    bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
 //    bind(FileTypeRegistry.class).to(MimeUtilFileTypeRegistry.class);

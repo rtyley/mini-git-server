@@ -25,7 +25,6 @@ public class GerritServerConfigModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(SitePaths.class);
-    bind(TrackingFooters.class).toProvider(TrackingFootersProvider.class).in(SINGLETON) ;
     bind(Config.class).annotatedWith(GerritServerConfig.class).toProvider(
         GerritServerConfigProvider.class).in(SINGLETON);
   }

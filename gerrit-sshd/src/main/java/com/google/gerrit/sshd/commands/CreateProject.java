@@ -24,7 +24,6 @@ import com.google.gerrit.reviewdb.Project.SubmitType;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
-import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.sshd.BaseCommand;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;

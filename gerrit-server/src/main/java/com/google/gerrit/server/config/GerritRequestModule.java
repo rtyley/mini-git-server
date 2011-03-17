@@ -16,8 +16,6 @@ package com.google.gerrit.server.config;
 
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RequestCleanup;
-import com.google.gerrit.server.git.ReceiveCommits;
-import com.google.gerrit.server.project.ProjectControl;
 import com.google.inject.servlet.RequestScoped;
 
 import static com.google.inject.Scopes.SINGLETON;
@@ -27,10 +25,6 @@ public class GerritRequestModule extends FactoryModule {
   @Override
   protected void configure() {
     bind(RequestCleanup.class).in(RequestScoped.class);
-    bind(IdentifiedUser.RequestFactory.class).in(SINGLETON);
-
-    bind(ProjectControl.Factory.class).in(SINGLETON);
-
-    factory(ReceiveCommits.Factory.class);
+    //bind(IdentifiedUser.RequestFactory.class).in(SINGLETON);
   }
 }

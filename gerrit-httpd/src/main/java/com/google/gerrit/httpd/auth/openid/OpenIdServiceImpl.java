@@ -24,7 +24,6 @@ import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.UrlEncoded;
 import com.google.gerrit.server.account.AccountException;
-import com.google.gerrit.server.account.AccountManager;
 import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.gerrit.server.config.ConfigUtil;
 import com.google.gerrit.server.config.GerritServerConfig;

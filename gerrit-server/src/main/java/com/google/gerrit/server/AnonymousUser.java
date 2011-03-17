@@ -20,10 +20,6 @@ import com.google.inject.Singleton;
 /** An anonymous user who has not yet authenticated. */
 @Singleton
 public class AnonymousUser extends CurrentUser {
-  @Inject
-  AnonymousUser(final AuthConfig auth) {
-    super(AccessPath.UNKNOWN, auth);
-  }
 
   @Override
   public String toString() {

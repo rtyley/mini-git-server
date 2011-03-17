@@ -37,7 +37,6 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
 import com.google.gerrit.server.project.NoSuchProjectException;
-import com.google.gerrit.server.project.ProjectControl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 

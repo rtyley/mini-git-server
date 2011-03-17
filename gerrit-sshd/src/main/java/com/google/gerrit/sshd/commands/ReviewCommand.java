@@ -26,8 +26,6 @@ import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.patch.PublishComments;
 import com.google.gerrit.server.project.CanSubmitResult;
-import com.google.gerrit.server.project.NoSuchChangeException;
-import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.workflow.FunctionState;
 import com.google.gerrit.sshd.BaseCommand;
 import com.google.gerrit.util.cli.CmdLineParser;

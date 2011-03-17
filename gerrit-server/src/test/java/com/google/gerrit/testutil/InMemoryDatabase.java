@@ -17,7 +17,6 @@ package com.google.gerrit.testutil;
 import com.google.gerrit.reviewdb.CurrentSchemaVersion;
 import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.reviewdb.SystemConfig;
-import com.google.gerrit.server.config.SystemConfigProvider;
 import com.google.gerrit.server.schema.Current;
 import com.google.gerrit.server.schema.SchemaCreator;
 import com.google.gerrit.server.schema.SchemaVersion;
