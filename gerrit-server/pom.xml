@@ -77,7 +77,10 @@ limitations under the License.
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
-
+      <dependency>
+        <groupId>com.jcraft</groupId>
+        <artifactId>jsch</artifactId>
+      </dependency>
     <dependency>
       <groupId>bouncycastle</groupId>
       <artifactId>bcpg-jdk15</artifactId>
