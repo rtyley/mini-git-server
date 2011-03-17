@@ -81,12 +81,7 @@ public abstract class AbstractGitCommand extends BaseCommand {
 
   private SshSession newSession() {
     return new SshSession(session, session.getRemoteAddress(), userFactory
-        .create(AccessPath.GIT, new Provider<SocketAddress>() {
-          @Override
-          public SocketAddress get() {
-            return session.getRemoteAddress();
-          }
-        }, user.getAccountId()));
+        .create(user.getUserName()));
   }
 
   private void service() throws IOException, Failure {

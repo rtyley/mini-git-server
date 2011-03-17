@@ -46,19 +46,6 @@ final class Receive extends AbstractGitCommand {
   @Inject
   private TransferConfig config;
 
-  private final Set<Account.Id> reviewerId = new HashSet<Account.Id>();
-  private final Set<Account.Id> ccId = new HashSet<Account.Id>();
-
-  @Option(name = "--reviewer", aliases = {"--re"}, multiValued = true, metaVar = "EMAIL", usage = "request reviewer for change(s)")
-  void addReviewer(final Account.Id id) {
-    reviewerId.add(id);
-  }
-
-  @Option(name = "--cc", aliases = {}, multiValued = true, metaVar = "EMAIL", usage = "CC user on change(s)")
-  void addCC(final Account.Id id) {
-    ccId.add(id);
-  }
-
   @Override
   protected void runImpl() throws IOException, Failure {
 
@@ -79,37 +66,7 @@ final class Receive extends AbstractGitCommand {
       msg.append("Unpack error on project \""
           + projectControl.getProject().getName() + "\":\n");
 
-      msg.append("  RefFilter: " + rp.getRefFilter());
-      if (rp.getRefFilter() == RefFilter.DEFAULT) {
-        msg.append("DEFAULT");
-      } else if (rp.getRefFilter() instanceof VisibleRefFilter) {
-        msg.append("VisibleRefFilter");
-      } else {
-        msg.append(rp.getRefFilter().getClass());
-      }
       msg.append("\n");
-
-      if (rp.getRefFilter() instanceof VisibleRefFilter) {
-        Map<String, Ref> adv = rp.getAdvertisedRefs();
-        msg.append("  Visible references (" + adv.size() + "):\n");
-        for (Ref ref : adv.values()) {
-          msg.append("  - " + ref.getObjectId().abbreviate(8).name() + " "
-              + ref.getName() + "\n");
-        }
-
-        List<Ref> hidden = new ArrayList<Ref>();
-        for (Ref ref : rp.getRepository().getAllRefs().values()) {
-          if (!adv.containsKey(ref.getName())) {
-            hidden.add(ref);
-          }
-        }
-
-        msg.append("  Hidden references (" + hidden.size() + "):\n");
-        for (Ref ref : hidden) {
-          msg.append("  - " + ref.getObjectId().abbreviate(8).name() + " "
-              + ref.getName() + "\n");
-        }
-      }
 
       IOException detail = new IOException(msg.toString(), badStream);
       throw new Failure(128, "fatal: Unpack error, check server log", detail);

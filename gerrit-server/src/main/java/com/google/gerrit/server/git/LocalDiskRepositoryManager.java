@@ -15,7 +15,6 @@
 package com.google.gerrit.server.git;
 
 import com.google.gerrit.lifecycle.LifecycleListener;
-import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
@@ -85,11 +84,11 @@ public class LocalDiskRepositoryManager implements GitRepositoryManager {
     return basePath;
   }
 
-  private File gitDirOf(Project.NameKey name) {
-    return new File(getBasePath(), name.get());
+  private File gitDirOf(String name) {
+    return new File(getBasePath(), name);
   }
 
-  public Repository openRepository(Project.NameKey name)
+  public Repository openRepository(String name)
       throws RepositoryNotFoundException {
     if (isUnreasonableName(name)) {
       throw new RepositoryNotFoundException("Invalid name: " + name);
@@ -106,7 +105,7 @@ public class LocalDiskRepositoryManager implements GitRepositoryManager {
     }
   }
 
-  public Repository createRepository(final Project.NameKey name)
+  public Repository createRepository(String name)
       throws RepositoryNotFoundException {
     if (isUnreasonableName(name)) {
       throw new RepositoryNotFoundException("Invalid name: " + name);
@@ -123,11 +122,10 @@ public class LocalDiskRepositoryManager implements GitRepositoryManager {
         // It doesn't exist under any of the standard permutations
         // of the repository name, so prefer the standard bare name.
         //
-        String n = name.get();
-        if (!n.endsWith(Constants.DOT_GIT_EXT)) {
-          n = n + Constants.DOT_GIT_EXT;
+        if (!name.endsWith(Constants.DOT_GIT_EXT)) {
+          name = name + Constants.DOT_GIT_EXT;
         }
-        loc = FileKey.exact(new File(basePath, n), FS.DETECTED);
+        loc = FileKey.exact(new File(basePath, name), FS.DETECTED);
       }
       return RepositoryCache.open(loc, false);
     } catch (IOException e1) {
@@ -138,9 +136,7 @@ public class LocalDiskRepositoryManager implements GitRepositoryManager {
     }
   }
 
-  private boolean isUnreasonableName(final Project.NameKey nameKey) {
-    final String name = nameKey.get();
-
+  private boolean isUnreasonableName(String name) {
     if (name.length() == 0) return true; // no empty paths
 
     if (name.indexOf('\\') >= 0) return true; // no windows/dos stlye paths

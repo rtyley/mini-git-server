@@ -14,7 +14,6 @@
 
 package com.google.gerrit.server.git;
 
-import com.google.gerrit.reviewdb.Project;
 import com.google.inject.Singleton;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
@@ -43,7 +42,7 @@ public interface GitRepositoryManager {
    * @throws RepositoryNotFoundException the name does not denote an existing
    *         repository, or the name cannot be read as a repository.
    */
-  public abstract Repository openRepository(Project.NameKey name)
+  public abstract Repository openRepository(String name)
       throws RepositoryNotFoundException;
 
   /**
@@ -55,7 +54,7 @@ public interface GitRepositoryManager {
    * @throws RepositoryNotFoundException the name does not denote an existing
    *         repository, or the name cannot be read as a repository.
    */
-  public abstract Repository createRepository(Project.NameKey name)
+  public abstract Repository createRepository(String name)
       throws RepositoryNotFoundException;
 
 }
