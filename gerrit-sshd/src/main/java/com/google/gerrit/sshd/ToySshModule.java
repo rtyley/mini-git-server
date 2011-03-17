@@ -19,7 +19,6 @@ import com.google.gerrit.reviewdb.*;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RemotePeer;
-import com.google.gerrit.server.account.*;
 import com.google.gerrit.server.config.*;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;

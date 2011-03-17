@@ -110,12 +110,7 @@ public class WebAppInitializer extends GuiceServletContextListener {
         @Override
         protected void configure() {
 			LinkedBindingBuilder<File> fileLinkedBindingBuilder = bind(File.class).annotatedWith(SitePath.class);
-			if (sitePath==null) {
-			fileLinkedBindingBuilder.toProvider(
-					SitePathFromSystemConfigProvider.class).in(SINGLETON);
-			} else {
-				fileLinkedBindingBuilder.toInstance(sitePath);
-			}
+			fileLinkedBindingBuilder.toInstance(sitePath);
         }
       });
 

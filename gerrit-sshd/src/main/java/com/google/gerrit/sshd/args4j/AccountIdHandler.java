@@ -15,7 +15,6 @@
 package com.google.gerrit.sshd.args4j;
 
 import com.google.gerrit.reviewdb.Account;
-import com.google.gerrit.server.account.AccountResolver;
 import com.google.gwtorm.client.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;

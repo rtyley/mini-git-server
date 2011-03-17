@@ -15,11 +15,8 @@
 package com.google.gerrit.server;
 
 import com.google.gerrit.server.account.AccountCache;
-import com.google.gerrit.server.account.Realm;
-import com.google.gerrit.server.config.AuthConfig;
 import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.inject.Inject;
-import com.google.inject.OutOfScopeException;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
@@ -33,15 +30,8 @@ import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.SocketAddress;
 import java.net.URL;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
-
-import javax.annotation.Nullable;
 
 /** An authenticated user. */
 public class IdentifiedUser extends CurrentUser {
