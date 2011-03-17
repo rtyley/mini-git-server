@@ -23,7 +23,6 @@ import com.google.gerrit.reviewdb.AccountGroupMemberAudit;
 import com.google.gerrit.reviewdb.AccountSshKey;
 import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.ssh.SshKeyCache;
 import com.google.gerrit.sshd.AdminCommand;
 import com.google.gerrit.sshd.BaseCommand;
 import com.google.gwtorm.client.OrmDuplicateKeyException;

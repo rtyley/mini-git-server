@@ -34,7 +34,6 @@ import com.google.gerrit.server.account.AccountException;
 import com.google.gerrit.server.contact.ContactStore;
 import com.google.gerrit.server.mail.EmailException;
 import com.google.gerrit.server.mail.RegisterNewEmailSender;
-import com.google.gerrit.server.ssh.SshKeyCache;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwtjsonrpc.client.VoidResult;
 import com.google.gwtjsonrpc.server.ValidToken;

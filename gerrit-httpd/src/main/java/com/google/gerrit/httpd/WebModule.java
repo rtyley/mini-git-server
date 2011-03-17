@@ -27,7 +27,6 @@ import com.google.gerrit.server.config.GerritRequestModule;
 import com.google.gerrit.server.contact.ContactStore;
 import com.google.gerrit.server.contact.ContactStoreProvider;
 import com.google.gerrit.server.ssh.SshInfo;
-import com.google.gerrit.server.ssh.SshKeyCache;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
