@@ -184,18 +184,11 @@ public class ProjectServlet extends GitServlet {
     @Override
     public UploadPack create(HttpServletRequest req, Repository repo)
         throws ServiceNotEnabledException, ServiceNotAuthorizedException {
-      ProjectControl pc = getProjectControl(req);
-      if (!pc.canRunUploadPack()) {
-        throw new ServiceNotAuthorizedException();
-      }
 
       // The Resolver above already checked READ access for us.
       //
       UploadPack up = new UploadPack(repo);
       up.setPackConfig(packConfig);
-      if (!pc.allRefsAreVisible()) {
-        up.setRefFilter(new VisibleRefFilter(repo, pc, db.get(), true));
-      }
       return up;
     }
   }

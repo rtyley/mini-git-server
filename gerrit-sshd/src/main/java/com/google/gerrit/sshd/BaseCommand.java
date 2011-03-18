@@ -14,8 +14,6 @@
 
 package com.google.gerrit.sshd;
 
-import com.google.gerrit.reviewdb.Project;
-import com.google.gerrit.reviewdb.String;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RequestCleanup;
@@ -28,7 +26,6 @@ import com.google.gerrit.util.cli.CmdLineParser;
 import com.google.gerrit.util.cli.EndOfOptionsHandler;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
 import org.apache.sshd.common.SshException;
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
@@ -39,14 +36,7 @@ import org.kohsuke.args4j.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.concurrent.Future;
 
 public abstract class BaseCommand implements Command {
@@ -309,9 +299,7 @@ public abstract class BaseCommand implements Command {
       if (userProvider.get() instanceof IdentifiedUser) {
         final IdentifiedUser u = (IdentifiedUser) userProvider.get();
         m.append(" (user ");
-        m.append(u.getAccount().getUserName());
-        m.append(" account ");
-        m.append(u.getAccountId());
+        m.append(u.getUserName());
         m.append(")");
       }
       m.append(" during ");
@@ -360,7 +348,7 @@ public abstract class BaseCommand implements Command {
       m.append(context.getCommandLine());
       if (userProvider.get() instanceof IdentifiedUser) {
         IdentifiedUser u = (IdentifiedUser) userProvider.get();
-        m.append(" (" + u.getAccount().getUserName() + ")");
+        m.append(" (" + u.getUserName() + ")");
       }
       this.taskName = m.toString();
     }
@@ -394,8 +382,6 @@ public abstract class BaseCommand implements Command {
           thunk.run();
         } catch (NoSuchProjectException e) {
           throw new UnloggedFailure(1, e.getMessage() + " no such project");
-        } catch (NoSuchChangeException e) {
-          throw new UnloggedFailure(1, e.getMessage() + " no such change");
         }
 
         out.flush();
@@ -426,7 +412,7 @@ public abstract class BaseCommand implements Command {
     }
 
     @Override
-    public NameKey getProjectNameKey() {
+    public String getProjectNameKey() {
       return projectName;
     }
 

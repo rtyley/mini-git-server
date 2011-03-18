@@ -14,62 +14,32 @@
 
 package com.google.gerrit.httpd;
 
-import static com.google.inject.Scopes.SINGLETON;
-
-import com.google.gerrit.httpd.raw.CatServlet;
-import com.google.gerrit.httpd.raw.HostPageServlet;
-import com.google.gerrit.httpd.raw.LegacyGerritServlet;
 import com.google.gerrit.httpd.raw.SshInfoServlet;
-import com.google.gerrit.httpd.raw.StaticServlet;
-import com.google.gerrit.httpd.raw.ToolServlet;
-import com.google.gwtexpui.server.CacheControlFilter;
 import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.google.inject.internal.UniqueAnnotations;
 import com.google.inject.servlet.ServletModule;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import static com.google.inject.Scopes.SINGLETON;
 
 class UrlModule extends ServletModule {
   @Override
   protected void configureServlets() {
-    filter("/*").through(Key.get(CacheControlFilter.class));
-    bind(Key.get(CacheControlFilter.class)).in(SINGLETON);
-
-    serve("/").with(HostPageServlet.class);
-    serve("/Gerrit").with(LegacyGerritServlet.class);
-    serve("/Gerrit/*").with(legacyGerritScreen());
-    serve("/cat/*").with(CatServlet.class);
     serve("/logout").with(HttpLogoutServlet.class);
-    serve("/query").with(ChangeQueryServlet.class);
     serve("/signout").with(HttpLogoutServlet.class);
     serve("/ssh_info").with(SshInfoServlet.class);
-    serve("/static/*").with(StaticServlet.class);
-    serve("/tools/*").with(ToolServlet.class);
 
     filter("/p/*").through(ProjectAccessPathFilter.class);
-    filter("/p/*").through(ProjectDigestFilter.class);
     serve("/p/*").with(ProjectServlet.class);
 
     serve("/Main.class").with(notFound());
     serve("/com/google/gerrit/launcher/*").with(notFound());
     serve("/servlet/*").with(notFound());
-
-    serve("/all").with(query("status:merged"));
-    serve("/mine").with(screen(PageLinks.MINE));
-    serve("/open").with(query("status:open"));
-    serve("/settings").with(screen(PageLinks.SETTINGS));
-    serve("/watched").with(query("is:watched status:open"));
-    serve("/starred").with(query("is:starred"));
-
-    serveRegex( //
-        "^/([1-9][0-9]*)/?$", //
-        "^/r/(.+)/?$" //
-    ).with(changeQuery());
   }
 
   private Key<HttpServlet> notFound() {
@@ -105,30 +75,6 @@ class UrlModule extends ServletModule {
           final HttpServletResponse rsp) throws IOException {
         final String token = req.getPathInfo().substring(1);
         toGerrit(token, req, rsp);
-      }
-    });
-  }
-
-  private Key<HttpServlet> changeQuery() {
-    return key(new HttpServlet() {
-      private static final long serialVersionUID = 1L;
-
-      @Override
-      protected void doGet(final HttpServletRequest req,
-          final HttpServletResponse rsp) throws IOException {
-        toGerrit(PageLinks.toChangeQuery(req.getPathInfo()), req, rsp);
-      }
-    });
-  }
-
-  private Key<HttpServlet> query(final String query) {
-    return key(new HttpServlet() {
-      private static final long serialVersionUID = 1L;
-
-      @Override
-      protected void doGet(final HttpServletRequest req,
-          final HttpServletResponse rsp) throws IOException {
-        toGerrit(PageLinks.toChangeQuery(query), req, rsp);
       }
     });
   }
