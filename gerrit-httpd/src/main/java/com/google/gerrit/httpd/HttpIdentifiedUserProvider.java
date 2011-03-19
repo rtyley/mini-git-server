@@ -14,7 +14,6 @@
 
 package com.google.gerrit.httpd;
 
-import com.google.gerrit.common.errors.NotSignedInException;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.inject.Inject;
@@ -36,7 +35,6 @@ class HttpIdentifiedUserProvider implements Provider<IdentifiedUser> {
     if (user instanceof IdentifiedUser) {
       return (IdentifiedUser) user;
     }
-    throw new ProvisionException(NotSignedInException.MESSAGE,
-        new NotSignedInException());
+    throw new ProvisionException("Not signed in, dear fellow.");
   }
 }

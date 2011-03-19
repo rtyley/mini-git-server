@@ -30,8 +30,6 @@ import static com.google.inject.Scopes.SINGLETON;
 class UrlModule extends ServletModule {
   @Override
   protected void configureServlets() {
-    serve("/logout").with(HttpLogoutServlet.class);
-    serve("/signout").with(HttpLogoutServlet.class);
     serve("/ssh_info").with(SshInfoServlet.class);
 
     filter("/p/*").through(ProjectAccessPathFilter.class);

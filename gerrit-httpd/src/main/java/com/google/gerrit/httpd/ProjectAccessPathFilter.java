@@ -31,17 +31,17 @@ import javax.servlet.ServletResponse;
 /** Set the WebSession to {@link AccessPath#GIT}. */
 @Singleton
 class ProjectAccessPathFilter implements Filter {
-  private final Provider<WebSession> session;
+  //private final Provider<WebSession> session;
 
-  @Inject
-  ProjectAccessPathFilter(final Provider<WebSession> session) {
-    this.session = session;
-  }
+//  @Inject
+//  ProjectAccessPathFilter(final Provider<WebSession> session) {
+//    this.session = session;
+//  }
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response,
       FilterChain chain) throws IOException, ServletException {
-    session.get().setAccessPath(AccessPath.GIT);
+    //session.get().setAccessPath(AccessPath.GIT);
     chain.doFilter(request, response);
   }
 
