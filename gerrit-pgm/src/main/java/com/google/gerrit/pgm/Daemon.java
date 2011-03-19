@@ -30,8 +30,6 @@ import com.google.gerrit.server.config.CanonicalWebUrlModule;
 import com.google.gerrit.server.config.CanonicalWebUrlProvider;
 import com.google.gerrit.server.config.GerritGlobalModule;
 import com.google.gerrit.sshd.SshModule;
-import com.google.gerrit.sshd.commands.MasterCommandModule;
-import com.google.gerrit.sshd.commands.SlaveCommandModule;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Provider;

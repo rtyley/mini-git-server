@@ -14,22 +14,16 @@
 
 package com.google.gerrit.sshd;
 
-import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.mina.core.future.IoFuture;
-import org.apache.mina.core.future.IoFutureListener;
-import org.apache.sshd.common.KeyPairProvider;
-import org.apache.sshd.common.SshException;
-import org.apache.sshd.common.util.Buffer;
 import org.apache.sshd.server.PublickeyAuthenticator;
 import org.apache.sshd.server.session.ServerSession;
 
 import java.security.PublicKey;
 
 /**
- * Authenticates by public key through {@link com.google.gerrit.reviewdb.AccountSshKey} entities.
+ * Authenticates by public key really permissively
  */
 @Singleton
 class ToyPubKeyAuth implements PublickeyAuthenticator {
@@ -43,7 +37,7 @@ private final IdentifiedUser.GenericFactory userFactory;
 	@Override
 	public boolean authenticate(String username, PublicKey publicKey, ServerSession serverSession) {
 		final SshSession sd = serverSession.getAttribute(SshSession.KEY);
-		sd.authenticationSuccess(username, userFactory.create(new Account.Id(0)));
+		sd.authenticationSuccess(username, userFactory.create(username));
 		return true;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 }

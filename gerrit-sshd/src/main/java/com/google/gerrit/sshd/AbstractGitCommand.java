@@ -14,21 +14,16 @@
 
 package com.google.gerrit.sshd;
 
-import com.google.gerrit.reviewdb.Project;
-import com.google.gerrit.server.AccessPath;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.sshd.SshScope.Context;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
-
 import org.apache.sshd.server.Environment;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Repository;
 import org.kohsuke.args4j.Argument;
 
 import java.io.IOException;
-import java.net.SocketAddress;
 
 public abstract class AbstractGitCommand extends BaseCommand {
   @Argument(index = 0, metaVar = "PROJECT.git", required = true, usage = "project name")
@@ -50,7 +45,6 @@ public abstract class AbstractGitCommand extends BaseCommand {
   private IdentifiedUser.GenericFactory userFactory;
 
   protected Repository repo;
-  protected Project project;
 
   @Override
   public void start(final Environment env) {
@@ -70,8 +64,7 @@ public abstract class AbstractGitCommand extends BaseCommand {
 
         @Override
         public String getProjectName() {
-          Project project = projectControl.getProjectState().getProject();
-          return project.getNameKey();
+		  return projectName;
         }
       });
     } finally {

@@ -31,10 +31,7 @@ public class ToyDefaultCommandModule extends CommandModule {
 
 	command(gerrit, "receive-pack").to(Receive.class);
     command(gerrit).toProvider(new DispatchCommandProvider(gerrit));
-    command(gerrit, "flush-caches").to(AdminFlushCaches.class);
-    command(gerrit, "show-caches").to(AdminShowCaches.class);
     command(gerrit, "show-connections").to(AdminShowConnections.class);
-    command(gerrit, "stream-events").to(StreamEvents.class);
 
     command(git).toProvider(new DispatchCommandProvider(git));
     command(git, "receive-pack").to(Commands.key(gerrit, "receive-pack"));
@@ -47,7 +44,5 @@ public class ToyDefaultCommandModule extends CommandModule {
     //
     command("git-upload-pack").to(Commands.key(git, "upload-pack"));
     command("git-receive-pack").to(Commands.key(git, "receive-pack"));
-
-    command("suexec").to(SuExec.class);
   }
 }

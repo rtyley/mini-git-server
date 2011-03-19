@@ -14,11 +14,9 @@
 
 package com.google.gerrit.sshd.commands;
 
-import com.google.gerrit.reviewdb.ReviewDb;
 import com.google.gerrit.server.git.TransferConfig;
 import com.google.gerrit.sshd.AbstractGitCommand;
 import com.google.inject.Inject;
-
 import org.eclipse.jgit.transport.UploadPack;
 
 import java.io.IOException;

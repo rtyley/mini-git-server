@@ -20,7 +20,6 @@ import com.google.gerrit.lifecycle.LifecycleManager;
 import com.google.gerrit.pgm.util.RuntimeShutdown;
 import com.google.gerrit.pgm.util.SiteProgram;
 import com.google.gerrit.server.config.FactoryModule;
-import com.google.gerrit.sshd.commands.QueryShell;
 import com.google.gerrit.sshd.commands.QueryShell.Factory;
 import com.google.inject.Injector;
 

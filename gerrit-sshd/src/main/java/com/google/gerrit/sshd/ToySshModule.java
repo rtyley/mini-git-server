@@ -15,22 +15,19 @@
 package com.google.gerrit.sshd;
 
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.reviewdb.*;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RemotePeer;
-import com.google.gerrit.server.config.*;
+import com.google.gerrit.server.config.FactoryModule;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.ssh.SshInfo;
-import com.google.gerrit.sshd.args4j.*;
+import com.google.gerrit.sshd.args4j.SocketAddressHandler;
 import com.google.gerrit.sshd.commands.ToyDefaultCommandModule;
 import com.google.gerrit.util.cli.CmdLineParser;
 import com.google.gerrit.util.cli.OptionHandlerFactory;
 import com.google.gerrit.util.cli.OptionHandlerUtil;
-import com.google.gwtjsonrpc.server.SignedToken;
-import com.google.gwtorm.client.*;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryProvider;
@@ -58,21 +55,12 @@ public class ToySshModule extends FactoryModule {
 	  SecurityUtils.setRegisterBouncyCastle(true);
 	  bindScope(RequestScoped.class, SshScope.REQUEST);
 
-	  final SystemConfig systemConfig = SystemConfig.create();
-	  systemConfig.adminGroupId=new AccountGroup.Id(1);
-	  systemConfig.registerEmailPrivateKey = SignedToken.generateRandomKey();
-
-
 	  bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
 	  configureRequestScope();
 	  configureCmdLineParser();
-	install(ToyAccountCacheImpl.module());
-	  bind(Realm.class).to(ToyRealm.class);
-    install(SshKeyCacheImpl.module());
     bind(SshLog.class);
     bind(SshInfo.class).to(SshDaemon.class).in(SINGLETON);
     factory(DispatchCommand.Factory.class);
-    factory(PeerDaemonUser.Factory.class);
 
     bind(DispatchCommandProvider.class).annotatedWith(Commands.CMD_ROOT)
         .toInstance(new DispatchCommandProvider("", Commands.CMD_ROOT));
@@ -119,9 +107,9 @@ public class ToySshModule extends FactoryModule {
     factory(CmdLineParser.Factory.class);
 
     // registerOptionHandler(Account.Id.class, AccountIdHandler.class);
-    // registerOptionHandler(AccountGroup.Id.class, AccountGroupIdHandler.class);
-    registerOptionHandler(PatchSet.Id.class, PatchSetIdHandler.class);
-    registerOptionHandler(ProjectControl.class, ProjectControlHandler.class);
+//    // registerOptionHandler(AccountGroup.Id.class, AccountGroupIdHandler.class);
+//    registerOptionHandler(PatchSet.Id.class, PatchSetIdHandler.class);
+//    registerOptionHandler(ProjectControl.class, ProjectControlHandler.class);
     registerOptionHandler(SocketAddress.class, SocketAddressHandler.class);
   }
 

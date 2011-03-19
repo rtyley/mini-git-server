@@ -14,14 +14,12 @@
 
 package com.google.gerrit.sshd;
 
-import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.gerrit.server.ssh.SshInfo;
 import com.google.gerrit.sshd.SshScope.Context;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
 import org.apache.sshd.common.Factory;
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
@@ -131,11 +129,7 @@ class NoShell implements Factory<Command> {
       msg.append("  ****    Welcome to Gerrit Code Review    ****\r\n");
       msg.append("\r\n");
 
-      Account account = user.getAccount();
-      String name = account.getFullName();
-      if (name == null || name.isEmpty()) {
-        name = user.getUserName();
-      }
+      String name = name = user.getUserName();
       msg.append("  Hi ");
       msg.append(name);
       msg.append(", you have successfully connected over SSH.");

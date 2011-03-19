@@ -142,13 +142,13 @@ final class AdminShowConnections extends BaseCommand {
       IdentifiedUser u = (IdentifiedUser) user;
 
       if (!numeric) {
-        String name = u.getAccount().getUserName();
+        String name = u.getUserName();
         if (name != null && !name.isEmpty()) {
           return name;
         }
       }
 
-      return "a/" + u.getAccountId().toString();
+      return "a/";
 
     } else {
       return "";

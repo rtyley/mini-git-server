@@ -14,8 +14,6 @@
 
 package com.google.gerrit.sshd;
 
-import com.google.gerrit.reviewdb.AccountSshKey;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.sshd.common.KeyPairProvider;
 import org.apache.sshd.common.SshException;
@@ -37,21 +35,20 @@ public class SshUtil {
   /**
    * Parse a public key into its Java type.
    *
-   * @param key the account key to parse.
+   * @param encodedKeyString the account key to parse.
    * @return the valid public key object.
    * @throws InvalidKeySpecException the key supplied is not a valid SSH key.
    * @throws NoSuchAlgorithmException the JVM is missing the key algorithm.
    * @throws NoSuchProviderException the JVM is missing the provider.
    */
-  public static PublicKey parse(final AccountSshKey key)
+  public static PublicKey parse(final String encodedKeyString)
       throws NoSuchAlgorithmException, InvalidKeySpecException,
       NoSuchProviderException {
     try {
-      final String s = key.getEncodedKey();
-      if (s == null) {
+      if (encodedKeyString == null) {
         throw new InvalidKeySpecException("No key string");
       }
-      final byte[] bin = Base64.decodeBase64(Constants.encodeASCII(s));
+      final byte[] bin = Base64.decodeBase64(Constants.encodeASCII(encodedKeyString));
       return new Buffer(bin).getRawPublicKey();
     } catch (RuntimeException re) {
       throw new InvalidKeySpecException("Cannot parse key", re);

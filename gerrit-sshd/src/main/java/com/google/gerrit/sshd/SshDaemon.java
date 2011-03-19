@@ -14,10 +14,6 @@
 
 package com.google.gerrit.sshd;
 
-import static java.lang.Thread.sleep;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 import com.google.gerrit.common.Version;
 import com.google.gerrit.lifecycle.LifecycleListener;
 import com.google.gerrit.server.config.ConfigUtil;
@@ -28,29 +24,16 @@ import com.google.gerrit.server.util.SocketUtil;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import com.jcraft.jsch.HostKey;
 import com.jcraft.jsch.JSchException;
-
 import org.apache.mina.core.future.IoFuture;
 import org.apache.mina.core.future.IoFutureListener;
 import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.transport.socket.SocketSessionConfig;
 import org.apache.sshd.SshServer;
-import org.apache.sshd.common.Channel;
-import org.apache.sshd.common.Cipher;
-import org.apache.sshd.common.Compression;
-import org.apache.sshd.common.KeyExchange;
-import org.apache.sshd.common.KeyPairProvider;
-import org.apache.sshd.common.NamedFactory;
-import org.apache.sshd.common.Signature;
-import org.apache.sshd.common.cipher.AES128CBC;
-import org.apache.sshd.common.cipher.AES192CBC;
-import org.apache.sshd.common.cipher.AES256CBC;
-import org.apache.sshd.common.cipher.BlowfishCBC;
-import org.apache.sshd.common.cipher.CipherNone;
-import org.apache.sshd.common.cipher.TripleDESCBC;
+import org.apache.sshd.common.*;
+import org.apache.sshd.common.cipher.*;
 import org.apache.sshd.common.compression.CompressionNone;
 import org.apache.sshd.common.mac.HMACMD5;
 import org.apache.sshd.common.mac.HMACMD596;
@@ -63,14 +46,7 @@ import org.apache.sshd.common.signature.SignatureDSA;
 import org.apache.sshd.common.signature.SignatureRSA;
 import org.apache.sshd.common.util.Buffer;
 import org.apache.sshd.common.util.SecurityUtils;
-import org.apache.sshd.server.Command;
-import org.apache.sshd.server.CommandFactory;
-import org.apache.sshd.server.FileSystemFactory;
-import org.apache.sshd.server.FileSystemView;
-import org.apache.sshd.server.ForwardingFilter;
-import org.apache.sshd.server.]PublickeyAuthenticator;
-import org.apache.sshd.server.SshFile;
-import org.apache.sshd.server.UserAuth;
+import org.apache.sshd.server.*;
 import org.apache.sshd.server.auth.UserAuthPublicKey;
 import org.apache.sshd.server.channel.ChannelDirectTcpip;
 import org.apache.sshd.server.channel.ChannelSession;
@@ -88,13 +64,11 @@ import java.net.SocketAddress;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
+import static java.lang.Thread.sleep;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * SSH daemon to communicate with Gerrit.

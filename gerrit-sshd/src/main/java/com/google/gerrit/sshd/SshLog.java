@@ -184,11 +184,7 @@ class SshLog implements LifecycleListener {
 
     if (user instanceof IdentifiedUser) {
       IdentifiedUser u = (IdentifiedUser) user;
-      userName = u.getAccount().getUserName();
-      accountId = "a/" + u.getAccountId().toString();
-
-    } else if (user instanceof PeerDaemonUser) {
-      userName = PeerDaemonUser.USER_NAME;
+      userName = u.getUserName();
 
     }
 

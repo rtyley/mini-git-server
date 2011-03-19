@@ -14,12 +14,7 @@
 
 package com.google.gerrit.sshd;
 
-import static com.google.inject.Scopes.SINGLETON;
-
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.reviewdb.Account;
-import com.google.gerrit.reviewdb.AccountGroup;
-import com.google.gerrit.reviewdb.PatchSet;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RemotePeer;
@@ -27,13 +22,8 @@ import com.google.gerrit.server.config.FactoryModule;
 import com.google.gerrit.server.config.GerritRequestModule;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.ssh.SshInfo;
-import com.google.gerrit.sshd.args4j.AccountGroupIdHandler;
-import com.google.gerrit.sshd.args4j.AccountIdHandler;
-import com.google.gerrit.sshd.args4j.PatchSetIdHandler;
-import com.google.gerrit.sshd.args4j.ProjectControlHandler;
 import com.google.gerrit.sshd.args4j.SocketAddressHandler;
 import com.google.gerrit.sshd.commands.DefaultCommandModule;
-import com.google.gerrit.sshd.commands.QueryShell;
 import com.google.gerrit.util.cli.CmdLineParser;
 import com.google.gerrit.util.cli.OptionHandlerFactory;
 import com.google.gerrit.util.cli.OptionHandlerUtil;
@@ -41,13 +31,13 @@ import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryProvider;
 import com.google.inject.servlet.RequestScoped;
-
 import org.apache.sshd.common.KeyPairProvider;
 import org.apache.sshd.server.CommandFactory;
-import org.apache.sshd.server.PublickeyAuthenticator;
 import org.kohsuke.args4j.spi.OptionHandler;
 
 import java.net.SocketAddress;
+
+import static com.google.inject.Scopes.SINGLETON;
 
 /** Configures standard dependencies for {@link SshDaemon}. */
 public class SshModule extends FactoryModule {
@@ -58,12 +48,9 @@ public class SshModule extends FactoryModule {
     configureRequestScope();
     configureCmdLineParser();
 
-    install(SshKeyCacheImpl.module());
     bind(SshLog.class);
     bind(SshInfo.class).to(SshDaemon.class).in(SINGLETON);
     factory(DispatchCommand.Factory.class);
-    factory(QueryShell.Factory.class);
-    factory(PeerDaemonUser.Factory.class);
 
     bind(DispatchCommandProvider.class).annotatedWith(Commands.CMD_ROOT)
         .toInstance(new DispatchCommandProvider("", Commands.CMD_ROOT));
@@ -73,7 +60,6 @@ public class SshModule extends FactoryModule {
         .toProvider(StreamCommandExecutorProvider.class).in(SINGLETON);
     bind(QueueProvider.class).to(CommandExecutorQueueProvider.class).in(SINGLETON);
 
-    bind(PublickeyAuthenticator.class).to(DatabasePubKeyAuth.class);
     bind(KeyPairProvider.class).toProvider(HostKeyProvider.class).in(SINGLETON);
 
     install(new DefaultCommandModule());
@@ -109,10 +95,7 @@ public class SshModule extends FactoryModule {
   private void configureCmdLineParser() {
     factory(CmdLineParser.Factory.class);
 
-    registerOptionHandler(Account.Id.class, AccountIdHandler.class);
-    registerOptionHandler(AccountGroup.Id.class, AccountGroupIdHandler.class);
-    registerOptionHandler(PatchSet.Id.class, PatchSetIdHandler.class);
-    registerOptionHandler(ProjectControl.class, ProjectControlHandler.class);
+//    registerOptionHandler(ProjectControl.class, ProjectControlHandler.class);
     registerOptionHandler(SocketAddress.class, SocketAddressHandler.class);
   }
 

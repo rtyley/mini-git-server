@@ -14,7 +14,6 @@
 
 package com.google.gerrit.sshd.commands;
 
-import com.google.gerrit.reviewdb.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.git.WorkQueue.ProjectTask;
@@ -23,7 +22,6 @@ import com.google.gerrit.server.util.IdGenerator;
 import com.google.gerrit.sshd.AdminHighPriorityCommand;
 import com.google.gerrit.sshd.BaseCommand;
 import com.google.inject.Inject;
-
 import org.apache.sshd.server.Environment;
 import org.kohsuke.args4j.Option;
 
@@ -43,9 +41,6 @@ final class ShowQueue extends BaseCommand {
 
   @Inject
   private WorkQueue workQueue;
-
-  @Inject
-  private ProjectCache projectCache;
 
   @Inject
   private CurrentUser userProvider;
@@ -142,28 +137,16 @@ final class ShowQueue extends BaseCommand {
           hasCustomizedPrint = ((ProjectTask<?>)task).hasCustomizedPrint();
         }
 
-        ProjectState e = null;
-        if (projectName != null) {
-          e = projectCache.get(projectName);
-        }
-
-        regularUserCanSee = e != null && e.controlFor(userProvider).isVisible();
-
-        if (regularUserCanSee) {
-          numberOfPendingTasks++;
-        }
+        numberOfPendingTasks++;
       }
 
       // Shows information about tasks depending on the user rights
       if (isAdministrator || (!hasCustomizedPrint && regularUserCanSee)) {
         p.print(String.format("%8s %-12s %-8s %s\n", //
             id(task.getTaskId()), start, "", format(task)));
-      } else if (regularUserCanSee) {
-        if (remoteName == null) {
-          remoteName = projectName.get();
-        } else {
+      } else {
+
           remoteName = remoteName + "/" + projectName;
-        }
 
         p.print(String.format("%8s %-12s %-8s %s\n", //
             id(task.getTaskId()), start, "", remoteName));

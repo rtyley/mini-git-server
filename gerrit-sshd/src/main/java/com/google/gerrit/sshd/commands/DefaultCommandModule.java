@@ -18,7 +18,6 @@ import com.google.gerrit.sshd.CommandModule;
 import com.google.gerrit.sshd.CommandName;
 import com.google.gerrit.sshd.Commands;
 import com.google.gerrit.sshd.DispatchCommandProvider;
-import com.google.gerrit.sshd.SuExec;
 
 
 /** Register the basic commands any Gerrit server should support. */
@@ -34,13 +33,8 @@ public class DefaultCommandModule extends CommandModule {
     // SlaveCommandModule.
 
     command(gerrit).toProvider(new DispatchCommandProvider(gerrit));
-    command(gerrit, "flush-caches").to(AdminFlushCaches.class);
-    command(gerrit, "ls-projects").to(ListProjects.class);
-    command(gerrit, "query").to(Query.class);
-    command(gerrit, "show-caches").to(AdminShowCaches.class);
     command(gerrit, "show-connections").to(AdminShowConnections.class);
     command(gerrit, "show-queue").to(ShowQueue.class);
-    command(gerrit, "stream-events").to(StreamEvents.class);
 
     command(git).toProvider(new DispatchCommandProvider(git));
     command(git, "receive-pack").to(Commands.key(gerrit, "receive-pack"));
@@ -56,6 +50,5 @@ public class DefaultCommandModule extends CommandModule {
     command("git-receive-pack").to(Commands.key(git, "receive-pack"));
     command("gerrit-receive-pack").to(Commands.key(git, "receive-pack"));
 
-    command("suexec").to(SuExec.class);
   }
 }

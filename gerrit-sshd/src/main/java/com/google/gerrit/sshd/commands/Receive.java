@@ -14,25 +14,15 @@
 
 package com.google.gerrit.sshd.commands;
 
-import com.google.gerrit.reviewdb.Account;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.git.TransferConfig;
 import com.google.gerrit.sshd.AbstractGitCommand;
 import com.google.inject.Inject;
-
 import org.eclipse.jgit.errors.UnpackException;
-import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.transport.ReceivePack;
-import org.eclipse.jgit.transport.RefFilter;
-import org.kohsuke.args4j.Option;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /** Receives change upload over SSH using the Git receive-pack protocol. */
 final class Receive extends AbstractGitCommand {
