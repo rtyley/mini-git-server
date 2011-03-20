@@ -14,41 +14,31 @@
 
 package com.google.gerrit.httpd;
 
-import static com.google.inject.Stage.PRODUCTION;
-
 import com.google.gerrit.lifecycle.LifecycleManager;
-import com.google.gerrit.reviewdb.ReviewDb;
-import com.google.gerrit.reviewdb.TrackingId;
-import com.google.gerrit.server.config.*;
-import com.google.gerrit.server.schema.DataSourceProvider;
-import com.google.gerrit.server.schema.DatabaseModule;
+import com.google.gerrit.server.config.CanonicalWebUrlModule;
+import com.google.gerrit.server.config.GerritServerConfigModule;
+import com.google.gerrit.server.config.SitePath;
+import com.google.gerrit.server.config.ToyGerritGlobalModule;
 import com.google.gerrit.sshd.ToySshModule;
-import com.google.gwtorm.client.KeyUtil;
-import com.google.gwtorm.server.StandardKeyEncoder;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import com.google.inject.Provider;
+import com.google.inject.*;
 import com.google.inject.binder.LinkedBindingBuilder;
 import com.google.inject.servlet.GuiceServletContextListener;
-
-import com.google.inject.util.Providers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletContextEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletContextEvent;
+import static com.google.inject.Stage.PRODUCTION;
 
 /** Configures the web application environment for Gerrit Code Review. */
 public class WebAppInitializer extends GuiceServletContextListener {
 
-	 static {
-    KeyUtil.setEncoderImpl(new StandardKeyEncoder());
-  }
+//	 static {
+//    KeyUtil.setEncoderImpl(new StandardKeyEncoder());
+//  }
   private static final Logger log =
       LoggerFactory.getLogger(WebAppInitializer.class);
 
@@ -102,12 +92,6 @@ public class WebAppInitializer extends GuiceServletContextListener {
         }
       });
 
-	  modules.add(new AbstractModule() {
-        @Override
-        protected void configure() {
-			bind(ReviewDb.class).toProvider(Providers.of((ReviewDb) null)); //TODO ARRRGH!!! ARRRGHH!!!
-        }
-      });
 	  System.out.println("createCfgInjector() - about to add GerritServerConfigModule");
 	modules.add(new GerritServerConfigModule());
 

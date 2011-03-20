@@ -110,12 +110,6 @@ limitations under the License.
       <artifactId>gerrit-httpd</artifactId>
       <version>${project.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>com.madgag</groupId>
-      <artifactId>gerrit-pgm</artifactId>
-      <version>${project.version}</version>
-    </dependency>
   </dependencies>
 
   <profiles>
