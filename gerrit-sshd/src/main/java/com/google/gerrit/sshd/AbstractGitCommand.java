@@ -27,7 +27,29 @@ import java.io.IOException;
 
 public abstract class AbstractGitCommand extends BaseCommand {
   @Argument(index = 0, metaVar = "PROJECT.git", required = true, usage = "project name")
-  protected String projectName;
+  private String repoPath;
+
+  protected String projectName() {
+	  String projectName = repoPath;
+
+	  if (projectName.endsWith(".git")) {
+		// Be nice and drop the trailing ".git" suffix, which we never keep
+		// in our database, but clients might mistakenly provide anyway.
+		//
+		projectName = projectName.substring(0, projectName.length() - 4);
+	  }
+
+	  if (projectName.startsWith("/")) {
+		// Be nice and drop the leading "/" if supplied by an absolute path.
+		// We don't have a file system hierarchy, just a flat namespace in
+		// the database's Project entities. We never encode these with a
+		// leading '/' but users might accidentally include them in Git URLs.
+		//
+		projectName = projectName.substring(1);
+	  }
+
+	  return projectName;
+  }
 
   @Inject
   private GitRepositoryManager repoManager;
@@ -64,7 +86,7 @@ public abstract class AbstractGitCommand extends BaseCommand {
 
         @Override
         public String getProjectName() {
-		  return projectName;
+		  return projectName();
         }
       });
     } finally {
@@ -80,9 +102,9 @@ public abstract class AbstractGitCommand extends BaseCommand {
   private void service() throws IOException, Failure {
 
     try {
-      repo = repoManager.openRepository(projectName);
+      repo = repoManager.openRepository(projectName());
     } catch (RepositoryNotFoundException e) {
-      throw new Failure(1, "fatal: '" + projectName + "': not a git archive", e);
+      throw new Failure(1, "fatal: '" + projectName() + "': not a git archive", e);
     }
 
     try {

@@ -54,7 +54,7 @@ final class Receive extends AbstractGitCommand {
       //
       StringBuilder msg = new StringBuilder();
       msg.append("Unpack error on project \""
-          + projectName + "\":\n");
+          + projectName() + "\":\n");
 
       msg.append("\n");
 
