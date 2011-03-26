@@ -14,16 +14,12 @@
 
 package com.google.gerrit.server.config;
 
-import static com.google.inject.Scopes.SINGLETON;
-
 import com.google.gerrit.lifecycle.LifecycleListener;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.server.AnonymousUser;
-import com.google.gerrit.server.FileTypeRegistry;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.GerritPersonIdentProvider;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.MimeUtilFileTypeRegistry;
 import com.google.gerrit.server.cache.CachePool;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
@@ -32,14 +28,14 @@ import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.tools.ToolsCatalog;
 import com.google.gerrit.server.util.IdGenerator;
 import com.google.inject.Inject;
-
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
-
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.PersonIdent;
 
 import java.util.Properties;
+
+import static com.google.inject.Scopes.SINGLETON;
 
 
 /** Starts global state with standard dependencies. */
@@ -96,7 +92,6 @@ public class GerritGlobalModule extends FactoryModule {
     // install(ProjectCacheImpl.module());
 
     bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
-    bind(FileTypeRegistry.class).to(MimeUtilFileTypeRegistry.class);
     bind(WorkQueue.class);
     bind(ToolsCatalog.class);
     bind(TransferConfig.class);

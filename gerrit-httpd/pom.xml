@@ -55,16 +55,6 @@ limitations under the License.
     </dependency>
 
     <dependency>
-      <groupId>eu.medsea.mimeutil</groupId>
-      <artifactId>mime-util</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.openid4java</groupId>
-      <artifactId>openid4java-consumer</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>com.madgag</groupId>
       <artifactId>gerrit-launcher</artifactId>
       <version>${project.version}</version>

@@ -16,9 +16,12 @@ package com.google.gerrit.server.config;
 
 import com.google.gerrit.lifecycle.LifecycleListener;
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.server.*;
+import com.google.gerrit.server.AnonymousUser;
+import com.google.gerrit.server.GerritPersonIdent;
+import com.google.gerrit.server.GerritPersonIdentProvider;
 import com.google.gerrit.server.cache.CachePool;
-import com.google.gerrit.server.git.*;
+import com.google.gerrit.server.git.LocalDiskRepositoryManager;
+import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.util.IdGenerator;
 import com.google.inject.Inject;
 import org.apache.velocity.app.Velocity;
@@ -103,7 +106,6 @@ public class ToyGerritGlobalModule extends FactoryModule {
 
 //
 //    bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
-//    bind(FileTypeRegistry.class).to(MimeUtilFileTypeRegistry.class);
 //    bind(WorkQueue.class);
 //    bind(ToolsCatalog.class);
 //    bind(EventFactory.class);
