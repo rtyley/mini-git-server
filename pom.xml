@@ -24,11 +24,14 @@ limitations under the License.
   <packaging>pom</packaging>
   <version>2.1-SNAPSHOT</version>
 
-  <name>Gerrit Code Review - Parent</name>
-  <url>http://code.google.com/p/gerrit/</url>
+  <name>mini-git-server - Parent</name>
+  <url>https://github.com/rtyley/mini-git-server</url>
 
   <description>
-    Gerrit - Web Based Code Review
+    mini-git-server - a pure-Java WAR capable of hosting git repos and exposing them with git+ssh.
+    Based on Gerrit (http://code.google.com/p/gerrit/) - basically I stripped away all the review-related
+    functionality away and got rid of the dependency on a database (made it entirely filesystem based).
+    I use it for integration-testing my git client.
   </description>
 
   <properties>
@@ -54,8 +57,6 @@ limitations under the License.
 
     <module>gerrit-common</module>
     <module>gerrit-httpd</module>
-    <module>gerrit-launcher</module>
-    <module>gerrit-main</module>
     <module>gerrit-server</module>
     <module>gerrit-sshd</module>
     <module>gerrit-war</module>
