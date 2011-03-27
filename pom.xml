@@ -50,7 +50,6 @@ limitations under the License.
   </properties>
 
   <modules>
-    <module>gerrit-patch-commonsnet</module>
     <module>gerrit-util-cli</module>
     <module>gerrit-util-ssl</module>
     <module>gerrit-common</module>
