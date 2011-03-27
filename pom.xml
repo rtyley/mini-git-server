@@ -20,7 +20,7 @@ limitations under the License.
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.madgag</groupId>
-  <artifactId>gerrit-parent</artifactId>
+  <artifactId>mini-git-server-parent</artifactId>
   <packaging>pom</packaging>
   <version>2.1-SNAPSHOT</version>
 
@@ -49,13 +49,13 @@ limitations under the License.
   </properties>
 
   <modules>
-    <module>gerrit-util-cli</module>
-    <module>gerrit-util-ssl</module>
-    <module>gerrit-common</module>
-    <module>gerrit-httpd</module>
-    <module>gerrit-server</module>
-    <module>gerrit-sshd</module>
-    <module>gerrit-war</module>
+    <module>mini-git-server-util-cli</module>
+    <module>mini-git-server-util-ssl</module>
+    <module>mini-git-server-common</module>
+    <module>mini-git-server-httpd</module>
+    <module>mini-git-server-server</module>
+    <module>mini-git-server-sshd</module>
+    <module>mini-git-server-war</module>
   </modules>
 
   <licenses>
@@ -276,7 +276,7 @@ limitations under the License.
           <configuration>
             <archive>
               <manifestEntries>
-                <Implementation-Title>Gerrit Code Review - ${project.artifactId}</Implementation-Title>
+                <Implementation-Title>mini-git-server - ${project.artifactId}</Implementation-Title>
                 <Implementation-Version>${project.version}</Implementation-Version>
                 <Implementation-Vendor>Gerrit Code Review</Implementation-Vendor>
                 <Implementation-Vendor-Id>com.google.gerrit</Implementation-Vendor-Id>

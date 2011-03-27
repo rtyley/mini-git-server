@@ -11,7 +11,7 @@
   * Copy commons-dbcp-*.jar     to $JETTY_HOME/lib/ext/
   * Copy commons-pool-*.jar     to $JETTY_HOME/lib/ext/
   * Copy JDBC driver            to $JETTY_HOME/lib/ext/
-  * Copy www/gerrit-*.war       to $JETTY_HOME/webapps/gerrit.war
+  * Copy www/mini-git-server-*.war       to $JETTY_HOME/webapps/gerrit.war
 
   * Make sure you remove $JETTY_HOME/context/test.xml
 

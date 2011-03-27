@@ -21,12 +21,12 @@ limitations under the License.
 
   <parent>
     <groupId>com.madgag</groupId>
-    <artifactId>gerrit-parent</artifactId>
+    <artifactId>mini-git-server-parent</artifactId>
     <version>2.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>gerrit-httpd</artifactId>
-  <name>Gerrit Code Review - HTTPd</name>
+  <artifactId>mini-git-server-httpd</artifactId>
+  <name>mini-git-server - HTTPd</name>
 
   <description>
     Servlet context for components run inside of an HTTP environment.
@@ -56,7 +56,7 @@ limitations under the License.
 
     <dependency>
       <groupId>com.madgag</groupId>
-      <artifactId>gerrit-server</artifactId>
+      <artifactId>mini-git-server-server</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
