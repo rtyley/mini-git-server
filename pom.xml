@@ -39,7 +39,6 @@ limitations under the License.
     <slf4jVersion>1.6.1</slf4jVersion>
     <guiceVersion>2.0</guiceVersion>
     <jettyVersion>7.2.1.v20101111</jettyVersion>
-    <keyappletVersion>1.0</keyappletVersion>
 
     <project.build.sourceEncoding>
       UTF-8
