@@ -32,11 +32,8 @@ class UrlModule extends ServletModule {
   protected void configureServlets() {
     serve("/ssh_info").with(SshInfoServlet.class);
 
-    filter("/p/*").through(ProjectAccessPathFilter.class);
     serve("/p/*").with(ProjectServlet.class);
 
-    serve("/Main.class").with(notFound());
-    serve("/com/google/gerrit/launcher/*").with(notFound());
     serve("/servlet/*").with(notFound());
   }
 
