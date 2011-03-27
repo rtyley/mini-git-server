@@ -25,7 +25,6 @@ import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
 import com.google.gerrit.server.git.TransferConfig;
 import com.google.gerrit.server.git.WorkQueue;
-import com.google.gerrit.server.tools.ToolsCatalog;
 import com.google.gerrit.server.util.IdGenerator;
 import com.google.inject.Inject;
 import org.apache.velocity.app.Velocity;
@@ -93,7 +92,6 @@ public class GerritGlobalModule extends FactoryModule {
 
     bind(GitRepositoryManager.class).to(LocalDiskRepositoryManager.class);
     bind(WorkQueue.class);
-    bind(ToolsCatalog.class);
     bind(TransferConfig.class);
 
     bind(IdentifiedUser.GenericFactory.class).in(SINGLETON);
