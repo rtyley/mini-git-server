@@ -69,13 +69,6 @@ limitations under the License.
     </dependency>
 
     <dependency>
-      <groupId>com.madgag</groupId>
-      <artifactId>gerrit-main</artifactId>
-      <version>${project.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
       <groupId>bouncycastle</groupId>
       <artifactId>bcprov-jdk15</artifactId>
       <version>140</version>
@@ -135,22 +128,10 @@ limitations under the License.
           <archive>
             <addMavenDescriptor>false</addMavenDescriptor>
             <manifestEntries>
-              <Main-Class>Main</Main-Class>
-              <Implementation-Title>Gerrit Code Review</Implementation-Title>
+              <Implementation-Title>mini-git-server</Implementation-Title>
               <Implementation-Version>${project.version}</Implementation-Version>
             </manifestEntries>
           </archive>
-          <overlays>
-            <overlay>
-              <groupId>com.madgag</groupId>
-              <artifactId>gerrit-main</artifactId>
-              <type>jar</type>
-              <includes>
-                <include>Main.class</include>
-                <include>com/google/gerrit/launcher/*.class</include>
-              </includes>
-            </overlay>
-          </overlays>
         </configuration>
       </plugin>
     </plugins>
