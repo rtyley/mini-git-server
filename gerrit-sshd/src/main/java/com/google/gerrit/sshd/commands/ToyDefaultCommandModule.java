@@ -14,7 +14,10 @@
 
 package com.google.gerrit.sshd.commands;
 
-import com.google.gerrit.sshd.*;
+import com.google.gerrit.sshd.CommandModule;
+import com.google.gerrit.sshd.CommandName;
+import com.google.gerrit.sshd.Commands;
+import com.google.gerrit.sshd.DispatchCommandProvider;
 
 
 /** Register the basic commands any Gerrit server should support. */
@@ -38,7 +41,6 @@ public class ToyDefaultCommandModule extends CommandModule {
     command(git, "upload-pack").to(Upload.class);
 
     command("kill").to(AdminKill.class);
-    command("scp").to(ScpCommand.class);
 
     // Honor the legacy hyphenated forms as aliases for the non-hyphenated forms
     //
