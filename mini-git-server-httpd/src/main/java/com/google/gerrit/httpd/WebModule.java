@@ -14,8 +14,6 @@
 
 package com.google.gerrit.httpd;
 
-import com.google.gerrit.common.data.GerritConfig;
-import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.RemotePeer;
 import com.google.gerrit.server.config.CanonicalWebUrl;
@@ -61,8 +59,6 @@ public class WebModule extends FactoryModule {
     install(new ProjectServlet.Module());
 
     bind(SshInfo.class).toProvider(sshInfoProvider);
-    bind(GerritConfigProvider.class);
-    bind(GerritConfig.class).toProvider(GerritConfigProvider.class);
 
     bind(SocketAddress.class).annotatedWith(RemotePeer.class).toProvider(
         HttpRemotePeerProvider.class).in(RequestScoped.class);

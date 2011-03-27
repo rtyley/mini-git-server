@@ -51,7 +51,6 @@ limitations under the License.
   <modules>
     <module>mini-git-server-util-cli</module>
     <module>mini-git-server-util-ssl</module>
-    <module>mini-git-server-common</module>
     <module>mini-git-server-httpd</module>
     <module>mini-git-server-server</module>
     <module>mini-git-server-sshd</module>

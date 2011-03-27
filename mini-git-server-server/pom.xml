@@ -110,12 +110,6 @@ limitations under the License.
 
     <dependency>
       <groupId>com.madgag</groupId>
-      <artifactId>mini-git-server-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.madgag</groupId>
       <artifactId>mini-git-server-util-ssl</artifactId>
       <version>${project.version}</version>
     </dependency>
