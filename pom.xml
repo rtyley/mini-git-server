@@ -170,7 +170,7 @@ limitations under the License.
             <dependency>
                 <groupId>com.jcraft</groupId>
                 <artifactId>jsch</artifactId>
-                <version>0.1.41</version>
+                <version>0.1.44-1</version>
             </dependency>
 
             <dependency>
