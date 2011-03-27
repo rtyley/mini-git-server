@@ -29,8 +29,8 @@ limitations under the License.
 
   <description>
     mini-git-server - a pure-Java WAR capable of hosting git repos and exposing them with git+ssh.
-    Based on Gerrit (http://code.google.com/p/gerrit/) - basically I stripped away all the review-related
-    functionality away and got rid of the dependency on a database (made it entirely filesystem based).
+    Basically a copy of Gerrit (http://code.google.com/p/gerrit/) - with all the review-related
+    functionality stripped away and the dependency on a database removed (making it entirely filesystem based).
     I use it for integration-testing my git client.
   </description>
 
