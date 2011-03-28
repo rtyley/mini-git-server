@@ -110,7 +110,6 @@ public class WebAppInitializer extends GuiceServletContextListener {
         return HttpCanonicalWebUrlProvider.class;
       }
     });
-    // modules.add(new MasterNodeStartup());
     return cfgInjector.createChildInjector(modules);
   }
 
