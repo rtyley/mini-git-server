@@ -20,6 +20,10 @@ import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import com.madgag.compress.CompressUtil;
+import org.apache.commons.compress.archivers.ArchiveException;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.velocity.texen.util.FileUtil;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Constants;
@@ -30,14 +34,19 @@ import org.eclipse.jgit.storage.file.LockFile;
 import org.eclipse.jgit.storage.file.WindowCache;
 import org.eclipse.jgit.storage.file.WindowCacheConfig;
 import org.eclipse.jgit.util.FS;
+import org.eclipse.jgit.util.FileUtils;
 import org.eclipse.jgit.util.IO;
 import org.eclipse.jgit.util.RawParseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+
+import static com.madgag.compress.CompressUtil.unzip;
+import static org.apache.commons.io.FileUtils.deleteQuietly;
+import static org.apache.commons.io.FileUtils.listFiles;
+import static org.apache.commons.io.FileUtils.openInputStream;
+import static org.apache.commons.io.FilenameUtils.removeExtension;
 
 /** Manages Git repositories stored on the local filesystem. */
 @Singleton
@@ -74,8 +83,18 @@ public class LocalDiskRepositoryManager implements GitRepositoryManager {
   LocalDiskRepositoryManager(final SitePaths site,
       @GerritServerConfig final Config cfg) {
     basePath = site.resolve(cfg.getString("gerrit", null, "basePath"));
+    log.info("basePath="+basePath);
     if (basePath == null) {
       throw new IllegalStateException("gerrit.basePath must be configured");
+    }
+
+    for (File zipFile : listFiles(basePath, new String[]{"zip"}, true)) {
+        File unzippedFolder = new File(removeExtension(zipFile.toString()));
+        log.info("Unzipping "+zipFile+" to "+unzippedFolder);
+        deleteQuietly(unzippedFolder);
+        try {
+            unzip(openInputStream(zipFile), unzippedFolder);
+        } catch (Exception e) { throw new RuntimeException((e)); }
     }
   }
 
