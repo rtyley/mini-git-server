@@ -20,7 +20,7 @@ limitations under the License.
   <parent>
     <groupId>com.madgag</groupId>
     <artifactId>mini-git-server-parent</artifactId>
-    <version>0.3</version>
+    <version>0.4-SNAPSHOT</version>
   </parent>
 
   <artifactId>mini-git-server-httpd</artifactId>
