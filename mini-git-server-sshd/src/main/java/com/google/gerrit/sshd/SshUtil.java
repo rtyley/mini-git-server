@@ -14,6 +14,7 @@
 
 package com.google.gerrit.sshd;
 
+import net.schmizz.sshj.common.KeyType;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.sshd.common.KeyPairProvider;
 import org.apache.sshd.common.SshException;
@@ -29,6 +30,8 @@ import java.security.PublicKey;
 import java.security.interfaces.DSAPublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
+
+import static net.schmizz.sshj.common.Base64.decode;
 
 /** Utilities to support SSH operations. */
 public class SshUtil {
@@ -56,6 +59,8 @@ public class SshUtil {
       throw new InvalidKeySpecException("Cannot parse key", e);
     }
   }
+
+
 
   /**
    * Convert an RFC 4716 style key to an OpenSSH style key.
@@ -109,4 +114,11 @@ public class SshUtil {
       return keyStr;
     }
   }
+
+
+    public static PublicKey parseOpenSSHKey(String line) throws IOException {
+        String[] parts = line.split(" ");
+        assert parts.length >= 2;
+        return new net.schmizz.sshj.common.Buffer.PlainBuffer(decode(parts[1])).readPublicKey();
+    }
 }
